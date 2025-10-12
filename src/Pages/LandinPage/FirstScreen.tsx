@@ -18,7 +18,6 @@ interface TypingTextProps {
   delay?: number
   speed?: number
   className?: string
-  style?: React.CSSProperties
 }
 
 interface AnimatedNameProps {
@@ -176,12 +175,7 @@ const AccessGranted: React.FC<AccessGrantedProps> = ({ onComplete }) => {
   return (
     <div className="flex items-center justify-center w-full h-full bg-black/70 backdrop-blur-sm rounded-3xl border border-blue-500/30">
       <div className={`font-mono ${buttonTextSize} font-bold text-center`}>
-        <span
-          className="text-blue-400"
-          style={{
-            textShadow: "0 0 10px #3b82f6, 0 0 20px #3b82f6",
-          }}
-        >
+        <span className="text-blue-400 access-granted-glow">
           {displayText}
           <span className="inline-block w-0.5 h-6 bg-blue-400 ml-1 animate-pulse" />
         </span>
@@ -192,7 +186,7 @@ const AccessGranted: React.FC<AccessGrantedProps> = ({ onComplete }) => {
 
 // Typing Text Component
 const TypingText: React.FC<TypingTextProps> = ({ 
-  text, delay = 0, speed = 50, className = "", style = {} 
+  text, delay = 0, speed = 50, className = ""
 }) => {
   const [displayText, setDisplayText] = useState<string>("")
   const [showCursor, setShowCursor] = useState<boolean>(true)
@@ -220,7 +214,7 @@ const TypingText: React.FC<TypingTextProps> = ({
   }, [text, delay, speed, prefersReducedMotion])
 
   return (
-    <span className={className} style={style}>
+    <span className={className}>
       {displayText}
       {showCursor && <span className="animate-pulse">|</span>}
     </span>
@@ -342,6 +336,9 @@ const HomePage: React.FC = () => {
     document.body.style.overflow = "hidden"
     document.body.style.height = "100vh"
 
+    // Set dynamic container padding
+    document.documentElement.style.setProperty('--container-padding', `${spacing.container}px`)
+
     const contentTimer = setTimeout(() => {
       setShowAllContent(true)
     }, 500)
@@ -351,8 +348,9 @@ const HomePage: React.FC = () => {
       timersRef.current.forEach(timer => clearTimeout(timer))
       document.body.style.overflow = "unset"
       document.body.style.height = "auto"
+      document.documentElement.style.removeProperty('--container-padding')
     }
-  }, [])
+  }, [spacing.container])
 
   // Button Click Handler
   const handleHackButtonClick = useCallback(() => {
@@ -440,10 +438,7 @@ const HomePage: React.FC = () => {
             {!isTablet && <ParticleField isActive={true} />}
 
             {/* Main Content */}
-            <div
-              className="relative z-20 flex flex-col items-center justify-center min-h-screen"
-              style={{ padding: spacing.container }}
-            >
+            <div className="relative z-20 flex flex-col items-center justify-center min-h-screen dynamic-container-padding">
               {showAllContent && (
                 <>
                   {/* Name */}
@@ -468,12 +463,7 @@ const HomePage: React.FC = () => {
                         text="Full Stack Developer"
                         delay={1200}
                         speed={100}
-                        className="text-emerald-200/90 font-sans"
-                        style={{
-                          fontFamily: "'Inter', sans-serif",
-                          fontWeight: 400,
-                          letterSpacing: "0.08em",
-                        }}
+                        className="text-emerald-200/90 font-sans typing-text-container"
                       />
                     </div>
                   </motion.div>
