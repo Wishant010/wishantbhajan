@@ -55,10 +55,17 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  scrollbar-width: thin;
-  scrollbar-color: #10b981 #1a1a1a;
   -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
   user-select: none;
+}
+
+/* Cross-browser scrollbar styling with progressive enhancement */
+@supports (scrollbar-width: thin) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #10b981 #1a1a1a;
+  }
 }
 
 html {
@@ -97,6 +104,8 @@ body {
   backface-visibility: hidden;
   -webkit-perspective: 1000px;
   perspective: 1000px;
+  /* Ensure content doesn't go behind navbar */
+  padding-top: 0;
   /* Prevent browser extension style injection */
   isolation: isolate;
 }
@@ -138,6 +147,7 @@ body {
 
 /* Enable text selection for content areas */
 p, span, h1, h2, h3, h4, h5, h6, a, li {
+  -webkit-user-select: text;
   user-select: text;
 }
 
@@ -503,6 +513,7 @@ p, span, h1, h2, h3, h4, h5, h6, a, li {
 
 /* Enhanced button styling */
 button {
+  -webkit-user-select: none;
   user-select: none;
   cursor: pointer;
   transition: all var(--animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
@@ -525,8 +536,24 @@ img {
 
 @media (min-resolution: 2dppx) {
   img {
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
+    image-rendering: auto; /* Fallback */
+  }
+}
+
+/* High-DPI image rendering optimizations */
+@supports (image-rendering: -webkit-optimize-contrast) {
+  @media (min-resolution: 2dppx) {
+    img {
+      image-rendering: -webkit-optimize-contrast; /* Safari/Edge */
+    }
+  }
+}
+
+@supports (image-rendering: crisp-edges) and (not (image-rendering: -webkit-optimize-contrast)) {
+  @media (min-resolution: 2dppx) {
+    img {
+      image-rendering: crisp-edges; /* Modern browsers */
+    }
   }
 }
 
@@ -680,15 +707,15 @@ a:hover {
 }
 
 .gradient-text {
-  background-clip: text;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   background-image: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
 }
 
 .glass {
-  backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
   background-color: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.125);
 }
@@ -727,6 +754,69 @@ iframe[src*="extension"],
 iframe[src*="chrome-extension"],
 iframe[src*="moz-extension"] {
   display: none !important;
+}
+
+/* ========================================
+   COMPONENT SPECIFIC STYLES
+   ======================================== */
+
+/* Navbar specific styles */
+.navbar-blur {
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+}
+
+.navbar-shadow {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+}
+
+/* Ensure content doesn't go behind fixed navbar */
+.page-content {
+  padding-top: 4rem; /* 64px for navbar height */
+}
+
+@media (min-width: 1024px) {
+  .page-content {
+    padding-top: 5rem; /* 80px for larger navbar on desktop */
+  }
+}
+
+/* Navbar transition effects */
+.navbar-item-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar-glass {
+  background: rgba(15, 23, 42, 0.8);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+/* Access Granted Text Shadow Effect */
+.access-granted-glow {
+  text-shadow: 0 0 10px #3b82f6, 0 0 20px #3b82f6;
+}
+
+/* Dynamic Container Padding */
+.dynamic-container-padding {
+  padding: var(--container-padding, 1rem);
+}
+
+/* Hero text glow effect */
+.hero-text-glow {
+  text-shadow: 0 0 80px rgba(16,185,129,0.5);
+}
+
+.hero-text-no-glow {
+  text-shadow: none;
+}
+
+/* Typing Text Styling */
+.typing-text-container {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.08em;
 }
 
 /* Only show on touch devices */

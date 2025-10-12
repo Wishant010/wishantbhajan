@@ -34,9 +34,10 @@
     "noUncheckedIndexedAccess": false,
     "exactOptionalPropertyTypes": false,
     "noImplicitOverride": true,
-    "useDefineForClassFields": true,
+    "useDefineForClassFields": true
 
-    /* Path Aliases */
+    /* Path Aliases - using relative paths instead of baseUrl */
+    /* Commented out deprecated baseUrl and paths
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
@@ -46,6 +47,7 @@
       "@/assets/*": ["src/assets/*"],
       "@/types/*": ["src/types/*"]
     }
+    */
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist", "build"]
