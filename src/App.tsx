@@ -1,12 +1,37 @@
 import React, { useEffect } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 // Import responsive system
 import { useViewport } from "./utils/responsive";
 import { ResponsiveContainer } from "./components/ResponsiveLayout";
+import { LanguageProvider } from "./contexts/LanguageContext";
 
-// Lazy load components for better performance
-const HomePage = React.lazy(() => import("./Pages/LandinPage/FirstScreen"));
+// Lazy load pages for better performance
+const LandingPage = React.lazy(() => import("./Pages/LandinPage/FirstScreen"));
+const HomePage = React.lazy(() => import("./Pages/Homescreenpage/index"));
+const AboutPage = React.lazy(() => import("./Pages/About/AboutPage"));
+const PortfolioPage = React.lazy(() => import("./Pages/Portfolio/PortfolioPage"));
+const SkillsPage = React.lazy(() => import("./Pages/Skills/SkillsPage"));
+const ContactPage = React.lazy(() => import("./Pages/Contact/ContactPage"));
+
+// Component to handle first visit check
+function FirstVisitRedirect() {
+  // Check if user has visited before in this session
+  const hasVisited = sessionStorage.getItem('hasVisitedSite');
+
+  // If already visited, redirect to home
+  if (hasVisited === 'true') {
+    return <Navigate to="/home" replace />;
+  }
+
+  // Mark as visited and show landing page
+  React.useEffect(() => {
+    sessionStorage.setItem('hasVisitedSite', 'true');
+  }, []);
+
+  return <LandingPage />;
+}
 
 // Performance monitoring component with responsive features
 function PerformanceMonitor({ children }: { children: React.ReactNode }) {
@@ -239,11 +264,15 @@ function ResponsiveErrorFallback({
         {isDevelopment && (
           <details className="text-left mt-8 p-4 bg-slate-800 rounded-lg border border-slate-700">
             <summary
-              className={`text-red-400 cursor-pointer mb-3 font-medium select-none ${
+              className={`text-red-400 cursor-pointer mb-3 font-medium select-none flex items-center gap-2 ${
                 isMobile ? "text-sm" : "text-base"
               }`}
             >
-              🔧 Error Details (Development Mode)
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              Error Details (Development Mode)
             </summary>
             <div className="space-y-2">
               <div className="text-sm">
@@ -287,23 +316,34 @@ function ResponsiveErrorFallback({
 // Main App component with responsive system integration
 function App() {
   return (
-    <PerformanceMonitor>
-      <ErrorBoundary
-        FallbackComponent={ResponsiveErrorFallback}
-        onError={(error, errorInfo) => {
-          // Enhanced error logging with device context
-          console.error("ErrorBoundary caught error:", error, errorInfo);
-        }}
-        onReset={() => {
-          // Optionally reset app state or reload
-          window.location.reload();
-        }}
-      >
-        <React.Suspense fallback={<ResponsiveLoadingFallback />}>
-          <HomePage />
-        </React.Suspense>
-      </ErrorBoundary>
-    </PerformanceMonitor>
+    <LanguageProvider>
+      <Router>
+        <PerformanceMonitor>
+        <ErrorBoundary
+          FallbackComponent={ResponsiveErrorFallback}
+          onError={(error, errorInfo) => {
+            // Enhanced error logging with device context
+            console.error("ErrorBoundary caught error:", error, errorInfo);
+          }}
+          onReset={() => {
+            // Optionally reset app state or reload
+            window.location.reload();
+          }}
+        >
+          <React.Suspense fallback={<ResponsiveLoadingFallback />}>
+            <Routes>
+              <Route path="/" element={<FirstVisitRedirect />} />
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/portfolio" element={<PortfolioPage />} />
+              <Route path="/skills" element={<SkillsPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+            </Routes>
+          </React.Suspense>
+        </ErrorBoundary>
+      </PerformanceMonitor>
+    </Router>
+    </LanguageProvider>
   );
 }
 
