@@ -2,9 +2,9 @@
 
 import { useState, useEffect, useCallback, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useNavigate } from "react-router-dom"
 import SplashCursor from "../../components/SplashCursor"
 import LetterGlitch from "../../components/LetterGlitch"
-import Homescreen from "../Homescreenpage"
 import { useViewport, useResponsiveValue } from "../../utils/responsive"
 import type { ResponsiveValue } from "../../utils/responsive"
 
@@ -320,7 +320,7 @@ const HomePage: React.FC = () => {
   const [showAllContent, setShowAllContent] = useState<boolean>(false)
   const [buttonState, setButtonState] = useState<ButtonState>("normal")
   const [buttonClicked, setButtonClicked] = useState<boolean>(false)
-  const [showPage2, setShowPage2] = useState<boolean>(false)
+  const navigate = useNavigate()
 
   const timersRef = useRef<NodeJS.Timeout[]>([])
 
@@ -369,14 +369,12 @@ const HomePage: React.FC = () => {
 
   // Access Complete Handler
   const handleAccessComplete = useCallback(() => {
-    // Direct naar Page2 na ACCESS GRANTED
+    // Navigate naar de homepage na ACCESS GRANTED
     const timer = setTimeout(() => {
-      setShowPage2(true)
-      document.body.style.overflow = "unset"
-      document.body.style.height = "auto"
+      navigate('/home')
     }, 500)
     timersRef.current.push(timer)
-  }, [])
+  }, [navigate])
 
   // Button Dimensions
   const getButtonDimensions = () => {
@@ -407,31 +405,20 @@ const HomePage: React.FC = () => {
   return (
     <div className="relative min-h-screen bg-slate-900">
       {/* Splash Cursor */}
-      {!showPage2 && <SplashCursor />}
+      <SplashCursor />
 
       {/* Dark background */}
       <div className="fixed inset-0 bg-slate-900 z-0" />
 
       <AnimatePresence mode="wait">
-        {showPage2 ? (
-          <motion.div
-            key="page2"
-            className="relative z-10"
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-          >
-            <Homescreen isVisible={true} />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="homepage"
-            className="min-h-screen relative overflow-hidden z-10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 0.9, filter: "blur(5px)" }}
-            transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
-          >
+        <motion.div
+          key="homepage"
+          className="min-h-screen relative overflow-hidden z-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, scale: 0.9, filter: "blur(5px)" }}
+          transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
+        >
             {/* Background Elements */}
             <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-900" />
             <MatrixRain />
@@ -599,7 +586,6 @@ const HomePage: React.FC = () => {
               )}
             </div>
           </motion.div>
-        )}
       </AnimatePresence>
     </div>
   )

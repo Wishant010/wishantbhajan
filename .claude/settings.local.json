@@ -21,7 +21,8 @@
       "Bash(git push:*)",
       "Read(//mnt/c/Users/Wish/Downloads/**)",
       "Bash(npm run dev)",
-      "Bash(npm uninstall:*)"
+      "Bash(npm uninstall:*)",
+      "Bash(npx tsc --noEmit)"
     ],
     "deny": []
   }

@@ -1,0 +1,380 @@
+/* Terminal Styles */
+.terminal-container {
+  position: relative;
+  background: linear-gradient(145deg, #0D1117 0%, #0A0E27 100%);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.terminal-container::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, #00F5FF, #00FFB9);
+  opacity: 0.1;
+  border-radius: 0.5rem;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.terminal-container:hover::before {
+  opacity: 0.2;
+}
+
+.terminal-header {
+  background: linear-gradient(90deg, #161B22 0%, #1C2128 100%);
+  border-bottom: 1px solid rgba(0, 245, 255, 0.1);
+}
+
+.terminal-content {
+  min-height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.terminal-line {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Hexagon Grid Styles */
+.hexagon-grid {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hexagon {
+  cursor: pointer;
+  transform-origin: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hexagon:hover {
+  z-index: 10;
+}
+
+.hexagon-pulse {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 0.9;
+  }
+}
+
+/* Particle Effects */
+.particle-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: radial-gradient(circle, #00F5FF 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleFloat 4s linear infinite;
+}
+
+@keyframes particleFloat {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0);
+  }
+  10% {
+    opacity: 1;
+    transform: translate(10px, -10px) scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: translate(100px, -100px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(120px, -120px) scale(0);
+  }
+}
+
+/* Connecting Lines Animation */
+.connecting-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawLine 3s ease-in-out infinite;
+}
+
+@keyframes drawLine {
+  0% {
+    stroke-dashoffset: 1000;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  50% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: -1000;
+    opacity: 0;
+  }
+}
+
+/* CTA Button Styles */
+.cta-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.cta-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.cta-arrow {
+  transition: transform 0.3s ease;
+}
+
+.cta-button:hover .cta-arrow {
+  transform: translateX(5px);
+}
+
+/* Scan Line Effect */
+.scan-line-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.3;
+}
+
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(0, 245, 255, 0.8) 50%,
+    transparent 100%);
+  animation: scanVertical 8s linear infinite;
+}
+
+@keyframes scanVertical {
+  0% {
+    top: -10%;
+  }
+  100% {
+    top: 110%;
+  }
+}
+
+/* Glitch Effect for Title */
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text::before {
+  animation: glitch-1 0.3s linear infinite alternate-reverse;
+  color: #00F5FF;
+  z-index: -1;
+}
+
+.glitch-text::after {
+  animation: glitch-2 0.3s linear infinite alternate-reverse;
+  color: #00FFB9;
+  z-index: -2;
+}
+
+@keyframes glitch-1 {
+  0%, 100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0);
+  }
+  20% {
+    clip-path: inset(20% 0 60% 0);
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    clip-path: inset(40% 0 40% 0);
+    transform: translate(2px, -2px);
+  }
+  60% {
+    clip-path: inset(60% 0 20% 0);
+    transform: translate(-1px, 1px);
+  }
+  80% {
+    clip-path: inset(80% 0 0 0);
+    transform: translate(1px, -1px);
+  }
+}
+
+@keyframes glitch-2 {
+  0%, 100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0);
+  }
+  20% {
+    clip-path: inset(80% 0 0 0);
+    transform: translate(1px, -1px);
+  }
+  40% {
+    clip-path: inset(60% 0 20% 0);
+    transform: translate(-1px, 1px);
+  }
+  60% {
+    clip-path: inset(40% 0 40% 0);
+    transform: translate(2px, -2px);
+  }
+  80% {
+    clip-path: inset(20% 0 60% 0);
+    transform: translate(-2px, 2px);
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .hexagon-grid {
+    transform: scale(0.9);
+  }
+
+  .terminal-container {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hexagon-grid {
+    transform: scale(0.7);
+    margin: 0 auto;
+  }
+
+  .hexagon {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  .terminal-content {
+    font-size: 0.875rem;
+  }
+
+  .scan-line {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .hexagon-grid {
+    transform: scale(0.6);
+  }
+
+  .terminal-container {
+    padding: 0.5rem;
+  }
+
+  .terminal-content {
+    font-size: 0.75rem;
+    min-height: 150px;
+  }
+}
+
+/* Performance Optimizations */
+@media (prefers-reduced-motion: reduce) {
+  .particle,
+  .scan-line,
+  .connecting-line,
+  .glitch-text::before,
+  .glitch-text::after {
+    animation: none !important;
+  }
+
+  .hexagon,
+  .cta-button,
+  .terminal-line {
+    transition: none !important;
+  }
+}
+
+/* GPU Acceleration */
+.hexagon,
+.particle,
+.scan-line,
+.connecting-line {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Dark Mode Optimization */
+@media (prefers-color-scheme: dark) {
+  .terminal-container {
+    box-shadow: 0 0 50px rgba(0, 245, 255, 0.15);
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .terminal-container,
+  .hexagon {
+    border-width: 2px;
+  }
+
+  .terminal-line {
+    font-weight: 600;
+  }
+}

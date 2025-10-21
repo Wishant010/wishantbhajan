@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React from "react"
 import { motion } from "framer-motion"
 
 interface ContactProps {
@@ -8,290 +8,125 @@ interface ContactProps {
 }
 
 const Contact: React.FC<ContactProps> = ({ isVisible = true }) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    // Reset form
-    setFormData({ name: '', email: '', subject: '', message: '' });
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-800 via-blue-900 to-emerald-900 py-20 page-content">
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Contact Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 80 }}
-          animate={{
-            opacity: isVisible ? 1 : 0,
-            y: isVisible ? 0 : 80
-          }}
-          transition={{ duration: 1, delay: isVisible ? 0.5 : 0 }}
-        >
-          <h2 className="text-4xl md:text-6xl font-bold text-emerald-200 mb-4">
-            Laten we samenwerken
-          </h2>
-          <p className="text-lg text-emerald-200/70 mb-8 max-w-3xl mx-auto">
-            Heb je een interessant project, een vraag over mijn werk, of wil je gewoon een gesprek? 
-            Ik hoor graag van je en ben altijd open voor nieuwe uitdagingen!
-          </p>
-        </motion.div>
+    <div className="relative overflow-hidden py-16 page-content">
+      {/* Simple gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950"></div>
 
+      {/* Subtle overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-cyan-950/10 via-transparent to-indigo-950/10"></div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
+
+          {/* Left Side - Small text */}
           <motion.div
-            className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-emerald-500/20"
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={{
               opacity: isVisible ? 1 : 0,
-              x: isVisible ? 0 : -50
+              x: isVisible ? 0 : -30
             }}
-            transition={{ duration: 1, delay: isVisible ? 1.0 : 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="space-y-6"
           >
-            <h3 className="text-2xl font-bold text-emerald-200 mb-6">Stuur een bericht</h3>
-            
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="name" className="block text-emerald-300 font-medium mb-2">
-                    Naam *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-black/20 border border-emerald-500/30 rounded-lg text-emerald-100 placeholder-emerald-400/50 focus:border-emerald-400 focus:outline-none transition-colors duration-300"
-                    placeholder="Je naam"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-emerald-300 font-medium mb-2">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-black/20 border border-emerald-500/30 rounded-lg text-emerald-100 placeholder-emerald-400/50 focus:border-emerald-400 focus:outline-none transition-colors duration-300"
-                    placeholder="je@email.com"
-                  />
-                </div>
-              </div>
-              
-              <div>
-                <label htmlFor="subject" className="block text-emerald-300 font-medium mb-2">
-                  Onderwerp
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-black/20 border border-emerald-500/30 rounded-lg text-emerald-100 placeholder-emerald-400/50 focus:border-emerald-400 focus:outline-none transition-colors duration-300"
-                  placeholder="Waar gaat je bericht over?"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="message" className="block text-emerald-300 font-medium mb-2">
-                  Bericht *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={6}
-                  className="w-full px-4 py-3 bg-black/20 border border-emerald-500/30 rounded-lg text-emerald-100 placeholder-emerald-400/50 focus:border-emerald-400 focus:outline-none transition-colors duration-300 resize-none"
-                  placeholder="Vertel me over je project of vraag..."
-                />
-              </div>
-              
-              <motion.button
-                type="submit"
-                className="w-full px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-lg hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 shadow-lg"
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Verstuur Bericht
-              </motion.button>
-            </form>
+            <h2 className="text-3xl lg:text-4xl font-bold">
+              <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+                Let's Connect
+              </span>
+            </h2>
+            <p className="text-gray-400 text-base max-w-md">
+              Open voor nieuwe projecten en samenwerkingen. Neem gerust contact op voor een gesprek over uw volgende digitale oplossing.
+            </p>
           </motion.div>
 
-          {/* Contact Info */}
+          {/* Right Side - Contact Info */}
           <motion.div
-            className="space-y-8"
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 30 }}
             animate={{
               opacity: isVisible ? 1 : 0,
-              x: isVisible ? 0 : 50
+              x: isVisible ? 0 : 30
             }}
-            transition={{ duration: 1, delay: isVisible ? 1.2 : 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="space-y-4"
           >
-            {/* Contact Methods */}
-            <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-8 border border-emerald-500/20">
-              <h3 className="text-2xl font-bold text-emerald-200 mb-6">Contact Informatie</h3>
-              
-              <div className="space-y-6">
-                {[
-                  {
-                    icon: "📧",
-                    title: "Email",
-                    content: "wishant@example.com",
-                    description: "Voor projecten en samenwerking"
-                  },
-                  {
-                    icon: "💼",
-                    title: "LinkedIn",
-                    content: "/in/wishantbhajan",
-                    description: "Professioneel netwerk"
-                  },
-                  {
-                    icon: "💻",
-                    title: "GitHub",
-                    content: "/Wishant010",
-                    description: "Bekijk mijn code"
-                  }
-                ].map((contact, index) => (
-                  <motion.div
-                    key={contact.title}
-                    className="flex items-start space-x-4 p-4 rounded-lg hover:bg-emerald-500/10 transition-colors duration-300"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{
-                      opacity: isVisible ? 1 : 0,
-                      y: isVisible ? 0 : 30
-                    }}
-                    transition={{ duration: 0.6, delay: isVisible ? 1.4 + index * 0.1 : 0 }}
-                  >
-                    <div className="text-2xl">{contact.icon}</div>
-                    <div>
-                      <h4 className="text-emerald-300 font-semibold">{contact.title}</h4>
-                      <p className="text-emerald-200 font-medium">{contact.content}</p>
-                      <p className="text-emerald-200/60 text-sm">{contact.description}</p>
-                    </div>
-                  </motion.div>
-                ))}
+            {/* Contact items */}
+            <div className="space-y-4">
+              {/* Phone */}
+              <div className="flex items-center space-x-4 group">
+                <div className="text-emerald-400">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-gray-500 text-sm">Telefoon</p>
+                  <a href="tel:+31648447234" className="text-white font-medium hover:text-emerald-400 transition-colors">
+                    +31 648 447 234
+                  </a>
+                </div>
+              </div>
+
+              {/* Email */}
+              <div className="flex items-center space-x-4 group">
+                <div className="text-emerald-400">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-gray-500 text-sm">Email</p>
+                  <a href="mailto:wishant@example.com" className="text-white font-medium hover:text-emerald-400 transition-colors">
+                    wishant@example.com
+                  </a>
+                </div>
+              </div>
+
+              {/* LinkedIn */}
+              <div className="flex items-center space-x-4 group">
+                <div className="text-emerald-400">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-gray-500 text-sm">LinkedIn</p>
+                  <a href="https://linkedin.com/in/wishantbhajan" target="_blank" rel="noopener noreferrer" className="text-white font-medium hover:text-emerald-400 transition-colors">
+                    /in/wishantbhajan
+                  </a>
+                </div>
+              </div>
+
+              {/* GitHub */}
+              <div className="flex items-center space-x-4 group">
+                <div className="text-emerald-400">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-gray-500 text-sm">GitHub</p>
+                  <a href="https://github.com/Wishant010" target="_blank" rel="noopener noreferrer" className="text-white font-medium hover:text-emerald-400 transition-colors">
+                    /Wishant010
+                  </a>
+                </div>
               </div>
             </div>
 
-            {/* Availability */}
-            <motion.div
-              className="bg-gradient-to-br from-emerald-900/30 to-teal-900/30 backdrop-blur-sm rounded-2xl p-8 border border-emerald-500/20"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{
-                opacity: isVisible ? 1 : 0,
-                y: isVisible ? 0 : 30
-              }}
-              transition={{ duration: 0.8, delay: isVisible ? 1.8 : 0 }}
-            >
-              <h3 className="text-xl font-bold text-emerald-200 mb-4">Beschikbaarheid</h3>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                  <span className="text-emerald-200">Beschikbaar voor nieuwe projecten</span>
-                </div>
-                <p className="text-emerald-200/70 text-sm">
-                  Ik reageer meestal binnen 24 uur op berichten en ben altijd geïnteresseerd 
-                  in uitdagende projecten.
-                </p>
+            {/* Availability Status */}
+            <div className="mt-6 pt-6 border-t border-slate-800">
+              <div className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-gray-400 text-sm">Beschikbaar voor freelance projecten</span>
               </div>
-            </motion.div>
-
-            {/* What to Expect */}
-            <motion.div
-              className="bg-black/20 backdrop-blur-sm rounded-2xl p-8 border border-emerald-500/20"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{
-                opacity: isVisible ? 1 : 0,
-                y: isVisible ? 0 : 30
-              }}
-              transition={{ duration: 0.8, delay: isVisible ? 2.0 : 0 }}
-            >
-              <h3 className="text-xl font-bold text-emerald-200 mb-4">Wat kun je verwachten?</h3>
-              <ul className="space-y-3 text-emerald-200/70">
-                <li className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-emerald-400 rounded-full mt-2"></div>
-                  <span>Snelle en professionele reactie</span>
-                </li>
-                <li className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-emerald-400 rounded-full mt-2"></div>
-                  <span>Transparante communicatie over project scope</span>
-                </li>
-                <li className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-emerald-400 rounded-full mt-2"></div>
-                  <span>Hoge kwaliteit code en design</span>
-                </li>
-                <li className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-emerald-400 rounded-full mt-2"></div>
-                  <span>Ondersteuning na oplevering</span>
-                </li>
-              </ul>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
+      </div>
 
-        {/* Final CTA */}
-        <motion.div
-          className="text-center py-16"
-          initial={{ opacity: 0, y: 60 }}
-          animate={{
-            opacity: isVisible ? 1 : 0,
-            y: isVisible ? 0 : 60
-          }}
-          transition={{ duration: 1, delay: isVisible ? 2.4 : 0 }}
-        >
-          <div className="max-w-2xl mx-auto">
-            <h3 className="text-2xl md:text-3xl font-bold text-emerald-200 mb-4">
-              Klaar om je idee werkelijkheid te maken?
-            </h3>
-            <p className="text-emerald-200/70 mb-8">
-              Van concept tot realisatie - laten we samen iets geweldigs bouwen dat impact maakt.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button
-                className="px-8 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-lg hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 shadow-lg"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Start een Project
-              </motion.button>
-              <motion.button
-                className="px-8 py-3 border border-emerald-500/50 text-emerald-200 font-bold rounded-lg hover:bg-emerald-500/10 hover:border-emerald-400 transition-all duration-300"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => {
-                  const portfolioSection = document.querySelector('#portfolio');
-                  portfolioSection?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                Bekijk Portfolio
-              </motion.button>
-            </div>
-          </div>
-        </motion.div>
+      {/* Smooth gradient transition to footer */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none z-30">
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent"></div>
       </div>
     </div>
   )

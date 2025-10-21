@@ -2,18 +2,29 @@
 
 import type React from "react"
 import { motion } from "framer-motion"
+import { useLanguage } from "../../contexts/LanguageContext"
 
 interface AboutMeProps {
   isVisible?: boolean
 }
 
 const AboutMe: React.FC<AboutMeProps> = ({ isVisible = true }) => {
+  const { t } = useLanguage();
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-800 via-emerald-900 to-slate-900 py-20 page-content">
-      <div className="max-w-7xl mx-auto px-6">
+    <div className="min-h-screen relative overflow-hidden py-20 scroll-snap-section">
+      {/* Seamless background connecting from hero */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-900"></div>
+
+      {/* Subtle top blend for seamless transition */}
+      <div className="absolute top-0 left-0 right-0 h-[400px] bg-gradient-to-b from-slate-900 via-slate-900/98 to-transparent pointer-events-none z-10"></div>
+
+      {/* Subtle colored overlay for visual interest */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-950/15 via-transparent to-teal-950/15"></div>
+
+      <div className="max-w-5xl mx-auto px-6 relative z-20">
         {/* About Me Header */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-8"
           initial={{ y: 80, opacity: 0 }}
           animate={{
             y: isVisible ? 0 : 80,
@@ -25,169 +36,92 @@ const AboutMe: React.FC<AboutMeProps> = ({ isVisible = true }) => {
             ease: [0.23, 1, 0.32, 1]
           }}
         >
-          <h2 className="text-4xl md:text-6xl font-bold text-emerald-200 mb-4">
-            Over Mij
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">{t('about.title')}</span>
           </h2>
-          <p className="text-lg text-emerald-200/70 max-w-3xl mx-auto">
-            Met een passie voor technologie en innovatie, ontwikkel ik moderne webapplicaties 
-            die gebruikerservaring en functionaliteit perfect combineren.
+          <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-6">
+            Hoi! Ik ben Wishant, een gepassioneerde full-stack developer die moderne, innovatieve webapplicaties bouwt.
+            Met expertise in React, TypeScript en Node.js breng ik ideeën tot leven.
+          </p>
+          <p className="text-base text-slate-400 max-w-2xl mx-auto mb-8">
+            Van concept tot deployment - ik ontwikkel complete oplossingen met oog voor design,
+            performance en gebruikerservaring.
           </p>
         </motion.div>
 
-        {/* Skills Grid */}
+        {/* Quick Highlights */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 py-16"
-          initial={{ y: 120, opacity: 0, scale: 0.9 }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
+          initial={{ y: 60, opacity: 0 }}
           animate={{
-            y: isVisible ? 0 : 120,
-            opacity: isVisible ? 1 : 0,
-            scale: isVisible ? 1 : 0.9
+            y: isVisible ? 0 : 60,
+            opacity: isVisible ? 1 : 0
           }}
-          transition={{
-            delay: isVisible ? 1.0 : 0,
-            duration: 1.2,
-            ease: [0.23, 1, 0.32, 1]
-          }}
-        >
-          {[
-            { 
-              title: 'Frontend Development', 
-              desc: 'React, TypeScript, Next.js, Tailwind CSS',
-              icon: '💻'
-            },
-            { 
-              title: 'Backend Development', 
-              desc: 'Node.js, Python, Databases, API Design',
-              icon: '⚡'
-            },
-            { 
-              title: 'UI/UX Design', 
-              desc: 'Figma, Prototyping, User Research, Design Systems',
-              icon: '🎨'
-            }
-          ].map((skill, index) => (
-            <motion.div
-              key={skill.title}
-              className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 md:p-8 border border-emerald-500/20 hover:border-emerald-400/40 transition-all duration-500"
-              initial={{ y: 80, opacity: 0, scale: 0.9 }}
-              animate={{
-                y: isVisible ? 0 : 80,
-                opacity: isVisible ? 1 : 0,
-                scale: isVisible ? 1 : 0.9
-              }}
-              transition={{
-                delay: isVisible ? 1.4 + index * 0.2 : 0,
-                duration: 1.0,
-                ease: [0.23, 1, 0.32, 1]
-              }}
-              whileHover={{
-                scale: 1.05,
-                y: -8,
-                backgroundColor: 'rgba(255,255,255,0.15)',
-                transition: {
-                  duration: 0.4,
-                  ease: [0.23, 1, 0.32, 1]
-                }
-              }}
-            >
-              <div className="text-4xl mb-4">{skill.icon}</div>
-              <h3 className="text-xl md:text-2xl font-semibold text-emerald-300 mb-3">{skill.title}</h3>
-              <p className="text-emerald-100/70 leading-relaxed">{skill.desc}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Experience & Info Sections */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-16"
-          initial={{ opacity: 0, y: 100 }}
-          animate={{
-            opacity: isVisible ? 1 : 0,
-            y: isVisible ? 0 : 100
-          }}
-          transition={{ duration: 1, delay: isVisible ? 2.0 : 0 }}
+          transition={{ duration: 0.8, delay: isVisible ? 1.0 : 0 }}
         >
           {[
             {
-              title: "Projects",
-              description: "Ontdek mijn innovatieve projecten van e-commerce platforms tot portfolio dashboards.",
-              icon: "🚀"
+              icon: <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>,
+              title: "Frontend",
+              text: "React, TypeScript, Next.js"
             },
             {
-              title: "Experience", 
-              description: "Jaren ervaring in het bouwen van schaalbare webapplicaties met moderne technologieën.",
-              icon: "💼"
+              icon: <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" /></svg>,
+              title: "Backend",
+              text: "Node.js, Express, PostgreSQL"
             },
             {
-              title: "Passion",
-              description: "Gedreven door perfectie en altijd op zoek naar nieuwe uitdagingen in de digitale wereld.",
-              icon: "❤️"
+              icon: <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>,
+              title: "UI/UX Design",
+              text: "Figma, Tailwind, Responsive Design"
             }
-          ].map((section, index) => (
+          ].map((item, index) => (
             <motion.div
-              key={section.title}
-              className="bg-black/20 backdrop-blur-sm border border-emerald-500/30 rounded-2xl p-8 hover:border-emerald-500/60 transition-all duration-500 group"
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
+              key={item.title}
+              className="bg-slate-800/70 backdrop-blur-sm border border-emerald-500/30 rounded-xl p-6 text-center hover:border-emerald-400/50 transition-all duration-300 shadow-xl"
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
               animate={{
                 opacity: isVisible ? 1 : 0,
-                y: isVisible ? 0 : 50,
+                y: isVisible ? 0 : 40,
                 scale: isVisible ? 1 : 0.95
               }}
-              transition={{ duration: 0.8, delay: isVisible ? 2.2 + index * 0.2 : 0 }}
-              whileHover={{ 
-                scale: 1.03, 
-                y: -8,
-                transition: { duration: 0.4 }
-              }}
+              transition={{ duration: 0.6, delay: isVisible ? 1.2 + index * 0.15 : 0 }}
+              whileHover={{ scale: 1.03, y: -5 }}
             >
-              <div className="text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                {section.icon}
-              </div>
-              <h3 className="text-2xl font-bold text-emerald-200 mb-4">{section.title}</h3>
-              <p className="text-emerald-200/70 leading-relaxed">
-                {section.description}
-              </p>
+              <div className="text-emerald-400 mb-3 inline-block">{item.icon}</div>
+              <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
+              <p className="text-sm text-slate-400">{item.text}</p>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Skills Technologies */}
+        {/* CTA Button */}
         <motion.div
-          className="py-16"
-          initial={{ opacity: 0, y: 80 }}
+          className="text-center"
+          initial={{ opacity: 0, y: 40 }}
           animate={{
             opacity: isVisible ? 1 : 0,
-            y: isVisible ? 0 : 80
+            y: isVisible ? 0 : 40
           }}
-          transition={{ duration: 1, delay: isVisible ? 2.8 : 0 }}
+          transition={{ duration: 0.8, delay: isVisible ? 1.8 : 0 }}
         >
-          <h3 className="text-2xl md:text-3xl font-bold text-emerald-200 text-center mb-8">
-            Technologieën & Tools
-          </h3>
-          <div className="flex flex-wrap justify-center gap-4">
-            {[
-              'React', 'TypeScript', 'Next.js', 'Node.js', 'Python', 'Tailwind CSS',
-              'MongoDB', 'PostgreSQL', 'Git', 'Docker', 'Figma', 'AWS'
-            ].map((tech, index) => (
-              <motion.span
-                key={tech}
-                className="px-4 py-2 bg-emerald-500/20 text-emerald-300 rounded-full font-medium hover:bg-emerald-500/30 transition-all duration-300"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{
-                  opacity: isVisible ? 1 : 0,
-                  scale: isVisible ? 1 : 0.8
-                }}
-                transition={{ 
-                  duration: 0.5, 
-                  delay: isVisible ? 3.0 + index * 0.1 : 0 
-                }}
-                whileHover={{ scale: 1.1 }}
-              >
-                {tech}
-              </motion.span>
-            ))}
-          </div>
+          <motion.a
+            href="/about"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-xl hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 shadow-lg"
+            whileHover={{ scale: 1.05, y: -3 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <span>Lees meer over mij</span>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </motion.a>
         </motion.div>
+      </div>
+
+      {/* Smooth gradient transition to skills section - seamless blend */}
+      <div className="absolute bottom-0 left-0 right-0 h-[500px] pointer-events-none z-30">
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/70 to-transparent"></div>
       </div>
     </div>
   )
