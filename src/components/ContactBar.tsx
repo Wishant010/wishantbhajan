@@ -9,45 +9,41 @@ const ContactBar: React.FC = () => {
       label: "Telefoon",
       value: "+31 648 447 234",
       href: "tel:+31648447234",
-      color: "hover:shadow-emerald-500/20"
+      color: "hover:shadow-blue-500/20"
     },
     {
       icon: <Mail className="w-6 h-6" />,
       label: "Email",
       value: "Wishantbhajan@outlook.com",
       href: "mailto:Wishantbhajan@outlook.com",
-      color: "hover:shadow-teal-500/20"
+      color: "hover:shadow-purple-500/20"
     },
     {
       icon: <Linkedin className="w-6 h-6" />,
       label: "LinkedIn",
       value: "Wishant Bhajan",
       href: "https://www.linkedin.com/in/wishant-bhajan-0a73832a4/",
-      color: "hover:shadow-emerald-500/20"
+      color: "hover:shadow-blue-500/20"
     },
     {
       icon: <Github className="w-6 h-6" />,
       label: "GitHub",
       value: "Wishant010",
       href: "https://github.com/Wishant010",
-      color: "hover:shadow-teal-500/20"
+      color: "hover:shadow-purple-500/20"
     }
   ]
 
   return (
     <div className="relative -mt-1">
-      {/* Subtiele blauwe gradient die perfect aansluit op Projects sectie - GEEN zichtbare lijn */}
+      {/* Subtle dark overlay for readability - more transparent to show background */}
       <div
         className="absolute inset-0"
         style={{
           background: `linear-gradient(180deg,
-            #0a1628 0%,     /* Exact dezelfde kleur als Projects eindigt */
-            #0a1628 20%,    /* Langer vasthouden voor perfecte overgang */
-            #0a1628 25%,    /* Nog steeds dezelfde kleur */
-            #0b1726 40%,    /* Nu pas zeer subtiel donkerder */
-            #0b1827 55%,    /* Nog steeds heel subtiel */
-            #0c1828 75%,    /* Geleidelijk */
-            #0c1929 100%    /* Eindkleur - heel subtiel donkerder, puur blauw */
+            rgba(26, 31, 46, 0.4) 0%,
+            rgba(27, 32, 48, 0.45) 50%,
+            rgba(30, 35, 54, 0.5) 100%
           )`
         }}
       />
@@ -61,7 +57,7 @@ const ContactBar: React.FC = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               Let's Work Together
             </span>
           </h2>
@@ -83,14 +79,22 @@ const ContactBar: React.FC = () => {
               href={item.href}
               target={item.href.startsWith('http') ? '_blank' : undefined}
               rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-              className={`group bg-slate-800/20 backdrop-blur-sm rounded-xl p-6 border border-emerald-500/10 hover:border-emerald-400/25 transition-all duration-300 ${item.color} hover:bg-slate-800/30`}
+              className={`group backdrop-blur-sm rounded-xl p-6 border transition-all duration-300 ${item.color}`}
+              style={{
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
+                borderColor: 'rgba(255, 255, 255, 0.08)',
+              }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 + index * 0.1 }}
-              whileHover={{ y: -5, scale: 1.02 }}
+              whileHover={{
+                y: -5,
+                scale: 1.02,
+                borderColor: 'rgba(255, 255, 255, 0.15)',
+              }}
             >
               <div className="flex flex-col items-center text-center space-y-3">
-                <span className="text-emerald-500 group-hover:text-emerald-400 transition-colors">
+                <span className="text-blue-400 group-hover:text-purple-400 transition-colors">
                   {item.icon}
                 </span>
                 <div>

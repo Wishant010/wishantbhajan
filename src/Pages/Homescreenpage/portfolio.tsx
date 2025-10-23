@@ -3,6 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useLanguage } from "../../contexts/LanguageContext"
 
 interface PortfolioProps {
   isVisible?: boolean
@@ -31,6 +32,7 @@ interface Project {
 }
 
 const Portfolio: React.FC<PortfolioProps> = ({ isVisible = true }) => {
+  const { t } = useLanguage();
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
@@ -38,12 +40,12 @@ const Portfolio: React.FC<PortfolioProps> = ({ isVisible = true }) => {
   const projects: Project[] = [
     {
       id: 1,
-      title: "E-commerce Platform",
-      description: "Modern webshop met AI-powered recommendations",
-      extendedDescription: "Een volledig functionele webshop met React, Node.js en Stripe integratie. Bevat gebruikersbeheer, productcatalogus, winkelwagen en veilige betalingen.",
+      title: t('project1.title'),
+      description: t('project1.desc'),
+      extendedDescription: t('project1.extDesc'),
       image: "/api/placeholder/600/400",
       tech: ["React", "Node.js", "MongoDB", "Stripe", "Tailwind CSS", "Redis", "Docker"],
-      features: ["Responsive Design", "Payment Integration", "User Authentication", "Admin Dashboard"],
+      features: [t('project1.feature1'), t('project1.feature2'), t('project1.feature3'), t('project1.feature4')],
       status: 'live',
       metrics: {
         users: "2.5k+",
@@ -58,12 +60,12 @@ const Portfolio: React.FC<PortfolioProps> = ({ isVisible = true }) => {
     },
     {
       id: 2,
-      title: "AI Dashboard",
-      description: "Real-time analytics met machine learning",
-      extendedDescription: "Interactive dashboard voor portfolio management met real-time data visualisatie, analytics en content management systeem.",
+      title: t('project2.title'),
+      description: t('project2.desc'),
+      extendedDescription: t('project2.extDesc'),
       image: "/api/placeholder/600/400",
       tech: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Chart.js", "TensorFlow"],
-      features: ["Real-time Analytics", "Content Management", "Data Visualization", "Multi-user Support"],
+      features: [t('project2.feature1'), t('project2.feature2'), t('project2.feature3'), t('project2.feature4')],
       status: 'live',
       metrics: {
         users: "500+",
@@ -75,11 +77,11 @@ const Portfolio: React.FC<PortfolioProps> = ({ isVisible = true }) => {
     },
     {
       id: 3,
-      title: "Blockchain Wallet",
-      description: "Secure crypto wallet met multi-chain support",
+      title: t('project3.title'),
+      description: t('project3.desc'),
       image: "/api/placeholder/600/400",
       tech: ["Web3.js", "React", "Solidity", "Hardhat"],
-      features: ["Multi-chain", "Hardware Wallet", "DeFi Integration"],
+      features: [t('project3.feature1'), t('project3.feature2'), t('project3.feature3')],
       status: 'development',
       metrics: {
         users: "Beta",
@@ -89,11 +91,11 @@ const Portfolio: React.FC<PortfolioProps> = ({ isVisible = true }) => {
     },
     {
       id: 4,
-      title: "Task Management",
-      description: "Productivity app met AI assistant",
+      title: t('project4.title'),
+      description: t('project4.desc'),
       image: "/api/placeholder/600/400",
       tech: ["React", "Firebase", "Material-UI", "OpenAI"],
-      features: ["Drag & Drop", "Team Collaboration", "AI Suggestions"],
+      features: [t('project4.feature1'), t('project4.feature2'), t('project4.feature3')],
       status: 'completed',
       metrics: {
         users: "1k+",
@@ -103,11 +105,11 @@ const Portfolio: React.FC<PortfolioProps> = ({ isVisible = true }) => {
     },
     {
       id: 5,
-      title: "Weather Dashboard",
-      description: "Real-time weather met predictive analytics",
+      title: t('project5.title'),
+      description: t('project5.desc'),
       image: "/api/placeholder/600/400",
       tech: ["Vue.js", "D3.js", "OpenWeather API"],
-      features: ["Interactive Maps", "Forecasting", "Alerts"],
+      features: [t('project5.feature1'), t('project5.feature2'), t('project5.feature3')],
       status: 'live',
       metrics: {
         users: "5k+",
@@ -117,11 +119,11 @@ const Portfolio: React.FC<PortfolioProps> = ({ isVisible = true }) => {
     },
     {
       id: 6,
-      title: "Social Platform",
-      description: "Next-gen social media met privacy focus",
+      title: t('project6.title'),
+      description: t('project6.desc'),
       image: "/api/placeholder/600/400",
       tech: ["Next.js", "Socket.io", "Redis", "PostgreSQL"],
-      features: ["End-to-end Encryption", "Live Chat", "Stories"],
+      features: [t('project6.feature1'), t('project6.feature2'), t('project6.feature3')],
       status: 'development',
       category: 'social'
     }
@@ -134,11 +136,11 @@ const Portfolio: React.FC<PortfolioProps> = ({ isVisible = true }) => {
 
   // Categories for filtering
   const categories = [
-    { id: 'all', label: 'All Projects', icon: '🎯' },
-    { id: 'web', label: 'Web Apps', icon: '🌐' },
-    { id: 'ai', label: 'AI/ML', icon: '🤖' },
-    { id: 'blockchain', label: 'Blockchain', icon: '⛓️' },
-    { id: 'data', label: 'Data Viz', icon: '📊' }
+    { id: 'all', labelKey: 'portfolio.filter.all', icon: '🎯' },
+    { id: 'web', labelKey: 'portfolio.filter.web', icon: '🌐' },
+    { id: 'ai', labelKey: 'portfolio.filter.ai', icon: '🤖' },
+    { id: 'blockchain', labelKey: 'portfolio.filter.blockchain', icon: '⛓️' },
+    { id: 'data', labelKey: 'portfolio.filter.data', icon: '📊' }
   ];
 
   // Get tech icon
@@ -233,11 +235,11 @@ const Portfolio: React.FC<PortfolioProps> = ({ isVisible = true }) => {
         >
           <h2 className="text-5xl md:text-7xl font-bold mb-6">
             <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-              Featured Projects
+              {t('portfolio.header')}
             </span>
           </h2>
           <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            Cutting-edge solutions met moderne technologieën en innovatieve designs
+            {t('portfolio.description')}
           </p>
         </motion.div>
 
@@ -261,7 +263,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isVisible = true }) => {
               whileTap={{ scale: 0.95 }}
             >
               <span className="mr-2">{cat.icon}</span>
-              {cat.label}
+              {t(cat.labelKey)}
             </motion.button>
           ))}
         </motion.div>
@@ -458,10 +460,10 @@ const Portfolio: React.FC<PortfolioProps> = ({ isVisible = true }) => {
           transition={{ duration: 0.8, delay: 0.5 }}
         >
           <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Geïnteresseerd in een samenwerking?
+            {t('portfolio.cta.header')}
           </h3>
           <p className="text-slate-300 mb-8 max-w-2xl mx-auto text-lg">
-            Laten we samen iets geweldigs bouwen. Neem contact op voor projecten, samenwerkingen of gewoon een gesprek over technologie.
+            {t('portfolio.cta.description')}
           </p>
           <motion.button
             className="px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold rounded-full hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300"
@@ -472,7 +474,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isVisible = true }) => {
               contactSection?.scrollIntoView({ behavior: 'smooth' });
             }}
           >
-            Start een Project →
+            {t('portfolio.homepage.cta.button')} →
           </motion.button>
         </motion.div>
       </div>

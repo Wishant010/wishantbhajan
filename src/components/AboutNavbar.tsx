@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 
-interface GlobalNavbarProps {}
+interface AboutNavbarProps {}
 
-const GlobalNavbar = ({}: GlobalNavbarProps) => {
+const AboutNavbar = ({}: AboutNavbarProps) => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -46,11 +46,16 @@ const GlobalNavbar = ({}: GlobalNavbarProps) => {
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-[9999] backdrop-blur-xl border-b transition-all duration-300 ${
-        scrolled
-          ? 'bg-slate-900/98 border-emerald-500/30 shadow-2xl'
-          : 'bg-slate-900/95 border-emerald-500/20 shadow-lg'
-      }`}
+      className="fixed top-0 left-0 right-0 z-[9999] backdrop-blur-xl border-b transition-all duration-300"
+      style={{
+        background: scrolled
+          ? 'linear-gradient(to bottom, rgba(15, 20, 25, 0.98), rgba(26, 31, 46, 0.95))'
+          : 'linear-gradient(to bottom, rgba(15, 20, 25, 0.95), rgba(26, 31, 46, 0.90))',
+        borderColor: scrolled ? 'rgba(255, 255, 255, 0.12)' : 'rgba(255, 255, 255, 0.08)',
+        boxShadow: scrolled
+          ? '0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2)'
+          : '0 10px 15px -3px rgba(0, 0, 0, 0.2)'
+      }}
       initial={{ y: -100, opacity: 0 }}
       animate={{
         y: 0,
@@ -64,7 +69,7 @@ const GlobalNavbar = ({}: GlobalNavbarProps) => {
     >
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-4">
         <div className="flex justify-between items-center">
-          {/* Logo with cyberpunk style */}
+          {/* Logo */}
           <Link to="/home">
             <motion.div
               className="text-2xl md:text-3xl font-bold relative group cursor-pointer"
@@ -80,12 +85,12 @@ const GlobalNavbar = ({}: GlobalNavbarProps) => {
               }}
               whileHover={{ scale: 1.05 }}
             >
-              <span className="bg-gradient-to-r from-emerald-400 via-cyan-400 to-teal-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-blue-500 bg-clip-text text-transparent">
                 Wishant Bhajan
               </span>
 
               {/* Glitch effect on hover */}
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-cyan-400 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300" />
             </motion.div>
           </Link>
 
@@ -122,15 +127,15 @@ const GlobalNavbar = ({}: GlobalNavbarProps) => {
                     to={item.path}
                     className={`relative px-4 py-2 rounded-lg text-sm md:text-base font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2 group ${
                       location.pathname === item.path
-                        ? 'text-slate-900 bg-gradient-to-r from-emerald-400 to-cyan-400 shadow-lg shadow-emerald-400/25'
-                        : 'text-emerald-100 hover:text-white hover:bg-emerald-500/20'
+                        ? 'text-white bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg shadow-blue-500/25'
+                        : 'text-slate-300 hover:text-white hover:bg-white/10'
                     }`}
                   >
                     <span className="hidden lg:inline">{item.icon}</span>
                     <span>{item.label}</span>
 
-                    {/* Cyberpunk hover effect */}
-                    <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-emerald-400/0 via-cyan-400/20 to-emerald-400/0 opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-300 -z-10" />
+                    {/* Subtle hover effect */}
+                    <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-400/0 via-purple-400/20 to-blue-400/0 opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-300 -z-10" />
                   </Link>
                 </motion.div>
               ))}
@@ -146,8 +151,8 @@ const GlobalNavbar = ({}: GlobalNavbarProps) => {
                   onClick={() => setLanguage('nl')}
                   className={`px-2 py-1 text-sm font-medium transition-colors duration-300 ${
                     language === 'nl'
-                      ? 'text-emerald-400'
-                      : 'text-slate-400 hover:text-emerald-300'
+                      ? 'text-blue-400'
+                      : 'text-slate-400 hover:text-blue-300'
                   }`}
                 >
                   NL
@@ -157,8 +162,8 @@ const GlobalNavbar = ({}: GlobalNavbarProps) => {
                   onClick={() => setLanguage('en')}
                   className={`px-2 py-1 text-sm font-medium transition-colors duration-300 ${
                     language === 'en'
-                      ? 'text-emerald-400'
-                      : 'text-slate-400 hover:text-emerald-300'
+                      ? 'text-blue-400'
+                      : 'text-slate-400 hover:text-blue-300'
                   }`}
                 >
                   EN
@@ -177,20 +182,20 @@ const GlobalNavbar = ({}: GlobalNavbarProps) => {
           >
             <div className="flex flex-col gap-1.5">
               <motion.span
-                className="w-6 h-0.5 bg-emerald-400"
+                className="w-6 h-0.5 bg-blue-400"
                 animate={{
                   rotate: isMenuOpen ? 45 : 0,
                   y: isMenuOpen ? 8 : 0
                 }}
               />
               <motion.span
-                className="w-6 h-0.5 bg-emerald-400"
+                className="w-6 h-0.5 bg-blue-400"
                 animate={{
                   opacity: isMenuOpen ? 0 : 1
                 }}
               />
               <motion.span
-                className="w-6 h-0.5 bg-emerald-400"
+                className="w-6 h-0.5 bg-blue-400"
                 animate={{
                   rotate: isMenuOpen ? -45 : 0,
                   y: isMenuOpen ? -8 : 0
@@ -229,8 +234,8 @@ const GlobalNavbar = ({}: GlobalNavbarProps) => {
                   to={item.path}
                   className={`flex items-center gap-3 px-4 py-3 rounded-lg mb-2 transition-all duration-300 ${
                     location.pathname === item.path
-                      ? 'bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-900 font-bold'
-                      : 'text-emerald-200 hover:bg-emerald-500/20 hover:text-white'
+                      ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold'
+                      : 'text-slate-300 hover:bg-white/10 hover:text-white'
                   }`}
                 >
                   <span>{item.icon}</span>
@@ -256,8 +261,8 @@ const GlobalNavbar = ({}: GlobalNavbarProps) => {
                 onClick={() => setLanguage('nl')}
                 className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
                   language === 'nl'
-                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/50'
-                    : 'text-slate-400 hover:text-emerald-300'
+                    ? 'bg-blue-500/20 text-blue-300 border border-blue-500/50'
+                    : 'text-slate-400 hover:text-blue-300'
                 }`}
               >
                 Nederlands
@@ -266,8 +271,8 @@ const GlobalNavbar = ({}: GlobalNavbarProps) => {
                 onClick={() => setLanguage('en')}
                 className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
                   language === 'en'
-                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/50'
-                    : 'text-slate-400 hover:text-emerald-300'
+                    ? 'bg-blue-500/20 text-blue-300 border border-blue-500/50'
+                    : 'text-slate-400 hover:text-blue-300'
                 }`}
               >
                 English
@@ -279,7 +284,7 @@ const GlobalNavbar = ({}: GlobalNavbarProps) => {
 
       {/* Animated bottom border */}
       <motion.div
-        className="absolute bottom-0 left-0 h-px bg-gradient-to-r from-transparent via-emerald-400 to-transparent"
+        className="absolute bottom-0 left-0 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent"
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
         transition={{ delay: 1, duration: 1.5 }}
@@ -289,4 +294,4 @@ const GlobalNavbar = ({}: GlobalNavbarProps) => {
   );
 };
 
-export default GlobalNavbar;
+export default AboutNavbar;

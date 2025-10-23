@@ -80,7 +80,7 @@ const FeaturedProjectsAndSkills: React.FC = () => {
     { name: 'C#', level: 85, category: 'Backend', icon: <Code />, color: 'from-purple-400 to-indigo-500' },
     { name: 'Node.js', level: 85, category: 'Backend', icon: <Terminal />, color: 'from-green-400 to-emerald-500' },
     { name: 'Python', level: 88, category: 'Backend', icon: <Terminal />, color: 'from-yellow-400 to-orange-500' },
-    { name: 'Cybersecurity', level: 10, category: 'Security', icon: <Shield />, color: 'from-red-400 to-pink-500' },
+    { name: 'Cybersecurity', level: 35, category: 'Security', icon: <Shield />, color: 'from-red-400 to-pink-500' },
     { name: 'Databases', level: 70, category: 'Database', icon: <Database />, color: 'from-indigo-400 to-blue-500' },
     { name: 'Docker / K8s', level: 65, category: 'DevOps', icon: <Cloud />, color: 'from-purple-400 to-pink-500' },
     { name: 'Machine Learning', level: 70, category: 'AI', icon: <Brain />, color: 'from-pink-400 to-rose-500' },

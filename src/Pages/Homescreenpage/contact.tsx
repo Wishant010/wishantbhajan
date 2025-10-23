@@ -2,12 +2,14 @@
 
 import React from "react"
 import { motion } from "framer-motion"
+import { useLanguage } from "../../contexts/LanguageContext"
 
 interface ContactProps {
   isVisible?: boolean
 }
 
 const Contact: React.FC<ContactProps> = ({ isVisible = true }) => {
+  const { t } = useLanguage();
 
   return (
     <div className="relative overflow-hidden py-16 page-content">
@@ -32,11 +34,11 @@ const Contact: React.FC<ContactProps> = ({ isVisible = true }) => {
           >
             <h2 className="text-3xl lg:text-4xl font-bold">
               <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
-                Let's Connect
+                {t('contact.connect')}
               </span>
             </h2>
             <p className="text-gray-400 text-base max-w-md">
-              Open voor nieuwe projecten en samenwerkingen. Neem gerust contact op voor een gesprek over uw volgende digitale oplossing.
+              {t('contact.intro')}
             </p>
           </motion.div>
 
@@ -60,7 +62,7 @@ const Contact: React.FC<ContactProps> = ({ isVisible = true }) => {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-gray-500 text-sm">Telefoon</p>
+                  <p className="text-gray-500 text-sm">{t('contact.phone')}</p>
                   <a href="tel:+31648447234" className="text-white font-medium hover:text-emerald-400 transition-colors">
                     +31 648 447 234
                   </a>
@@ -75,7 +77,7 @@ const Contact: React.FC<ContactProps> = ({ isVisible = true }) => {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-gray-500 text-sm">Email</p>
+                  <p className="text-gray-500 text-sm">{t('contact.email')}</p>
                   <a href="mailto:wishant@example.com" className="text-white font-medium hover:text-emerald-400 transition-colors">
                     wishant@example.com
                   </a>
@@ -90,7 +92,7 @@ const Contact: React.FC<ContactProps> = ({ isVisible = true }) => {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-gray-500 text-sm">LinkedIn</p>
+                  <p className="text-gray-500 text-sm">{t('contact.linkedin')}</p>
                   <a href="https://linkedin.com/in/wishantbhajan" target="_blank" rel="noopener noreferrer" className="text-white font-medium hover:text-emerald-400 transition-colors">
                     /in/wishantbhajan
                   </a>
@@ -105,7 +107,7 @@ const Contact: React.FC<ContactProps> = ({ isVisible = true }) => {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-gray-500 text-sm">GitHub</p>
+                  <p className="text-gray-500 text-sm">{t('contact.github')}</p>
                   <a href="https://github.com/Wishant010" target="_blank" rel="noopener noreferrer" className="text-white font-medium hover:text-emerald-400 transition-colors">
                     /Wishant010
                   </a>
@@ -117,7 +119,7 @@ const Contact: React.FC<ContactProps> = ({ isVisible = true }) => {
             <div className="mt-6 pt-6 border-t border-slate-800">
               <div className="flex items-center space-x-3">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-gray-400 text-sm">Beschikbaar voor freelance projecten</span>
+                <span className="text-gray-400 text-sm">{t('contact.availability.status')}</span>
               </div>
             </div>
           </motion.div>

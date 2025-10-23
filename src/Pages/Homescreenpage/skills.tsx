@@ -10,7 +10,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ isVisible = true }) => {
   const { t } = useLanguage();
   const skillCategories = [
     {
-      title: 'Frontend Development',
+      titleKey: 'skills.category.frontend',
       skills: [
         { name: 'React', level: 95, color: 'from-blue-400 to-blue-600' },
         { name: 'TypeScript', level: 90, color: 'from-blue-500 to-blue-700' },
@@ -20,7 +20,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ isVisible = true }) => {
       ]
     },
     {
-      title: 'Backend Development',
+      titleKey: 'skills.category.backend',
       skills: [
         { name: 'Node.js', level: 85, color: 'from-green-400 to-green-600' },
         { name: 'Python', level: 80, color: 'from-yellow-400 to-yellow-600' },
@@ -30,7 +30,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ isVisible = true }) => {
       ]
     },
     {
-      title: 'Tools & Technologies',
+      titleKey: 'skills.category.tools',
       skills: [
         { name: 'Git', level: 90, color: 'from-red-400 to-red-600' },
         { name: 'Docker', level: 75, color: 'from-blue-400 to-blue-600' },
@@ -118,12 +118,12 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ isVisible = true }) => {
         >
           {skillCategories.map((category) => (
             <motion.div
-              key={category.title}
+              key={category.titleKey}
               variants={itemVariants}
               className="bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 border border-emerald-500/30 hover:border-emerald-400/50 transition-all duration-300 shadow-xl"
             >
               <h3 className="text-2xl font-bold text-white mb-8 text-center">
-                {category.title}
+                {t(category.titleKey)}
               </h3>
               
               <div className="space-y-6">

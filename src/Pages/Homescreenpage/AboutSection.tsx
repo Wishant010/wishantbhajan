@@ -4,7 +4,7 @@ import { useInView } from 'framer-motion';
 import ProfileCard from '../../components/ProfileCard';
 
 // Terminal Component with Typing Animation
-const Terminal: React.FC<{ startTyping: boolean }> = ({ startTyping }) => {
+const Terminal: React.FC<{ startTyping: boolean; onTypingComplete?: () => void }> = ({ startTyping, onTypingComplete }) => {
   const [displayedText, setDisplayedText] = useState('');
   const [currentLine, setCurrentLine] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
@@ -44,6 +44,10 @@ const Terminal: React.FC<{ startTyping: boolean }> = ({ startTyping }) => {
           });
           await new Promise(resolve => setTimeout(resolve, 30));
         }
+      }
+      // Notify parent that typing is complete
+      if (onTypingComplete) {
+        onTypingComplete();
       }
     };
 
@@ -105,6 +109,7 @@ const AboutSection: React.FC = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, amount: 0.3 });
   const controls = useAnimation();
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
 
   useEffect(() => {
     if (isInView) {
@@ -194,7 +199,54 @@ const AboutSection: React.FC = () => {
             </motion.div>
 
             {/* Terminal Component - Larger */}
-            <Terminal startTyping={isInView} />
+            <Terminal
+              startTyping={isInView}
+              onTypingComplete={() => setIsTypingComplete(true)}
+            />
+
+            {/* Button that appears after typing is complete */}
+            {isTypingComplete && (
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                className="flex justify-start mt-8"
+              >
+                <motion.a
+                  href="/about"
+                  className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-teal-500 text-white font-bold rounded-xl overflow-hidden"
+                  whileHover={{
+                    scale: 1.08,
+                    x: 10,
+                    boxShadow: '0 0 40px rgba(0, 184, 212, 0.6), 0 0 60px rgba(0, 245, 255, 0.3)'
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{
+                    boxShadow: '0 0 30px rgba(0, 184, 212, 0.4)',
+                  }}
+                >
+                  <span className="relative z-10 transition-all duration-300 group-hover:tracking-wider">
+                    Meer Over Mij
+                  </span>
+                  <svg
+                    className="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-2 group-hover:scale-110"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                  <div
+                    className="absolute inset-0 bg-gradient-to-r from-teal-600 to-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                </motion.a>
+              </motion.div>
+            )}
           </motion.div>
 
           {/* Right Side - ProfileCard */}
