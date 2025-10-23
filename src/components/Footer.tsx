@@ -5,17 +5,14 @@ const Footer: React.FC = () => {
   const { t } = useLanguage();
   return (
     <footer className="relative py-20">
-      {/* Subtiele blauwe gradient die aansluit op Contact - NIET te donker */}
+      {/* Subtle dark overlay for readability - more transparent to show background */}
       <div
         className="absolute inset-0"
         style={{
           background: `linear-gradient(180deg,
-            #0c1929 0%,
-            #0c1a2a 20%,
-            #0d1b2b 40%,
-            #0d1c2c 60%,
-            #0e1c2d 80%,
-            #0e1d2e 100%
+            rgba(30, 35, 54, 0.5) 0%,
+            rgba(32, 37, 56, 0.55) 50%,
+            rgba(34, 39, 62, 0.6) 100%
           )`
         }}
       />
@@ -25,11 +22,11 @@ const Footer: React.FC = () => {
           {/* Brand Section */}
           <div className="space-y-6">
             <div>
-              <h3 className="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-3">
+              <h3 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-3">
                 Wishant Bhajan
               </h3>
-              <p className="text-slate-400 leading-relaxed">
-                Full-stack developer & UI/UX designer met een passie voor het bouwen van innovatieve digitale oplossingen.
+              <p className="text-slate-200 leading-relaxed">
+                {t('footer.description')}
               </p>
             </div>
           </div>
@@ -46,7 +43,7 @@ const Footer: React.FC = () => {
                 <a
                   key={link.labelKey}
                   href={link.href}
-                  className="block text-slate-400 hover:text-emerald-400 transition-colors duration-300"
+                  className="block text-slate-200 hover:text-blue-400 transition-colors duration-300"
                 >
                   {t(link.labelKey)}
                 </a>
@@ -54,27 +51,27 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Diensten */}
+          {/* Services */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white">Diensten</h4>
+            <h4 className="text-lg font-semibold text-white">{t('footer.services')}</h4>
             <div className="space-y-2">
-              <span className="block text-slate-400">Web Development</span>
-              <span className="block text-slate-400">UI/UX Design</span>
-              <span className="block text-slate-400">App Development</span>
-              <span className="block text-slate-400">Consulting</span>
+              <span className="block text-slate-200">{t('footer.services.web')}</span>
+              <span className="block text-slate-200">{t('footer.services.uiux')}</span>
+              <span className="block text-slate-200">{t('footer.services.app')}</span>
+              <span className="block text-slate-200">{t('footer.services.consulting')}</span>
             </div>
           </div>
 
-          {/* Specialiteiten */}
+          {/* Specialties */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white">Specialiteiten</h4>
+            <h4 className="text-lg font-semibold text-white">{t('footer.specialties')}</h4>
             <div className="flex flex-wrap gap-2">
-              {['Web Apps', 'UI/UX Design', 'Frontend & Backend', 'Databases', 'API\'s', 'Webapplicaties'].map((spec) => (
+              {['spec.webapps', 'spec.uiux', 'spec.fullstack', 'spec.databases', 'spec.apis', 'spec.webapplications'].map((specKey) => (
                 <span
-                  key={spec}
-                  className="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-sm font-medium border border-emerald-500/20 hover:bg-emerald-500/30 transition-all duration-300"
+                  key={specKey}
+                  className="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm font-medium border border-blue-500/20 hover:bg-purple-500/30 hover:text-purple-400 transition-all duration-300"
                 >
-                  {spec}
+                  {t(`footer.${specKey}`)}
                 </span>
               ))}
             </div>
@@ -84,15 +81,15 @@ const Footer: React.FC = () => {
         {/* Additional Footer Info - subtiele scheidingslijn */}
         <div className="mt-12 pt-8 border-t border-slate-700/40">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-slate-500 text-sm">
-              © 2025 Wishant Bhajan. All rights reserved.
+            <p className="text-slate-300 text-sm">
+              {t('footer.copyright')}
             </p>
             <div className="flex items-center gap-6">
-              <a href="#" className="text-slate-500 hover:text-emerald-400 text-sm transition-colors">
-                Privacy Policy
+              <a href="#" className="text-slate-300 hover:text-blue-400 text-sm transition-colors">
+                {t('footer.privacy')}
               </a>
-              <a href="#" className="text-slate-500 hover:text-emerald-400 text-sm transition-colors">
-                Terms of Service
+              <a href="#" className="text-slate-300 hover:text-blue-400 text-sm transition-colors">
+                {t('footer.terms')}
               </a>
             </div>
           </div>

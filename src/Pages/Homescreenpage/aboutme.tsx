@@ -40,12 +40,10 @@ const AboutMe: React.FC<AboutMeProps> = ({ isVisible = true }) => {
             <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">{t('about.title')}</span>
           </h2>
           <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-6">
-            Hoi! Ik ben Wishant, een gepassioneerde full-stack developer die moderne, innovatieve webapplicaties bouwt.
-            Met expertise in React, TypeScript en Node.js breng ik ideeën tot leven.
+            {t('aboutme.intro1')}
           </p>
           <p className="text-base text-slate-400 max-w-2xl mx-auto mb-8">
-            Van concept tot deployment - ik ontwikkel complete oplossingen met oog voor design,
-            performance en gebruikerservaring.
+            {t('aboutme.intro2')}
           </p>
         </motion.div>
 
@@ -62,22 +60,22 @@ const AboutMe: React.FC<AboutMeProps> = ({ isVisible = true }) => {
           {[
             {
               icon: <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>,
-              title: "Frontend",
-              text: "React, TypeScript, Next.js"
+              titleKey: "aboutme.frontend.title",
+              textKey: "aboutme.frontend.text"
             },
             {
               icon: <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" /></svg>,
-              title: "Backend",
-              text: "Node.js, Express, PostgreSQL"
+              titleKey: "aboutme.backend.title",
+              textKey: "aboutme.backend.text"
             },
             {
               icon: <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>,
-              title: "UI/UX Design",
-              text: "Figma, Tailwind, Responsive Design"
+              titleKey: "aboutme.uiux.title",
+              textKey: "aboutme.uiux.text"
             }
           ].map((item, index) => (
             <motion.div
-              key={item.title}
+              key={item.titleKey}
               className="bg-slate-800/70 backdrop-blur-sm border border-emerald-500/30 rounded-xl p-6 text-center hover:border-emerald-400/50 transition-all duration-300 shadow-xl"
               initial={{ opacity: 0, y: 40, scale: 0.95 }}
               animate={{
@@ -89,8 +87,8 @@ const AboutMe: React.FC<AboutMeProps> = ({ isVisible = true }) => {
               whileHover={{ scale: 1.03, y: -5 }}
             >
               <div className="text-emerald-400 mb-3 inline-block">{item.icon}</div>
-              <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
-              <p className="text-sm text-slate-400">{item.text}</p>
+              <h3 className="text-lg font-bold text-white mb-2">{t(item.titleKey)}</h3>
+              <p className="text-sm text-slate-400">{t(item.textKey)}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -111,7 +109,7 @@ const AboutMe: React.FC<AboutMeProps> = ({ isVisible = true }) => {
             whileHover={{ scale: 1.05, y: -3 }}
             whileTap={{ scale: 0.98 }}
           >
-            <span>Lees meer over mij</span>
+            <span>{t('aboutme.readMore')}</span>
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>

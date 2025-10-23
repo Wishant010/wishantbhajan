@@ -3,8 +3,10 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import MagicBento from '../../components/MagicBento';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const FeaturedProjects: React.FC = () => {
+  const { t } = useLanguage();
   const navigate = useNavigate();
 
   const featuredProjects = [
@@ -103,7 +105,7 @@ const FeaturedProjects: React.FC = () => {
               textShadow: '0 0 25px rgba(0, 184, 212, 0.5), 0 0 8px rgba(0, 150, 168, 0.7)',
             }}
           >
-            Featured Projects
+            {t('portfolio.header')}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
@@ -111,7 +113,7 @@ const FeaturedProjects: React.FC = () => {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="text-lg lg:text-xl text-gray-400 max-w-3xl mx-auto"
           >
-            Exploring the intersection of cybersecurity and innovation through cutting-edge solutions
+            {t('portfolio.description')}
           </motion.p>
         </motion.div>
 

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import GlobalNavbar from "../../components/GlobalNavbar";
 import Footer from "../../components/Footer";
 import ParticleField from "../Homescreenpage/ParticleField";
+import { useLanguage } from "../../contexts/LanguageContext";
 
 interface FormData {
   name: string;
@@ -12,6 +13,7 @@ interface FormData {
 }
 
 const ContactPage: React.FC = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -43,26 +45,26 @@ const ContactPage: React.FC = () => {
   const contactInfo = [
     {
       icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>,
-      label: "Email",
+      labelKey: "contact.email",
       value: "contact@wishantbhajan.nl",
       link: "mailto:contact@wishantbhajan.nl"
     },
     {
       icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>,
-      label: "LinkedIn",
+      labelKey: "contact.linkedin",
       value: "/in/wishantbhajan",
       link: "https://linkedin.com/in/wishantbhajan"
     },
     {
       icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>,
-      label: "GitHub",
+      labelKey: "contact.github",
       value: "@wishantbhajan",
       link: "https://github.com/wishantbhajan"
     },
     {
       icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>,
-      label: "Location",
-      value: "Netherlands",
+      labelKey: "contactpage.info.location",
+      valueKey: "contactpage.info.netherlands",
       link: null
     },
   ];
@@ -127,7 +129,7 @@ const ContactPage: React.FC = () => {
             transition={{ duration: 0.8 }}
           >
             <span className="bg-gradient-to-r from-teal-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent">
-              Let's Connect
+              {t('contactpage.hero.title')}
             </span>
           </motion.h1>
 
@@ -137,7 +139,7 @@ const ContactPage: React.FC = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Heb je een project in gedachten? Laten we samen iets geweldigs bouwen.
+            {t('contactpage.hero.subtitle')}
           </motion.p>
         </div>
       </section>
@@ -153,12 +155,12 @@ const ContactPage: React.FC = () => {
               transition={{ duration: 0.8 }}
             >
               <div className="bg-slate-800/50 backdrop-blur-lg rounded-2xl border border-emerald-500/20 p-8">
-                <h2 className="text-2xl font-bold text-emerald-300 mb-6">Send a Message</h2>
+                <h2 className="text-2xl font-bold text-emerald-300 mb-6">{t('contactpage.form.title')}</h2>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Name Field */}
                   <div className="relative">
-                    <label className="block text-emerald-300 mb-2">Name</label>
+                    <label className="block text-emerald-300 mb-2">{t('contactpage.form.name.label')}</label>
                     <input
                       type="text"
                       name="name"
@@ -168,7 +170,7 @@ const ContactPage: React.FC = () => {
                       onBlur={() => setFocusedField(null)}
                       required
                       className="w-full px-4 py-3 bg-slate-900/50 border border-emerald-500/20 rounded-lg text-emerald-100 focus:border-emerald-400 focus:outline-none transition-all duration-300"
-                      placeholder="John Doe"
+                      placeholder={t('contactpage.form.name.placeholder')}
                     />
                     {focusedField === "name" && (
                       <motion.div
@@ -184,7 +186,7 @@ const ContactPage: React.FC = () => {
 
                   {/* Email Field */}
                   <div className="relative">
-                    <label className="block text-emerald-300 mb-2">Email</label>
+                    <label className="block text-emerald-300 mb-2">{t('contactpage.form.email.label')}</label>
                     <input
                       type="email"
                       name="email"
@@ -194,7 +196,7 @@ const ContactPage: React.FC = () => {
                       onBlur={() => setFocusedField(null)}
                       required
                       className="w-full px-4 py-3 bg-slate-900/50 border border-emerald-500/20 rounded-lg text-emerald-100 focus:border-emerald-400 focus:outline-none transition-all duration-300"
-                      placeholder="john@example.com"
+                      placeholder={t('contactpage.form.email.placeholder')}
                     />
                     {focusedField === "email" && (
                       <motion.div
@@ -210,7 +212,7 @@ const ContactPage: React.FC = () => {
 
                   {/* Subject Field */}
                   <div className="relative">
-                    <label className="block text-emerald-300 mb-2">Subject</label>
+                    <label className="block text-emerald-300 mb-2">{t('contactpage.form.subject.label')}</label>
                     <select
                       name="subject"
                       value={formData.subject}
@@ -220,11 +222,11 @@ const ContactPage: React.FC = () => {
                       required
                       className="w-full px-4 py-3 bg-slate-900/50 border border-emerald-500/20 rounded-lg text-emerald-100 focus:border-emerald-400 focus:outline-none transition-all duration-300"
                     >
-                      <option value="">Select a subject</option>
-                      <option value="project">New Project</option>
-                      <option value="collaboration">Collaboration</option>
-                      <option value="consultation">Consultation</option>
-                      <option value="other">Other</option>
+                      <option value="">{t('contactpage.form.subject.placeholder')}</option>
+                      <option value="project">{t('contactpage.form.subject.project')}</option>
+                      <option value="collaboration">{t('contactpage.form.subject.collaboration')}</option>
+                      <option value="consultation">{t('contactpage.form.subject.consultation')}</option>
+                      <option value="other">{t('contactpage.form.subject.other')}</option>
                     </select>
                     {focusedField === "subject" && (
                       <motion.div
@@ -240,7 +242,7 @@ const ContactPage: React.FC = () => {
 
                   {/* Message Field */}
                   <div className="relative">
-                    <label className="block text-emerald-300 mb-2">Message</label>
+                    <label className="block text-emerald-300 mb-2">{t('contactpage.form.message.label')}</label>
                     <textarea
                       name="message"
                       value={formData.message}
@@ -250,7 +252,7 @@ const ContactPage: React.FC = () => {
                       required
                       rows={6}
                       className="w-full px-4 py-3 bg-slate-900/50 border border-emerald-500/20 rounded-lg text-emerald-100 focus:border-emerald-400 focus:outline-none transition-all duration-300 resize-none"
-                      placeholder="Tell me about your project..."
+                      placeholder={t('contactpage.form.message.placeholder')}
                     />
                     {focusedField === "message" && (
                       <motion.div
@@ -284,10 +286,10 @@ const ContactPage: React.FC = () => {
                         >
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </motion.svg>
-                        Sending...
+                        {t('contactpage.form.sending')}
                       </span>
                     ) : (
-                      "Send Message"
+                      t('contactpage.form.submit')
                     )}
                   </motion.button>
 
@@ -301,7 +303,7 @@ const ContactPage: React.FC = () => {
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      Message sent successfully!
+                      {t('contactpage.form.success')}
                     </motion.div>
                   )}
 
@@ -314,7 +316,7 @@ const ContactPage: React.FC = () => {
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      Something went wrong. Please try again.
+                      {t('contactpage.form.error')}
                     </motion.div>
                   )}
                 </form>
@@ -330,18 +332,18 @@ const ContactPage: React.FC = () => {
             >
               {/* Quick Contact */}
               <div className="bg-slate-800/50 backdrop-blur-lg rounded-2xl border border-emerald-500/20 p-8">
-                <h2 className="text-2xl font-bold text-emerald-300 mb-6">Get in Touch</h2>
+                <h2 className="text-2xl font-bold text-emerald-300 mb-6">{t('contactpage.info.title')}</h2>
 
                 <div className="space-y-4">
                   {contactInfo.map((info) => (
                     <motion.div
-                      key={info.label}
+                      key={info.labelKey}
                       className="flex items-center gap-4 group"
                       whileHover={{ x: 5 }}
                     >
                       <span className="text-emerald-400">{info.icon}</span>
                       <div className="flex-grow">
-                        <p className="text-emerald-400 text-sm">{info.label}</p>
+                        <p className="text-emerald-400 text-sm">{t(info.labelKey)}</p>
                         {info.link ? (
                           <a
                             href={info.link}
@@ -352,7 +354,7 @@ const ContactPage: React.FC = () => {
                             {info.value}
                           </a>
                         ) : (
-                          <p className="text-emerald-200">{info.value}</p>
+                          <p className="text-emerald-200">{t(info.valueKey || '')}</p>
                         )}
                       </div>
                       {info.link && (
@@ -367,7 +369,7 @@ const ContactPage: React.FC = () => {
 
               {/* Social Links */}
               <div className="bg-slate-800/50 backdrop-blur-lg rounded-2xl border border-emerald-500/20 p-8">
-                <h2 className="text-2xl font-bold text-emerald-300 mb-6">Connect on Social</h2>
+                <h2 className="text-2xl font-bold text-emerald-300 mb-6">{t('contactpage.social.title')}</h2>
 
                 <div className="grid grid-cols-2 gap-4">
                   {socialLinks.map((social) => (
@@ -402,11 +404,10 @@ const ContactPage: React.FC = () => {
                       ease: "easeInOut",
                     }}
                   />
-                  <h3 className="text-xl font-semibold text-emerald-300">Currently Available</h3>
+                  <h3 className="text-xl font-semibold text-emerald-300">{t('contactpage.availability.title')}</h3>
                 </div>
                 <p className="text-emerald-200/80">
-                  I'm open for freelance projects and full-time opportunities.
-                  Response time: usually within 24 hours.
+                  {t('contactpage.availability.desc')}
                 </p>
               </div>
             </motion.div>
@@ -424,41 +425,24 @@ const ContactPage: React.FC = () => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold text-emerald-300 mb-4">Frequently Asked Questions</h2>
+            <h2 className="text-3xl font-bold text-emerald-300 mb-4">{t('contactpage.faq.title')}</h2>
             <p className="text-emerald-200/70">
-              Antwoorden op veelgestelde vragen
+              {t('contactpage.faq.subtitle')}
             </p>
           </motion.div>
 
           <div className="space-y-4">
-            {[
-              {
-                question: "What services do you offer?",
-                answer: "Full stack web development, UI/UX design, API development, security auditing, and technical consulting.",
-              },
-              {
-                question: "What is your typical project timeline?",
-                answer: "Project timelines vary based on complexity. Small projects: 2-4 weeks, Medium: 1-3 months, Large: 3-6 months.",
-              },
-              {
-                question: "Do you work remotely?",
-                answer: "Yes! I work with clients globally and am comfortable with remote collaboration tools and async communication.",
-              },
-              {
-                question: "What are your rates?",
-                answer: "Rates depend on project scope and complexity. Contact me for a custom quote tailored to your needs.",
-              },
-            ].map((faq, index) => (
+            {['1', '2', '3', '4'].map((num, index) => (
               <motion.div
-                key={index}
+                key={num}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
                 viewport={{ once: true }}
                 className="bg-slate-800/30 backdrop-blur-sm rounded-lg p-6 border border-emerald-500/20 hover:border-emerald-500/30 transition-all duration-300"
               >
-                <h3 className="text-lg font-semibold text-emerald-300 mb-2">{faq.question}</h3>
-                <p className="text-emerald-200/70">{faq.answer}</p>
+                <h3 className="text-lg font-semibold text-emerald-300 mb-2">{t(`contactpage.faq${num}.q`)}</h3>
+                <p className="text-emerald-200/70">{t(`contactpage.faq${num}.a`)}</p>
               </motion.div>
             ))}
           </div>
