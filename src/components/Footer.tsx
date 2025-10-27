@@ -1,19 +1,25 @@
 import React from "react"
 import { useLanguage } from "../contexts/LanguageContext"
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  useHomepageStyle?: boolean
+}
+
+const Footer: React.FC<FooterProps> = ({ useHomepageStyle = false }) => {
   const { t } = useLanguage();
   return (
     <footer className="relative py-20">
-      {/* Subtle dark overlay for readability - more transparent to show background */}
+      {/* Background matching portfolio section on homepage */}
       <div
         className="absolute inset-0"
         style={{
-          background: `linear-gradient(180deg,
-            rgba(30, 35, 54, 0.5) 0%,
-            rgba(32, 37, 56, 0.55) 50%,
-            rgba(34, 39, 62, 0.6) 100%
-          )`
+          background: useHomepageStyle
+            ? 'rgb(15, 23, 42)' // bg-slate-900 to match portfolio
+            : `linear-gradient(180deg,
+                rgba(30, 35, 54, 0.5) 0%,
+                rgba(32, 37, 56, 0.55) 50%,
+                rgba(34, 39, 62, 0.6) 100%
+              )`
         }}
       />
 

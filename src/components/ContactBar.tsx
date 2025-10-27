@@ -2,7 +2,11 @@ import React from "react"
 import { motion } from "framer-motion"
 import { Phone, Mail, Linkedin, Github } from 'lucide-react'
 
-const ContactBar: React.FC = () => {
+interface ContactBarProps {
+  useHomepageStyle?: boolean
+}
+
+const ContactBar: React.FC<ContactBarProps> = ({ useHomepageStyle = false }) => {
   const contactItems = [
     {
       icon: <Phone className="w-6 h-6" />,
@@ -36,15 +40,17 @@ const ContactBar: React.FC = () => {
 
   return (
     <div className="relative -mt-1">
-      {/* Subtle dark overlay for readability - more transparent to show background */}
+      {/* Background matching portfolio section on homepage */}
       <div
         className="absolute inset-0"
         style={{
-          background: `linear-gradient(180deg,
-            rgba(26, 31, 46, 0.4) 0%,
-            rgba(27, 32, 48, 0.45) 50%,
-            rgba(30, 35, 54, 0.5) 100%
-          )`
+          background: useHomepageStyle
+            ? 'rgb(15, 23, 42)' // bg-slate-900 to match portfolio
+            : `linear-gradient(180deg,
+                rgba(26, 31, 46, 0.4) 0%,
+                rgba(27, 32, 48, 0.45) 50%,
+                rgba(30, 35, 54, 0.5) 100%
+              )`
         }}
       />
 

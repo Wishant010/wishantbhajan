@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import './Cubes.css';
 
 interface Gap {
   row: number;
@@ -280,25 +281,20 @@ const Cubes: React.FC<CubesProps> = ({
   }, [onPointerMove, resetAll, onClick, onTouchMove, onTouchStart, onTouchEnd]);
 
   const cells = Array.from({ length: gridSize });
-  const sceneStyle: React.CSSProperties = {
-    gridTemplateColumns: cubeSize ? `repeat(${gridSize}, ${cubeSize}px)` : `repeat(${gridSize}, 1fr)`,
-    gridTemplateRows: cubeSize ? `repeat(${gridSize}, ${cubeSize}px)` : `repeat(${gridSize}, 1fr)`,
-    columnGap: colGap,
-    rowGap: rowGap,
-    perspective: '99999999px',
-    gridAutoRows: '1fr'
+  const wrapperProps = {
+    style: {
+      '--cube-face-border': borderStyle,
+      '--cube-face-bg': faceColor,
+      '--cube-face-shadow': shadow === true ? '0 0 6px rgba(0,0,0,.5)' : shadow || 'none',
+      '--grid-size': gridSize,
+      '--cube-size': cubeSize ? `${cubeSize}px` : '1fr',
+      '--column-gap': colGap,
+      '--row-gap': rowGap,
+      '--total-width': cubeSize ? `${gridSize * cubeSize}px` : 'auto',
+      '--total-height': cubeSize ? `${gridSize * cubeSize}px` : 'auto',
+    } as React.CSSProperties,
+    'data-has-cube-size': cubeSize ? 'true' : 'false'
   };
-  const wrapperStyle = {
-    '--cube-face-border': borderStyle,
-    '--cube-face-bg': faceColor,
-    '--cube-face-shadow': shadow === true ? '0 0 6px rgba(0,0,0,.5)' : shadow || 'none',
-    ...(cubeSize
-      ? {
-          width: `${gridSize * cubeSize}px`,
-          height: `${gridSize * cubeSize}px`
-        }
-      : {})
-  } as React.CSSProperties;
 
   const isCellVisible = (row: number, col: number) => {
     if (!visibleCells || visibleCells.length === 0) return true;
@@ -306,8 +302,11 @@ const Cubes: React.FC<CubesProps> = ({
   };
 
   return (
-    <div className="relative w-full max-w-3xl aspect-square" style={wrapperStyle}>
-      <div ref={sceneRef} className="grid w-full h-full" style={sceneStyle}>
+    <div className="cubes-wrapper" {...wrapperProps}>
+      <div
+        ref={sceneRef}
+        className="cubes-scene"
+      >
         {cells.map((_, r) =>
           cells.map((__, c) => {
             if (!isCellVisible(r, c)) {
@@ -316,66 +315,17 @@ const Cubes: React.FC<CubesProps> = ({
             return (
               <div
                 key={`${r}-${c}`}
-                className="cube relative w-full h-full aspect-square [transform-style:preserve-3d]"
+                className="cube"
                 data-row={r}
                 data-col={c}
               >
-                <span className="absolute pointer-events-none -inset-9" />
-
-              <div
-                className="cube-face absolute inset-0 flex items-center justify-center"
-                style={{
-                  background: 'var(--cube-face-bg)',
-                  border: 'var(--cube-face-border)',
-                  boxShadow: 'var(--cube-face-shadow)',
-                  transform: 'translateY(-50%) rotateX(90deg)'
-                }}
-              />
-              <div
-                className="cube-face absolute inset-0 flex items-center justify-center"
-                style={{
-                  background: 'var(--cube-face-bg)',
-                  border: 'var(--cube-face-border)',
-                  boxShadow: 'var(--cube-face-shadow)',
-                  transform: 'translateY(50%) rotateX(-90deg)'
-                }}
-              />
-              <div
-                className="cube-face absolute inset-0 flex items-center justify-center"
-                style={{
-                  background: 'var(--cube-face-bg)',
-                  border: 'var(--cube-face-border)',
-                  boxShadow: 'var(--cube-face-shadow)',
-                  transform: 'translateX(-50%) rotateY(-90deg)'
-                }}
-              />
-              <div
-                className="cube-face absolute inset-0 flex items-center justify-center"
-                style={{
-                  background: 'var(--cube-face-bg)',
-                  border: 'var(--cube-face-border)',
-                  boxShadow: 'var(--cube-face-shadow)',
-                  transform: 'translateX(50%) rotateY(90deg)'
-                }}
-              />
-              <div
-                className="cube-face absolute inset-0 flex items-center justify-center"
-                style={{
-                  background: 'var(--cube-face-bg)',
-                  border: 'var(--cube-face-border)',
-                  boxShadow: 'var(--cube-face-shadow)',
-                  transform: 'rotateY(-90deg) translateX(50%) rotateY(90deg)'
-                }}
-              />
-              <div
-                className="cube-face absolute inset-0 flex items-center justify-center"
-                style={{
-                  background: 'var(--cube-face-bg)',
-                  border: 'var(--cube-face-border)',
-                  boxShadow: 'var(--cube-face-shadow)',
-                  transform: 'rotateY(90deg) translateX(-50%) rotateY(-90deg)'
-                }}
-              />
+                <span className="cube-pointer-area" />
+                <div className="cube-face cube-face-top" />
+                <div className="cube-face cube-face-bottom" />
+                <div className="cube-face cube-face-left" />
+                <div className="cube-face cube-face-right" />
+                <div className="cube-face cube-face-front" />
+                <div className="cube-face cube-face-back" />
               </div>
             );
           })

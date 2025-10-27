@@ -12,76 +12,111 @@ export interface PathData {
 export const pathsData: PathData[] = [
   {
     id: 'student',
-    icon: '📚',
+    icon: 'book',
     label: 'Student',
     color: '#3B82F6', // Professional blue
     angle: -90, // Top
     timeline: [
       {
-        year: '2020',
-        title: 'HBO-ICT Start',
+        year: '2017-2021',
+        title: 'MAVO Diploma',
         description:
-          'Begonnen met mijn studie HBO-ICT aan de Hogeschool Rotterdam. Eerste kennismaking met programmeren en webontwikkeling.',
+          'Begonnen met mijn middelbare school op het Montfort College. MAVO diploma succesvol behaald en start gelegd voor verdere IT opleiding.',
+        image: 'https://placehold.co/600x400/3B82F6/white?text=MAVO+Diploma+Uitreiking',
+        imageStyle: 'icon',
         achievements: [
-          'Ingeschreven bij Hogeschool Rotterdam',
-          'Basis programmeren geleerd (Java, Python)',
-          'Eerste HTML/CSS projecten',
+          'MAVO diploma behaald',
+          'Eerste kennismaking met computers en technologie',
+          'Interesse in programmeren ontdekt',
         ],
-        tags: ['Java', 'Python', 'HTML', 'CSS'],
+        tags: ['Montfort College', 'MAVO', 'Fundament', 'Start'],
       },
       {
-        year: '2021',
-        title: 'React & TypeScript',
+        year: '2021-2023',
+        title: 'HAVO Diploma',
         description:
-          'Verdiept in moderne webontwikkeling. Eerste grote projecten met React en TypeScript gebouwd.',
+          'Doorgestroomd naar HAVO op het Montfort College. Focus op exacte vakken en voorbereiding op HBO studie.',
+        image: 'https://placehold.co/600x400/3B82F6/white?text=HAVO+Diploma+Uitreiking',
+        imageStyle: 'icon',
         achievements: [
-          'React fundamentals gecertificeerd',
-          'TypeScript Expert level bereikt',
-          'Eerste portfolio website gebouwd',
+          'HAVO diploma succesvol afgerond',
+          'NG profiel gekozen',
+          'Voorbereid op HBO-ICT studie',
         ],
-        tags: ['React', 'TypeScript', 'JavaScript', 'Git'],
+        tags: ['Montfort College', 'HAVO', '2 jaar', 'NG profiel'],
       },
       {
-        year: '2022',
-        title: 'Backend & Security',
+        year: '2023-2024',
+        title: 'Informatica Jaar 1 - HBO',
         description:
-          'Focus op backend development en cybersecurity. Databases, API\'s en beveiligingsconcepten onder de knie gekregen.',
+          'Eerste jaar Informatica aan de Hogeschool. Kennismaking met professioneel programmeren: Python in het eerste semester, CSharp in het tweede semester.',
+        image: 'https://placehold.co/600x400/3B82F6/white?text=Informatica+Jaar+1',
+        imageStyle: 'icon',
         achievements: [
-          'Node.js & Express mastered',
-          'PostgreSQL & MongoDB ervaring',
-          'Security fundamentals gecertificeerd',
+          'Python fundamentals onder de knie',
+          'Object-Oriented Programming met CSharp',
+          'Start datastructuren en algoritmes geleerd',
         ],
-        tags: ['Node.js', 'PostgreSQL', 'Security', 'REST APIs'],
+        tags: ['Python', 'CSharp', 'OOP', 'Algoritmes'],
       },
       {
-        year: '2023',
-        title: 'Stage Full Stack Developer',
+        year: '2024-2025',
+        title: 'Informatica Jaar 2 - Full Stack',
         description:
-          'Stage gelopen als Full Stack Developer bij een innovatief tech bedrijf. Real-world ervaring opgedaan met grootschalige applicaties.',
+          'Tweede jaar gericht op moderne webontwikkeling en professionele praktijken. React, TypeScript en backend development met CSharp. Testing, debugging en CI/CD pipelines. Databases, security, algoritmes en networking in het tweede semester.',
         achievements: [
-          '6 maanden stage succesvol afgerond',
-          'Production-ready features gebouwd',
-          'Agile/Scrum team ervaring',
+          'React & TypeScript mastered',
+          'Backend development met CSharp',
+          'CI/CD pipelines opgezet',
+          'Database design & SQL expertise',
+          'Security principles toegepast',
+          'Netwerk protocollen geleerd',
         ],
-        tags: ['Full Stack', 'Agile', 'Docker', 'AWS'],
+        tags: ['React', 'TypeScript', 'CSharp', 'CI/CD', 'Databases', 'Security', 'Networking'],
       },
       {
-        year: '2024',
-        title: 'Thesis & Afstuderen',
+        year: '2025-2026',
+        title: 'Informatica Jaar 3 - Stage',
         description:
-          'Bezig met afstuderen. Thesis over Security in Modern Web Applications. Bijna klaar om de tech wereld te veroveren!',
+          'Derde jaar: stage bij een cybersecurity bedrijf. Praktijkervaring opdoen met security testing, penetration testing en security operations. Real-world cybersecurity uitdagingen aanpakken.',
         achievements: [
-          'Thesis research afgerond',
-          'Advanced cybersecurity modules',
-          'Voorbereidingen voor graduation',
+          'Stage bij cybersecurity bedrijf (lopend)',
+          'Penetration testing ervaring',
+          'Security audits uitgevoerd',
+          'Incident response geleerd',
         ],
-        tags: ['Research', 'Cybersecurity', 'Thesis', 'Graduation'],
+        tags: ['Cybersecurity', 'Pentesting', 'Stage', 'Security Operations'],
+      },
+      {
+        year: 'Sep 2026',
+        title: 'Externe Minor - Finland',
+        description:
+          'Internationale ervaring opdoen met een externe minor in Finland. Samenwerken met internationale studenten en nieuwe technologieën en culturen ontdekken.',
+        achievements: [
+          'Internationale minor gekozen',
+          'Cross-cultural collaboration',
+          'Nieuwe technologieën verkennen',
+        ],
+        tags: ['Finland', 'International', 'Minor', 'Exchange'],
+      },
+      {
+        year: '2027',
+        title: 'Interne Minor & Afstuderen',
+        description:
+          'Laatste fase van de studie: interne minor voor verdere specialisatie en afstudeeropdracht. Focus op security in moderne web applicaties. Klaar om de IT-wereld te veroveren!',
+        achievements: [
+          'Interne minor afgerond',
+          'Afstudeeronderzoek uitgevoerd',
+          'Thesis over web security',
+          'HBO diploma behaald',
+        ],
+        tags: ['Graduation', 'Thesis', 'Minor', 'Cybersecurity', 'Diploma'],
       },
     ],
   },
   {
     id: 'business',
-    icon: '💼',
+    icon: 'briefcase',
     label: 'Bedrijf',
     color: '#8B5CF6', // Professional purple
     angle: 0, // Right
@@ -138,7 +173,7 @@ export const pathsData: PathData[] = [
   },
   {
     id: 'work',
-    icon: '💻',
+    icon: 'code',
     label: 'Werk',
     color: '#10B981', // Professional green
     angle: 90, // Bottom
@@ -195,7 +230,7 @@ export const pathsData: PathData[] = [
   },
   {
     id: 'life',
-    icon: '🎮',
+    icon: 'heart',
     label: 'Leven',
     color: '#F59E0B', // Professional amber/orange
     angle: 180, // Left

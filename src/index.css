@@ -60,12 +60,23 @@
   user-select: none;
 }
 
-/* Cross-browser scrollbar styling with progressive enhancement */
-@supports (scrollbar-width: thin) {
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: #10b981 #1a1a1a;
-  }
+/* Cross-browser scrollbar styling */
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-color-1) rgba(15, 23, 42, 0.3);
+}
+/* Webkit (Chrome, Safari, Edge) */
+*::-webkit-scrollbar {
+  width: 6px;
+}
+*::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.3);
+  border-radius: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-color-1);
+  border-radius: 10px;
 }
 
 html {
@@ -121,30 +132,58 @@ body {
   z-index: 1;
 }
 
-/* Enhanced scrollbar styling */
+/* Dynamic scrollbar colors per page */
+:root {
+  --scrollbar-color-1: #00B8D4;
+  --scrollbar-color-2: #10b981;
+  --scrollbar-glow: rgba(0, 184, 212, 0.5);
+}
+
+/* Themed scrollbar - thin and elegant */
 ::-webkit-scrollbar {
   width: 6px;
 }
 
-@media (min-width: 1024px) {
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-}
-
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
-  border-radius: 4px;
+  background: rgba(15, 23, 42, 0.3);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #10b981 0%, #047857 100%);
-  border-radius: 4px;
-  transition: background 0.3s ease;
+  background: linear-gradient(180deg, var(--scrollbar-color-1) 0%, var(--scrollbar-color-2) 100%);
+  border-radius: 10px;
+  box-shadow: 0 0 10px var(--scrollbar-glow);
+  transition: all 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #34d399 0%, #059669 100%);
+  filter: brightness(1.2);
+  box-shadow: 0 0 15px var(--scrollbar-glow);
+}
+
+/* Page-specific scrollbar colors */
+[data-page="home"] {
+  --scrollbar-color-1: #00B8D4;
+  --scrollbar-color-2: #10b981;
+  --scrollbar-glow: rgba(0, 184, 212, 0.5);
+}
+
+[data-page="about"] {
+  --scrollbar-color-1: #3B82F6;
+  --scrollbar-color-2: #60A5FA;
+  --scrollbar-glow: rgba(59, 130, 246, 0.5);
+}
+
+[data-page="portfolio"] {
+  --scrollbar-color-1: #8B5CF6;
+  --scrollbar-color-2: #A78BFA;
+  --scrollbar-glow: rgba(139, 92, 246, 0.5);
+}
+
+[data-page="article"] {
+  --scrollbar-color-1: #A855F7;
+  --scrollbar-color-2: #60A5FA;
+  --scrollbar-glow: rgba(168, 85, 247, 0.5);
 }
 
 /* Enable text selection for content areas */
@@ -712,13 +751,15 @@ a:hover {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent; /* Fallback */
+  background-image: -webkit-linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
   background-image: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
 }
 
 .glass {
+  background-color: rgba(255, 255, 255, 0.1);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   backdrop-filter: blur(16px) saturate(180%);
-  background-color: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.125);
 }
 
@@ -1008,6 +1049,13 @@ section {
 .navbar-blur {
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(15, 23, 42, 0.85);
+}
+
+@supports not ((-webkit-backdrop-filter: blur(20px)) or (backdrop-filter: blur(20px))) {
+  .navbar-blur {
+    background-color: rgba(15, 23, 42, 0.95); /* More opaque fallback when blur not supported */
+  }
 }
 
 .navbar-shadow {
@@ -1118,6 +1166,7 @@ section {
 /* Cyber card styling */
 .cyber-card {
   background: rgba(15, 23, 42, 0.6);
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(16, 185, 129, 0.2);
   border-radius: 1rem;
@@ -1307,12 +1356,18 @@ section {
 /* Smooth glass morphism */
 .cyber-glass {
   background: rgba(15, 23, 42, 0.4);
-  backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
     0 8px 32px 0 rgba(0, 0, 0, 0.37),
     inset 0 0 20px rgba(16, 185, 129, 0.03);
+}
+
+@supports not ((-webkit-backdrop-filter: blur(16px)) or (backdrop-filter: blur(16px))) {
+  .cyber-glass {
+    background: rgba(15, 23, 42, 0.85);
+  }
 }
 
 /* Cyber text glow */
@@ -1463,8 +1518,11 @@ section {
 
 /* Perspective tilt effect */
 .cyber-tilt {
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
+  -webkit-transition: -webkit-transform 0.3s ease;
   transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
 }
 
 .cyber-tilt:hover {
@@ -1483,4 +1541,46 @@ section {
     rgba(16, 185, 129, 0.3) 50%,
     transparent 100%
   );
+}
+
+/* Custom scrollbar for timeline - themed (uses page colors) */
+.scrollbar-hide::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-hide::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.3);
+  border-radius: 10px;
+}
+
+.scrollbar-hide::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--scrollbar-color-1) 0%, var(--scrollbar-color-2) 100%);
+  border-radius: 10px;
+  box-shadow: 0 0 10px var(--scrollbar-glow);
+}
+
+.scrollbar-hide::-webkit-scrollbar-thumb:hover {
+  filter: brightness(1.2);
+  box-shadow: 0 0 15px var(--scrollbar-glow);
+}
+
+/* Firefox scrollbar styling for timeline */
+@supports (scrollbar-width: thin) {
+  .scrollbar-hide {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-color-1) rgba(15, 23, 42, 0.3);
+  }
+}
+
+/* Webkit scrollbar styling for timeline */
+.scrollbar-hide::-webkit-scrollbar {
+  width: 6px;
+}
+.scrollbar-hide::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.3);
+  border-radius: 10px;
+}
+.scrollbar-hide::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-color-1);
+  border-radius: 10px;
 }

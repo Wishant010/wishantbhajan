@@ -11,12 +11,12 @@ const TerminalSequence: React.FC<TerminalSequenceProps> = ({ onComplete }) => {
   const [text, setText] = useState('');
 
   const phases = [
-    { delay: 0, text: '> Initializing consciousness...', duration: 1000 },
-    { delay: 1000, text: '> Scanning biometric data...', duration: 1000 },
-    { delay: 2000, text: '> Loading identity matrix...', duration: 1000, hasProgress: true },
-    { delay: 3500, text: '> Reconstructing digital presence...', duration: 500 },
-    { delay: 4000, text: '> IDENTITY VERIFIED ✓', duration: 500 },
-    { delay: 4500, text: '> ACCESS GRANTED', duration: 500, isSuccess: true },
+    { delay: 0, text: '> Initializing consciousness...', duration: 400 },
+    { delay: 400, text: '> Scanning biometric data...', duration: 400 },
+    { delay: 800, text: '> Loading identity matrix...', duration: 600, hasProgress: true },
+    { delay: 1600, text: '> Reconstructing digital presence...', duration: 300 },
+    { delay: 1900, text: '> IDENTITY VERIFIED ✓', duration: 300 },
+    { delay: 2200, text: '> ACCESS GRANTED', duration: 300, isSuccess: true },
   ];
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const TerminalSequence: React.FC<TerminalSequenceProps> = ({ onComplete }) => {
     // Complete callback
     const completeTimer = setTimeout(() => {
       if (onComplete) onComplete();
-    }, 5000);
+    }, 2500);
 
     timers.push(completeTimer);
 
@@ -58,7 +58,7 @@ const TerminalSequence: React.FC<TerminalSequenceProps> = ({ onComplete }) => {
       } else {
         clearInterval(interval);
       }
-    }, 30);
+    }, 15);
   };
 
   const animateProgress = () => {
@@ -66,11 +66,11 @@ const TerminalSequence: React.FC<TerminalSequenceProps> = ({ onComplete }) => {
     const interval = setInterval(() => {
       if (prog <= 100) {
         setProgress(prog);
-        prog += 2;
+        prog += 4;
       } else {
         clearInterval(interval);
       }
-    }, 15);
+    }, 10);
   };
 
   const currentPhase = phases[phase];

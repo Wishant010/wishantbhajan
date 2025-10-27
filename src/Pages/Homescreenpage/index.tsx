@@ -22,7 +22,7 @@ const Homescreen: React.FC<HomescreenProps> = ({ isVisible = true }) => {
   }, []);
 
   return (
-    <div className="relative">
+    <div className="relative" data-page="home">
       {/* Fixed Navbar */}
       <GlobalNavbar />
       
@@ -41,10 +41,10 @@ const Homescreen: React.FC<HomescreenProps> = ({ isVisible = true }) => {
 
       {/* Contact Bar instead of full contact section */}
       <section id="contact">
-        <ContactBar />
+        <ContactBar useHomepageStyle={true} />
       </section>
 
-      <Footer />
+      <Footer useHomepageStyle={true} />
     </div>
   )
 }
