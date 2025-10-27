@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { motion } from "framer-motion"
+import '../../components/animations.css'
 import { useLanguage } from "../../contexts/LanguageContext"
 import ScrambledText from "../../components/ScrambledText"
 import BlurText from "../../components/BlurText"
@@ -22,11 +23,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ isVisible = true }) => {
 
       {/* Multiple Animated Gradient Orbs for smooth transitions */}
       <motion.div
-        className="absolute top-1/4 -left-20 w-96 h-96 rounded-full"
-        style={{
-          background: "radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, transparent 70%)",
-          filter: "blur(60px)",
-        }}
+        className="orb orb-emerald absolute top-1/4 -left-20 w-96 h-96"
         animate={isVisible ? {
           x: [0, 100, 0],
           y: [0, 50, 0],
@@ -39,11 +36,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ isVisible = true }) => {
         }}
       />
       <motion.div
-        className="absolute top-1/2 right-1/4 w-[500px] h-[500px] rounded-full"
-        style={{
-          background: "radial-gradient(circle, rgba(20, 184, 166, 0.3) 0%, transparent 70%)",
-          filter: "blur(80px)",
-        }}
+        className="orb orb-teal absolute top-1/2 right-1/4 w-[500px] h-[500px]"
         animate={isVisible ? {
           x: [0, -80, 0],
           y: [0, -40, 0],
@@ -56,11 +49,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ isVisible = true }) => {
         }}
       />
       <motion.div
-        className="absolute bottom-1/4 -right-20 w-96 h-96 rounded-full"
-        style={{
-          background: "radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%)",
-          filter: "blur(70px)",
-        }}
+        className="orb orb-purple absolute bottom-1/4 -right-20 w-96 h-96"
         animate={isVisible ? {
           x: [0, -50, 0],
           y: [0, -30, 0],
@@ -73,11 +62,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ isVisible = true }) => {
         }}
       />
       <motion.div
-        className="absolute bottom-1/3 left-1/3 w-[400px] h-[400px] rounded-full"
-        style={{
-          background: "radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 70%)",
-          filter: "blur(90px)",
-        }}
+        className="orb orb-cyan absolute bottom-1/3 left-1/3 w-[400px] h-[400px]"
         animate={isVisible ? {
           x: [0, 60, 0],
           y: [0, -60, 0],
@@ -266,9 +251,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ isVisible = true }) => {
               }}
               transition={{ duration: 0.8, delay: 0.7 }}
             >
-              <div style={{
-                animation: 'cubeColorPulse 2s ease-in-out infinite'
-              }}>
+              <div className="cube-animation">
                 <Cubes
                   gridSize={16}
                   cubeSize={40}
@@ -284,43 +267,44 @@ const HeroSection: React.FC<HeroSectionProps> = ({ isVisible = true }) => {
                   rippleColor="rgba(71, 85, 105, 0.5)"
                   rippleSpeed={2.5}
                 visibleCells={[
-                  // === LETTER W === (Groter en meer rechts)
-                  // Linker verticale lijn
-                  { row: 2, col: 3 }, { row: 3, col: 3 }, { row: 4, col: 3 },
-                  { row: 5, col: 3 }, { row: 6, col: 3 }, { row: 7, col: 3 }, { row: 8, col: 3 },
+                  // === LETTER W ===
+                  // Linker verticale lijn - NIEUW (8 blokjes totaal)
+                  { row: 1, col: 4 }, { row: 2, col: 4 }, { row: 3, col: 4 },
+                  { row: 4, col: 4 }, { row: 5, col: 4 }, { row: 6, col: 4 },
+                  { row: 7, col: 4 }, { row: 8, col: 4 },
 
-                  // Eerste V (naar beneden)
-                  { row: 9, col: 4 }, { row: 10, col: 5 },
+                  // Eerste V (naar beneden) - alleen onderste blokje blijft
+                  { row: 9, col: 5 },
 
                   // Terug omhoog (middelste piek)
-                  { row: 9, col: 6 }, { row: 8, col: 7 },
+                  { row: 8, col: 6 }, { row: 7, col: 7 },
 
                   // Tweede V (naar beneden)
-                  { row: 9, col: 8 }, { row: 10, col: 9 },
+                  { row: 8, col: 8 }, { row: 9, col: 9 },
 
                   // Rechter verticale lijn
-                  { row: 9, col: 10 }, { row: 8, col: 10 }, { row: 7, col: 10 },
-                  { row: 6, col: 10 }, { row: 5, col: 10 }, { row: 4, col: 10 },
-                  { row: 3, col: 10 }, { row: 2, col: 10 },
+                  { row: 8, col: 10 }, { row: 7, col: 10 }, { row: 6, col: 10 },
+                  { row: 5, col: 10 }, { row: 4, col: 10 }, { row: 3, col: 10 },
+                  { row: 2, col: 10 }, { row: 1, col: 10 },
 
                   // === LETTER B === (Compleet met alle blokjes)
                   // Verticale ruggengraat
-                  { row: 2, col: 13 }, { row: 3, col: 13 }, { row: 4, col: 13 },
-                  { row: 5, col: 13 }, { row: 6, col: 13 }, { row: 7, col: 13 },
-                  { row: 8, col: 13 }, { row: 9, col: 13 }, { row: 10, col: 13 },
+                  { row: 1, col: 13 }, { row: 2, col: 13 }, { row: 3, col: 13 },
+                  { row: 4, col: 13 }, { row: 5, col: 13 }, { row: 6, col: 13 },
+                  { row: 7, col: 13 }, { row: 8, col: 13 }, { row: 9, col: 13 },
 
                   // Bovenste buik (COMPLEET)
-                  { row: 2, col: 14 }, { row: 2, col: 15 },  // bovenlijn
+                  { row: 1, col: 14 }, { row: 1, col: 15 },  // bovenlijn
+                  { row: 2, col: 15 },                        // rechts
                   { row: 3, col: 15 },                        // rechts
-                  { row: 4, col: 15 },                        // rechts
-                  { row: 5, col: 14 }, { row: 5, col: 15 },  // midden (terug)
-                  { row: 6, col: 14 },                        // tussenblok
+                  { row: 4, col: 14 }, { row: 4, col: 15 },  // midden (terug)
+                  { row: 5, col: 14 },                        // tussenblok
 
                   // Onderste buik (COMPLEET)
-                  { row: 7, col: 14 }, { row: 7, col: 15 },  // midden lijn
+                  { row: 6, col: 14 }, { row: 6, col: 15 },  // midden lijn
+                  { row: 7, col: 15 },                        // rechts
                   { row: 8, col: 15 },                        // rechts
-                  { row: 9, col: 15 },                        // rechts
-                  { row: 10, col: 14 }, { row: 10, col: 15 }   // onderlijn
+                  { row: 9, col: 14 }, { row: 9, col: 15 }   // onderlijn
                 ]}
               />
               </div>

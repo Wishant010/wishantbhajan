@@ -16,8 +16,7 @@ const translations = {
     'nav.home': 'Home',
     'nav.about': 'Over Mij',
     'nav.portfolio': 'Portfolio',
-    'nav.skills': 'Skills',
-    'nav.contact': 'Contact',
+    'nav.article': 'Events',
 
     // Hero Section
     'hero.welcome': 'Welkom in mijn',
@@ -274,8 +273,7 @@ const translations = {
     'nav.home': 'Home',
     'nav.about': 'About Me',
     'nav.portfolio': 'Portfolio',
-    'nav.skills': 'Skills',
-    'nav.contact': 'Contact',
+    'nav.article': 'Events',
 
     // Hero Section
     'hero.welcome': 'Welcome to my',

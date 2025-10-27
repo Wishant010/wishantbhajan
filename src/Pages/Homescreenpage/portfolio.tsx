@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
+import '../../components/animations.css'
 import { motion, AnimatePresence } from "framer-motion"
 import { useLanguage } from "../../contexts/LanguageContext"
 
@@ -187,15 +188,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isVisible = true }) => {
       {/* Animated cyber grid background */}
       <div className="absolute inset-0 bg-slate-900">
         <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px)
-            `,
-            backgroundSize: '50px 50px',
-            animation: 'float-grid 20s linear infinite'
-          }}
+          className="absolute inset-0 opacity-20 cyber-grid"
         />
       </div>
 

@@ -7,7 +7,7 @@ import NeuroBackground from "../../components/Background/NeuroBackground";
 
 const AboutPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-slate-900 relative overflow-x-hidden">
+    <div className="min-h-screen bg-slate-900 relative overflow-hidden" data-page="about">
       {/* Full-page Neuro Background */}
       <div className="fixed inset-0 z-0">
         <NeuroBackground hue={200} saturation={0.8} chroma={0.6} />

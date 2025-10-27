@@ -99,11 +99,15 @@
 }
 
 .pc-shine {
-  mask-image: var(--icon);
-  mask-mode: luminance;
-  mask-repeat: repeat;
-  mask-size: 150%;
-  mask-position: top calc(200% - (var(--background-y) * 5)) left calc(100% - var(--background-x));
+  -webkit-mask-image: var(--icon);
+          mask-image: var(--icon);
+  /* Removed mask-mode since it's not widely supported */
+  -webkit-mask-repeat: repeat;
+          mask-repeat: repeat;
+  -webkit-mask-size: 150%;
+          mask-size: 150%;
+  -webkit-mask-position: top calc(200% - (var(--background-y) * 5)) left calc(100% - var(--background-x));
+          mask-position: top calc(200% - (var(--background-y) * 5)) left calc(100% - var(--background-x));
   transition: filter 0.6s ease;
   filter: brightness(0.66) contrast(1.33) saturate(0.33) opacity(0);
   animation: none;
@@ -251,7 +255,8 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+          backdrop-filter: none;
   pointer-events: none;
   display: none;
 }
@@ -266,7 +271,8 @@
   align-items: center;
   justify-content: space-between;
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+          backdrop-filter: blur(30px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 15px;
   padding: 12px 14px;
@@ -324,7 +330,8 @@
   color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
   transition: all 0.2s ease;
-  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
   background: transparent;
 }
 
@@ -364,8 +371,8 @@
   background-image: linear-gradient(to bottom, #fff, #6f6fbe);
   background-size: 1em 1.5em;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
   -webkit-background-clip: text;
+  background-clip: text;
 }
 
 .pc-details p {
@@ -379,8 +386,8 @@
   background-image: linear-gradient(to bottom, #fff, #4a4ac0);
   background-size: 1em 1.5em;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
   -webkit-background-clip: text;
+  background-clip: text;
 }
 
 @keyframes glow-bg {

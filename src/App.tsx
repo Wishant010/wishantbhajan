@@ -12,8 +12,7 @@ const LandingPage = React.lazy(() => import("./Pages/LandinPage/FirstScreen"));
 const HomePage = React.lazy(() => import("./Pages/Homescreenpage/index"));
 const AboutPage = React.lazy(() => import("./Pages/About/AboutPage"));
 const PortfolioPage = React.lazy(() => import("./Pages/Portfolio/PortfolioPage"));
-const SkillsPage = React.lazy(() => import("./Pages/Skills/SkillsPage"));
-const ContactPage = React.lazy(() => import("./Pages/Contact/ContactPage"));
+const ArticlePage = React.lazy(() => import("./Pages/Article/ArticlePage"));
 
 // Component to handle first visit check
 function FirstVisitRedirect() {
@@ -336,8 +335,7 @@ function App() {
               <Route path="/home" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/portfolio" element={<PortfolioPage />} />
-              <Route path="/skills" element={<SkillsPage />} />
-              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/article" element={<ArticlePage />} />
             </Routes>
           </React.Suspense>
         </ErrorBoundary>
