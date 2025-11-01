@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import Lightbox from '../Lightbox';
 
 export interface TimelineNodeData {
   year: string;
   title: string;
   description: string;
   image?: string;
+  images?: string[];  // Support voor meerdere foto's
   imageStyle?: 'icon' | 'preview' | 'expandable';  // Hoe de foto wordt weergegeven
   tags?: string[];
   achievements?: string[];
+  website?: string;  // Website URL om onderaan te tonen
 }
 
 interface TimelineNodeProps {
@@ -21,17 +24,61 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({ data, index, color }) => {
   // Alternate sides: even indices on left, odd on right
   const isLeft = index % 2 === 0;
 
-  // State voor hover preview en pinned foto
-  const [imageHovered, setImageHovered] = useState(false);
-  const [imagePinned, setImagePinned] = useState(false);
+  // State voor meerdere foto's en lightbox
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxStartIndex, setLightboxStartIndex] = useState(0);
+  const [showSlideshow, setShowSlideshow] = useState(false);
+  const [slideshowIndex, setSlideshowIndex] = useState(0);
+
+  // Bepaal welke foto's beschikbaar zijn
+  const lightboxImages = data.images || (data.image ? [data.image] : []);
+  const hasMultipleImages = lightboxImages.length > 1;
+  // Als er een specifiek image veld is, gebruik die voor het icoon, anders de eerste van images
+  const currentImage = data.image || lightboxImages[0];
+
+  // Helper functie om te checken of bestand een video is
+  const isVideo = (url: string) => {
+    return url?.toLowerCase().endsWith('.mp4') ||
+           url?.toLowerCase().endsWith('.webm') ||
+           url?.toLowerCase().endsWith('.ogg');
+  };
+
+  // Auto-cycle slideshow effect
+  useEffect(() => {
+    if (showSlideshow && hasMultipleImages) {
+      const interval = setInterval(() => {
+        setSlideshowIndex((prev) => (prev + 1) % lightboxImages.length);
+      }, 10000); // Wissel elke 10 seconden
+
+      return () => clearInterval(interval);
+    }
+    return undefined;
+  }, [showSlideshow, hasMultipleImages, lightboxImages.length]);
+
+  // Open lightbox functie
+  const openLightbox = (index: number = 0) => {
+    setLightboxStartIndex(index);
+    setLightboxOpen(true);
+  };
+
+  // Close lightbox functie
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    // Start slideshow na sluiten van lightbox
+    if (hasMultipleImages) {
+      setShowSlideshow(true);
+    }
+  };
 
   // Content Card Component (reusable for both sides)
   const ContentCard = (
     <motion.div
-      className="flex-1 rounded-xl p-6"
+      className="flex-1 rounded-xl p-6 relative backdrop-blur-sm"
       style={{
-        backgroundColor: 'rgba(15, 25, 45, 0.7)',
+        backgroundColor: 'rgba(15, 25, 45, 0.98)',
         border: `1px solid ${color}40`,
+        willChange: 'transform',
+        isolation: 'isolate',
       }}
       initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
       animate={{ opacity: 1, x: 0 }}
@@ -40,7 +87,9 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({ data, index, color }) => {
         scale: 1.02,
         borderColor: `${color}80`,
         boxShadow: `0 0 30px ${color}40`,
-        transition: { duration: 0.15 }
+        backgroundColor: 'rgba(15, 25, 45, 1)',
+        y: -4,
+        transition: { duration: 0.15 },
       }}
     >
       {/* Title met optioneel foto icoon (Optie A) */}
@@ -53,30 +102,33 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({ data, index, color }) => {
         </h3>
 
         {/* Foto icoon naast titel (rond/cirkel vorm) */}
-        {data.image && data.imageStyle === 'icon' && (
+        {currentImage && data.imageStyle === 'icon' && (
           <motion.div
-            onMouseEnter={() => setImageHovered(true)}
-            onMouseLeave={() => {
-              if (!imagePinned) {
-                setImageHovered(false);
-              }
-            }}
-            onClick={() => setImagePinned(!imagePinned)}
-            className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0 ml-3 cursor-pointer relative"
+            onClick={() => openLightbox(0)}
+            className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0 cursor-pointer relative md:hover:scale-105 ml-3"
             style={{
-              border: `3px solid ${imagePinned ? color : `${color}60`}`,
-              boxShadow: imagePinned ? `0 0 30px ${color}` : `0 0 15px ${color}40`,
+              border: `3px solid ${color}60`,
+              boxShadow: `0 0 15px ${color}40`,
+              willChange: 'transform',
             }}
             whileHover={{
-              scale: 1.15,
               boxShadow: `0 0 30px ${color}`,
               borderColor: `${color}`,
               transition: { duration: 0.15 }
             }}
             transition={{ duration: 0.2 }}
+            role="button"
+            aria-label={`Bekijk ${data.title} foto's${hasMultipleImages ? ` (${lightboxImages.length} foto's)` : ''}`}
+            tabIndex={0}
+            onKeyDown={(e: React.KeyboardEvent) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openLightbox(0);
+              }
+            }}
           >
             <img
-              src={data.image}
+              src={currentImage}
               alt={data.title}
               className="w-full h-full object-cover"
             />
@@ -118,6 +170,7 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({ data, index, color }) => {
                 backgroundColor: `${color}20`,
                 color,
                 border: `1px solid ${color}40`,
+                willChange: 'transform',
               }}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -128,6 +181,34 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({ data, index, color }) => {
             </motion.span>
           ))}
         </div>
+      )}
+
+      {/* Website Link */}
+      {data.website && (
+        <motion.a
+          href={data.website}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block mt-4 px-4 py-2 rounded-lg text-sm font-medium cursor-pointer"
+          style={{
+            backgroundColor: `${color}20`,
+            color,
+            border: `1px solid ${color}40`,
+            willChange: 'transform',
+          }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: index * 0.15 + 0.3 }}
+          whileHover={{
+            scale: 1.05,
+            y: -2,
+            backgroundColor: `${color}30`,
+            borderColor: `${color}80`,
+            transition: { duration: 0.15 }
+          }}
+        >
+          {data.title}.nl →
+        </motion.a>
       )}
     </motion.div>
   );
@@ -142,6 +223,7 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({ data, index, color }) => {
           backgroundColor: color,
           color: '#0a0e1a',
           boxShadow: `0 0 20px ${color}80`,
+          willChange: 'transform',
         }}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -166,10 +248,23 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({ data, index, color }) => {
   );
 
   return (
-    <div className="relative">
+    <>
+      {/* Lightbox component */}
+      {lightboxOpen && (
+        <Lightbox
+          images={lightboxImages}
+          initialIndex={lightboxStartIndex}
+          onClose={closeLightbox}
+          altTexts={lightboxImages.map((_, i) => `${data.title} foto ${i + 1}`)}
+          color={color}
+        />
+      )}
+
+    <div className="relative" style={{ overflow: 'visible' }}>
       {/* Desktop/Tablet: Zigzag layout */}
       <motion.div
         className="hidden md:grid relative grid-cols-[1fr_auto_1fr] gap-6 md:gap-8 pb-12"
+        style={{ overflow: 'visible' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -180,76 +275,107 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({ data, index, color }) => {
               {ContentCard}
             </div>
             {TimelineCenter}
-            <div /> {/* Empty space on right */}
+            <div className="relative flex justify-start items-start">
+              {/* Slideshow preview aan de rechterkant */}
+              {showSlideshow && hasMultipleImages && (
+                <motion.div
+                  className="rounded-xl overflow-hidden cursor-pointer"
+                  style={{
+                    border: `4px solid ${color}`,
+                    boxShadow: `0 0 30px ${color}60`,
+                    width: '100%',
+                    aspectRatio: '4/3',
+                  }}
+                  initial={{ opacity: 0, scale: 0.8, x: -20 }}
+                  animate={{ opacity: 1, scale: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
+                  onClick={() => openLightbox(slideshowIndex)}
+                  whileHover={{ scale: 1.02, boxShadow: `0 0 50px ${color}` }}
+                >
+                  {isVideo(lightboxImages[slideshowIndex]) ? (
+                    <motion.video
+                      key={slideshowIndex}
+                      src={lightboxImages[slideshowIndex]}
+                      className="w-full h-full object-cover"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                      muted
+                      loop
+                      autoPlay
+                      playsInline
+                    />
+                  ) : (
+                    <motion.img
+                      key={slideshowIndex}
+                      src={lightboxImages[slideshowIndex]}
+                      alt={`${data.title} ${slideshowIndex + 1}`}
+                      className="w-full h-full object-cover"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                    />
+                  )}
+                </motion.div>
+              )}
+            </div>
           </>
         ) : (
           <>
-            <div /> {/* Empty space on left */}
+            <div className="relative flex justify-end items-start">
+              {/* Slideshow preview aan de rechterkant */}
+              {showSlideshow && hasMultipleImages && (
+                <motion.div
+                  className="rounded-xl overflow-hidden cursor-pointer relative"
+                  style={{
+                    border: `4px solid ${color}`,
+                    boxShadow: `0 0 30px ${color}60`,
+                    width: '100%',
+                    aspectRatio: '4/3',
+                  }}
+                  initial={{ opacity: 0, scale: 0.8, x: 20 }}
+                  animate={{ opacity: 1, scale: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
+                  onClick={() => openLightbox(slideshowIndex)}
+                  whileHover={{ scale: 1.02, boxShadow: `0 0 50px ${color}` }}
+                >
+                  {isVideo(lightboxImages[slideshowIndex]) ? (
+                    <motion.video
+                      key={slideshowIndex}
+                      src={lightboxImages[slideshowIndex]}
+                      className="w-full h-full object-cover"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                      muted
+                      loop
+                      autoPlay
+                      playsInline
+                    />
+                  ) : (
+                    <motion.img
+                      key={slideshowIndex}
+                      src={lightboxImages[slideshowIndex]}
+                      alt={`${data.title} ${slideshowIndex + 1}`}
+                      className="w-full h-full object-cover"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                    />
+                  )}
+                </motion.div>
+              )}
+            </div>
             {TimelineCenter}
             <div className="relative">
               {ContentCard}
             </div>
           </>
         )}
-
-        {/* Hover Preview - Direct naast de card */}
-        <AnimatePresence>
-          {(imageHovered || imagePinned) && data.image && (
-            <motion.div
-              className="absolute top-0 z-50 hidden md:block"
-              style={{
-                left: isLeft ? 'calc(50% + 100px)' : 'auto',
-                right: isLeft ? 'auto' : 'calc(50% + 100px)',
-              }}
-              initial={{ opacity: 0, scale: 0.9, x: isLeft ? -10 : 10 }}
-              animate={{ opacity: 1, scale: 1, x: 0 }}
-              exit={{ opacity: 0, scale: 0.9, x: isLeft ? -10 : 10 }}
-              transition={{ duration: 0.15, ease: "easeOut" }}
-              onMouseEnter={() => setImageHovered(true)}
-              onMouseLeave={() => {
-                if (!imagePinned) {
-                  setImageHovered(false);
-                }
-              }}
-            >
-              {/* Foto */}
-              <div
-                className="rounded-xl overflow-hidden shadow-2xl relative"
-                style={{
-                  border: `3px solid ${color}`,
-                  boxShadow: `0 0 40px ${color}80, 0 0 60px ${color}40`,
-                  width: '300px',
-                  backgroundColor: 'rgba(15, 25, 45, 0.98)',
-                }}
-              >
-                <img
-                  src={data.image}
-                  alt={data.title}
-                  className="w-full h-auto object-cover"
-                  style={{
-                    maxHeight: '350px',
-                  }}
-                />
-
-                {/* Foto titel overlay */}
-                <div
-                  className="px-4 py-3"
-                  style={{
-                    background: `linear-gradient(to bottom, transparent, ${color}30)`,
-                    backdropFilter: 'blur(10px)',
-                  }}
-                >
-                  <p
-                    className="text-sm font-bold text-center"
-                    style={{ color }}
-                  >
-                    {data.title}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </motion.div>
 
       {/* Mobile: Single column layout */}
@@ -292,6 +418,7 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({ data, index, color }) => {
         {ContentCard}
       </motion.div>
     </div>
+    </>
   );
 };
 

@@ -22,7 +22,10 @@ export const pathsData: PathData[] = [
         title: 'MAVO Diploma',
         description:
           'Begonnen met mijn middelbare school op het Montfort College. MAVO diploma succesvol behaald en start gelegd voor verdere IT opleiding.',
-        image: 'https://placehold.co/600x400/3B82F6/white?text=MAVO+Diploma+Uitreiking',
+        images: [
+          '/over-mij/studentenpad/Mavo-foto1.jpg',
+          '/over-mij/studentenpad/Mavo-foto2.jpg'
+        ],
         imageStyle: 'icon',
         achievements: [
           'MAVO diploma behaald',
@@ -36,7 +39,10 @@ export const pathsData: PathData[] = [
         title: 'HAVO Diploma',
         description:
           'Doorgestroomd naar HAVO op het Montfort College. Focus op exacte vakken en voorbereiding op HBO studie.',
-        image: 'https://placehold.co/600x400/3B82F6/white?text=HAVO+Diploma+Uitreiking',
+        images: [
+          '/over-mij/studentenpad/Afbeelding van WhatsApp op 2025-10-31 om 23.26.28_d3c42979.jpg',
+          '/over-mij/studentenpad/Afbeelding van WhatsApp op 2025-10-31 om 23.26.28_e94d9d40.jpg'
+        ],
         imageStyle: 'icon',
         achievements: [
           'HAVO diploma succesvol afgerond',
@@ -50,14 +56,17 @@ export const pathsData: PathData[] = [
         title: 'Informatica Jaar 1 - HBO',
         description:
           'Eerste jaar Informatica aan de Hogeschool. Kennismaking met professioneel programmeren: Python in het eerste semester, CSharp in het tweede semester.',
-        image: 'https://placehold.co/600x400/3B82F6/white?text=Informatica+Jaar+1',
+        images: [
+          '/over-mij/studentenpad/Afbeelding van WhatsApp op 2025-10-31 om 23.19.43_34a40d4e.jpg',
+          '/over-mij/studentenpad/Afbeelding van WhatsApp op 2025-10-31 om 23.24.44_e5054846.jpg'
+        ],
         imageStyle: 'icon',
         achievements: [
           'Python fundamentals onder de knie',
-          'Object-Oriented Programming met CSharp',
-          'Start datastructuren en algoritmes geleerd',
+          'OODP (Object Oriented Design & Programming) met CSharp',
+          'Propedeuse behaald',
         ],
-        tags: ['Python', 'CSharp', 'OOP', 'Algoritmes'],
+        tags: ['Python', 'CSharp', 'OODP', 'Propedeuse'],
       },
       {
         year: '2024-2025',
@@ -77,27 +86,21 @@ export const pathsData: PathData[] = [
       {
         year: '2025-2026',
         title: 'Informatica Jaar 3 - Stage',
-        description:
-          'Derde jaar: stage bij een cybersecurity bedrijf. Praktijkervaring opdoen met security testing, penetration testing en security operations. Real-world cybersecurity uitdagingen aanpakken.',
-        achievements: [
-          'Stage bij cybersecurity bedrijf (lopend)',
-          'Penetration testing ervaring',
-          'Security audits uitgevoerd',
-          'Incident response geleerd',
-        ],
+        description: 'Coming soon',
+        achievements: [],
         tags: ['Cybersecurity', 'Pentesting', 'Stage', 'Security Operations'],
       },
       {
         year: 'Sep 2026',
-        title: 'Externe Minor - Finland',
+        title: 'Externe Minor - Slovenië',
         description:
-          'Internationale ervaring opdoen met een externe minor in Finland. Samenwerken met internationale studenten en nieuwe technologieën en culturen ontdekken.',
+          'Internationale ervaring opdoen met een externe minor in Slovenië. Samenwerken met internationale studenten en nieuwe technologieën en culturen ontdekken.',
         achievements: [
           'Internationale minor gekozen',
           'Cross-cultural collaboration',
           'Nieuwe technologieën verkennen',
         ],
-        tags: ['Finland', 'International', 'Minor', 'Exchange'],
+        tags: ['Slovenië', 'International', 'Minor', 'Exchange'],
       },
       {
         year: '2027',
@@ -122,52 +125,63 @@ export const pathsData: PathData[] = [
     angle: 0, // Right
     timeline: [
       {
-        year: '2022',
-        title: 'Eerste Freelance Project',
+        year: '2020',
+        title: 'Vendingmachine Business',
         description:
-          'Gestart met freelance werk naast studie. Eerste website gebouwd voor een lokale ondernemer.',
-        achievements: [
-          'Eerste betaalde project afgerond',
-          'Client management skills ontwikkeld',
-          'Portfolio opgebouwd',
+          'In 2020 begon ik mijn vendingmachine business. Eerste stappen in ondernemerschap door het plaatsen en beheren van snackautomaten op strategische locaties.',
+        images: [
+          '/over-mij/bedrijven-pad/Afbeelding van WhatsApp op 2025-11-01 om 16.28.57_013930df.jpg',
+          '/over-mij/bedrijven-pad/Afbeelding van WhatsApp op 2025-11-01 om 16.28.57_eda1cb03.jpg',
+          '/over-mij/bedrijven-pad/Untitled design.mp4'
         ],
-        tags: ['Freelance', 'Web Design', 'Client Work'],
+        imageStyle: 'icon',
+        achievements: [
+          'Eerste vendingmachines geplaatst',
+          'Locaties geregeld en onderhandeld',
+          'Voorraad management opgezet',
+          'Omzet en winst bijgehouden',
+        ],
+        tags: ['Vendingmachines', 'Ondernemerschap', 'Logistiek', 'Business'],
       },
       {
         year: '2023',
-        title: 'Side-Business Gestart',
+        title: 'WishWeb',
         description:
-          'Officieel gestart met eigen side-business. Websites en apps bouwen voor kleine bedrijven en startups.',
+          'In 2023 opgericht WishWeb waar ik websites maak voor bedrijven.\n\n\nWebsite:\nwishweb.nl (under construction)',
         achievements: [
+          'WishWeb opgericht',
+          'Websites bouwen voor bedrijven',
           'KVK registratie afgerond',
-          '3 succesvolle projecten opgeleverd',
-          'Eerste terugkerende klant',
+          'Portfolio van klanten opgebouwd',
         ],
-        tags: ['Entrepreneurship', 'Business', 'Startups'],
-      },
-      {
-        year: '2024',
-        title: '5+ Tevreden Clients',
-        description:
-          'Business groeit gestaag. Meerdere klanten geholpen met hun digitale transformatie. Focus op kwaliteit en innovatie.',
-        achievements: [
-          '5+ succesvolle projecten',
-          '100% client satisfaction rate',
-          'Specialisatie in modern web apps',
-        ],
-        tags: ['Growth', 'Client Success', 'Innovation'],
+        tags: ['WishWeb', 'Webdevelopment', 'Business', 'Websites'],
       },
       {
         year: '2025',
-        title: 'Scaling Plans',
+        title: 'TableTech',
         description:
-          'Plannen om de business uit te breiden. Mogelijk een team opbouwen en grotere projecten aannemen.',
-        achievements: [
-          'Business strategie ontwikkeld',
-          'Netwerk uitgebreid',
-          'Nieuwe partnerships in de maak',
+          'TableTech opgericht - een bedrijf waarbij we voor restaurants software hebben gemaakt dat hun restaurant digitaliseert. Ook maken we op maat software voor bedrijven.',
+        image: '/over-mij/bedrijven-pad/tableTech.png',
+        images: [
+          '/over-mij/bedrijven-pad/foto-samen.jpeg',
+          '/over-mij/bedrijven-pad/foto1.png',
+          '/over-mij/bedrijven-pad/foto2.png'
         ],
-        tags: ['Scaling', 'Strategy', 'Team Building'],
+        imageStyle: 'icon',
+        achievements: [
+          'Restaurant digitalisering software ontwikkeld',
+          'Maatwerk software voor bedrijven',
+          'Meerdere restaurants geholpen',
+        ],
+        tags: ['Wishant Bhajan', 'Damian Willemse', 'Hicham Tahiri', 'Mohammad Falaha'],
+        website: 'https://tabletech.nl',
+      },
+      {
+        year: '2026',
+        title: 'Rdam App',
+        description: 'Coming soon',
+        achievements: [],
+        tags: ['App', 'Innovatie', 'Rotterdam', 'Technology'],
       },
     ],
   },
@@ -179,52 +193,78 @@ export const pathsData: PathData[] = [
     angle: 90, // Bottom
     timeline: [
       {
-        year: '2021',
-        title: 'Junior Developer',
+        year: '2019-2020',
+        title: 'Retail Fulfillment Medewerker - Jumbo',
         description:
-          'Eerste professionele rol als Junior Developer. Geleerd hoe professionele softwareontwikkeling werkt in een team.',
+          'Eerste werkervaring als Retail Fulfillment Medewerker bij Jumbo Supermarkten van juni 2019 tot juni 2020. Verantwoordelijk voor voorraad management, klantenservice en order fulfillment.',
         achievements: [
-          'Eerste professionele code review',
-          'Git workflow mastered',
-          'Team collaboration skills',
+          'Voorraad beheer en optimalisatie',
+          'Order picking en fulfillment',
+          'Klantenservice en advisering',
+          'Samenwerken in teamverband',
         ],
-        tags: ['Junior Dev', 'Team Work', 'Learning'],
+        tags: ['Jumbo', 'Retail Fulfillment', 'Logistics', 'Klantenservice'],
       },
       {
-        year: '2022',
-        title: 'Frontend Developer',
+        year: '2021-2023',
+        title: 'Freelance Horeca & Event Medewerker',
         description:
-          'Doorgegroeid naar Frontend Developer rol. Focus op React en moderne frontend technologieën.',
+          'Als freelancer via YouNonges en Staff You werkte ik bij diverse evenementen en horecagelegenheden. Veelzijdige rol waarbij ik werkte bij tankstations, Ahoy, Maassilo, Blijdorp, Feyenoord Stadion, Number One en vele andere horecalocaties. Ervaring opgedaan als barman, sales medewerker en event staff.',
         achievements: [
-          'Lead developer op 2 projecten',
-          'Component library opgezet',
-          'Performance optimalisaties',
+          'Event staff bij grote evenementen (Ahoy, Maassilo, Feyenoord)',
+          'Barman bij diverse horecagelegenheden',
+          'Sales en klantencontact bij Blijdorp',
+          'Flexibel inzetbaar op verschillende locaties',
+          'Werken onder hoge druk tijdens events',
         ],
-        tags: ['React', 'Frontend', 'UI/UX', 'Performance'],
+        tags: ['Horeca', 'Events', 'Sales', 'Barman', 'Freelance'],
       },
       {
-        year: '2023',
-        title: 'Full Stack Developer',
+        year: '2021-2023',
+        title: 'Bezorger - Domino\'s Pizza',
         description:
-          'Volledige Full Stack rol. Zowel frontend als backend verantwoordelijkheden. Grotere technische uitdagingen.',
+          'Als bezorger bij Domino\'s Pizza was ik verantwoordelijk voor het op tijd en in perfecte staat bezorgen van bestellingen. Daarnaast werkte ik als sales medewerker voor Kubus Woningen.',
         achievements: [
-          'Full ownership van features',
-          'Database design & optimization',
-          'API architecture design',
+          'Efficiënte en snelle bezorging',
+          'Klantenservice en klanttevredenheid',
+          'Sales bij Kubus Woningen',
+          'Tijdmanagement en route planning',
         ],
-        tags: ['Full Stack', 'APIs', 'Databases', 'Architecture'],
+        tags: ['Bezorging', 'Klantenservice', 'Sales', 'Logistiek'],
       },
       {
-        year: '2024',
-        title: 'Lead Developer',
+        year: '2023-2024',
+        title: 'IT Technician - GO Sharing',
         description:
-          'Gepromoveerd naar Lead Developer. Verantwoordelijk voor technische beslissingen en mentoring van junior developers.',
+          'Als IT Technician bij GO Sharing bouwde ik elektrische scooters volledig van scratch op en was betrokken bij hardware programmering en troubleshooting van elektronische componenten. Verantwoordelijk voor firmware updates, assemblage, technische diagnoses en performance optimalisatie.',
         achievements: [
-          '2 junior developers gementord',
-          'Tech stack modernisatie geleid',
-          'Code quality standards opgezet',
+          'Scooters volledig van scratch opbouwen',
+          'Hardware programmering van scooter componenten',
+          'Firmware updates en deployment',
+          'Technische storingen diagnosticeren en oplossen',
+          'Performance optimalisatie van systemen',
         ],
-        tags: ['Leadership', 'Mentoring', 'Tech Lead', 'Strategy'],
+        tags: ['Hardware', 'Firmware', 'Assembly', 'IoT', 'E-mobility'],
+      },
+      {
+        year: '2024-2025',
+        title: 'IT Support Specialist - Studenten Aan Huis',
+        description:
+          'Als IT Support Specialist bij Studenten Aan Huis help ik klanten met het troubleshooten van software en hardware problemen, installeren en configureren van software, en optimaliseren van systeemprestaties. Deze rol vereist sterke probleemoplossende vaardigheden en uitgebreide technische kennis.',
+        achievements: [
+          'Software en hardware troubleshooting',
+          'Software installatie en configuratie',
+          'Systeemprestaties optimaliseren',
+          'Klantenservice en technische ondersteuning',
+        ],
+        tags: ['IT Support', 'Troubleshooting', 'Customer Service', 'Technical Support'],
+      },
+      {
+        year: '2026',
+        title: 'Cybersecurity',
+        description: 'Coming soon',
+        achievements: [],
+        tags: ['Cybersecurity', 'Security', 'Pentesting', 'Ethical Hacking'],
       },
     ],
   },
@@ -237,51 +277,61 @@ export const pathsData: PathData[] = [
     timeline: [
       {
         year: 'Hobbies',
-        title: 'Gaming & Tech Enthusiast',
+        title: 'Gaming, Sport & Tech',
         description:
-          'Passie voor gaming sinds jong. Van casual gaming tot competitive esports. Ook grote interesse in de nieuwste tech gadgets.',
+          'Passie voor gaming sinds jong. Daarnaast ben ik sportief actief met darten, tennis, voetbal, padel, Jujitsu en MMA. Ook grote interesse in tech gadgets, websites maken, lezen van ontwikkelingsboeken en schaken.',
         achievements: [
           'PC gebouwd van scratch',
-          'Deel van gaming community',
+          'Actief in verschillende sporten (darten, tennis, voetbal, padel)',
+          'Jujitsu en MMA training',
+          'Websites maken als hobby',
           'Tech reviewer hobbyist',
+          'Lezen van ontwikkelingsboeken',
+          'Schaken',
         ],
-        tags: ['Gaming', 'PC Building', 'Tech', 'Community'],
+        tags: ['Gaming', 'Sport', 'MMA', 'Webdevelopment', 'Tech', 'Fitness', 'Schaken', 'Lezen'],
       },
       {
         year: 'Passies',
-        title: 'Cybersecurity & AI',
+        title: 'Technologie & Security',
         description:
-          'Gefascineerd door cybersecurity en artificial intelligence. Altijd bezig om nieuwe ontwikkelingen te volgen en zelf te experimenteren.',
+          'Gepassioneerd over technologie, cybersecurity en ethical hacking. Ook run ik een Home Lab voor experimenten en testing.',
         achievements: [
+          'Ethical hacking en penetration testing',
+          'Security research en experimenten',
+          'Hack The Box challenges',
+          'Home Lab opgezet voor testing',
           'CTF competitions deelgenomen',
-          'AI/ML modellen getraind',
-          'Security research projecten',
         ],
-        tags: ['Cybersecurity', 'AI', 'Machine Learning', 'Research'],
+        tags: ['Cybersecurity', 'Ethical Hacking', 'Home Lab', 'Technology'],
       },
       {
         year: 'Creativiteit',
-        title: 'Fotografie & Design',
+        title: 'Web Design & Ontwikkeling',
         description:
-          'Creatieve uitlaatklep naast programmeren. Fotografie en grafisch design helpen me om anders naar problemen te kijken.',
+          'Creatieve uitlaatklep waar design en technologie samenkomen. Van concept tot deployment - de gehele workflow van websites maken, ontwerpen en bouwen. UX/UI design, prototyping, frontend development en alles daartussenin.',
         achievements: [
-          'Portfolio van 100+ foto\'s',
-          'Design skills toegepast in projecten',
-          'Instagram community opgebouwd',
+          'Websites ontwerpen en bouwen',
+          'UX/UI design en prototyping',
+          'Gehele workflow van concept tot deployment',
+          'Design systems en style guides',
+          'Gebruiksvriendelijke interfaces ontwerpen',
         ],
-        tags: ['Photography', 'Design', 'Creativity', 'Visual Arts'],
+        tags: ['Web Design', 'UX/UI', 'Frontend', 'Prototyping', 'Workflow'],
       },
       {
         year: 'Lifestyle',
-        title: 'Fitness & Balance',
+        title: 'Actief & Ondernemend',
         description:
-          'Work-life balance is belangrijk. Fitness helpt me scherp te blijven. Cycling voor ontspanning en avontuur.',
+          'Een actieve lifestyle met focus op gezondheid, groei en ondernemerschap. 4 dagen per week naar de gym, 3 dagen Jujitsu training, reizen, werken aan eigen bedrijven en constant bezig met zelfontwikkeling.',
         achievements: [
-          'Regelmatig fitness routine',
-          'Meerdere cycling routes verkend',
-          'Healthy lifestyle maintained',
+          '4x per week gym training',
+          '3x per week Jujitsu',
+          'Reizen en nieuwe ervaringen opdoen',
+          'Werken aan eigen bedrijven',
+          'Continue zelfontwikkeling',
         ],
-        tags: ['Fitness', 'Cycling', 'Health', 'Balance'],
+        tags: ['Fitness', 'Jujitsu', 'Reizen', 'Ondernemerschap', 'Zelfontwikkeling'],
       },
     ],
   },

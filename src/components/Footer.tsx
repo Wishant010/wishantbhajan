@@ -44,7 +44,8 @@ const Footer: React.FC<FooterProps> = ({ useHomepageStyle = false }) => {
               {[
                 { labelKey: 'nav.home', href: '/' },
                 { labelKey: 'nav.about', href: '/about' },
-                { labelKey: 'nav.portfolio', href: '/portfolio' }
+                { labelKey: 'nav.portfolio', href: '/portfolio' },
+                { labelKey: 'nav.article', href: '/article' }
               ].map((link) => (
                 <a
                   key={link.labelKey}
