@@ -22,7 +22,8 @@
       "Read(//mnt/c/Users/Wish/Downloads/**)",
       "Bash(npm run dev)",
       "Bash(npm uninstall:*)",
-      "Bash(npx tsc --noEmit)"
+      "Bash(npx tsc --noEmit)",
+      "Bash(cat:*)"
     ],
     "deny": []
   }

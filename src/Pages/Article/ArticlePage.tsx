@@ -301,12 +301,12 @@ const ArticlePage: React.FC = () => {
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e: React.MouseEvent) => e.stopPropagation()}
             >
-              {/* Close Button */}
+              {/* Close Button - Fixed z-index and hover effect */}
               <button
                 onClick={() => setSelectedEvent(null)}
-                className="absolute top-4 right-4 text-purple-400 hover:text-purple-300"
+                className="absolute top-4 right-4 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-slate-700/80 backdrop-blur-sm border border-purple-500/30 text-purple-400 hover:bg-purple-500/20 hover:text-purple-300 hover:border-purple-400/50 transition-all duration-200 hover:scale-110"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -316,74 +316,76 @@ const ArticlePage: React.FC = () => {
                 </svg>
               </button>
 
-              {/* Event Details */}
-              <div className="flex justify-center text-purple-400 mb-6">
+              {/* Event Details - Main content with proper z-index */}
+              <div className="relative z-10 flex justify-center text-purple-400 mb-6">
                 {selectedEvent.image}
               </div>
-              <h2 className="text-3xl font-bold text-purple-300 mb-2">{selectedEvent.title}</h2>
+              <div className="relative z-10">
+                <h2 className="text-3xl font-bold text-purple-300 mb-2">{selectedEvent.title}</h2>
 
-              <div className="flex items-center gap-3 mb-4">
-                <span
-                  className={`inline-block px-4 py-2 rounded-full text-sm font-medium border ${getTypeColor(
-                    selectedEvent.type
-                  )}`}
-                >
-                  {selectedEvent.type}
-                </span>
-                {selectedEvent.achievement && (
-                  <span className="px-4 py-2 bg-yellow-500/20 text-yellow-400 rounded-full text-sm font-medium border border-yellow-500/30">
-                    🏆 {selectedEvent.achievement}
+                <div className="flex items-center gap-3 mb-4">
+                  <span
+                    className={`inline-block px-4 py-2 rounded-full text-sm font-medium border ${getTypeColor(
+                      selectedEvent.type
+                    )}`}
+                  >
+                    {selectedEvent.type}
                   </span>
+                  {selectedEvent.achievement && (
+                    <span className="px-4 py-2 bg-yellow-500/20 text-yellow-400 rounded-full text-sm font-medium border border-yellow-500/30">
+                      🏆 {selectedEvent.achievement}
+                    </span>
+                  )}
+                </div>
+
+                <div className="text-blue-200/70 mb-4">
+                  <p>📅 {selectedEvent.date}</p>
+                  <p>📍 {selectedEvent.location}</p>
+                </div>
+
+                <p className="text-blue-200/80 mb-6">{selectedEvent.description}</p>
+
+                {/* Highlights */}
+                <div className="mb-6">
+                  <h3 className="text-xl font-semibold text-purple-400 mb-3">Highlights</h3>
+                  <ul className="space-y-2">
+                    {selectedEvent.highlights.map((highlight, idx) => (
+                      <li key={idx} className="flex items-center gap-2 text-blue-200/70">
+                        <span className="text-purple-400">▸</span> {highlight}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Tech Stack */}
+                <div className="mb-6">
+                  <h3 className="text-xl font-semibold text-purple-400 mb-3">Technologies</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedEvent.tech.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Link */}
+                {selectedEvent.link && (
+                  <div className="flex gap-4">
+                    <a
+                      href={selectedEvent.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-6 py-3 bg-gradient-to-r from-purple-400 to-blue-400 text-slate-900 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-400/25 transition-all"
+                    >
+                      Meer Info
+                    </a>
+                  </div>
                 )}
               </div>
-
-              <div className="text-blue-200/70 mb-4">
-                <p>📅 {selectedEvent.date}</p>
-                <p>📍 {selectedEvent.location}</p>
-              </div>
-
-              <p className="text-blue-200/80 mb-6">{selectedEvent.description}</p>
-
-              {/* Highlights */}
-              <div className="mb-6">
-                <h3 className="text-xl font-semibold text-purple-400 mb-3">Highlights</h3>
-                <ul className="space-y-2">
-                  {selectedEvent.highlights.map((highlight, idx) => (
-                    <li key={idx} className="flex items-center gap-2 text-blue-200/70">
-                      <span className="text-purple-400">▸</span> {highlight}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Tech Stack */}
-              <div className="mb-6">
-                <h3 className="text-xl font-semibold text-purple-400 mb-3">Technologies</h3>
-                <div className="flex flex-wrap gap-2">
-                  {selectedEvent.tech.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Link */}
-              {selectedEvent.link && (
-                <div className="flex gap-4">
-                  <a
-                    href={selectedEvent.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-6 py-3 bg-gradient-to-r from-purple-400 to-blue-400 text-slate-900 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-400/25 transition-all"
-                  >
-                    Meer Info
-                  </a>
-                </div>
-              )}
             </motion.div>
           </motion.div>
         )}

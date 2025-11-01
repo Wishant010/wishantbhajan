@@ -1,6 +1,7 @@
 import React from "react"
 import { motion } from "framer-motion"
 import { Phone, Mail, Linkedin, Github } from 'lucide-react'
+import GlareHover from './GlareHover'
 
 interface ContactBarProps {
   useHomepageStyle?: boolean
@@ -13,28 +14,32 @@ const ContactBar: React.FC<ContactBarProps> = ({ useHomepageStyle = false }) => 
       label: "Telefoon",
       value: "+31 648 447 234",
       href: "tel:+31648447234",
-      color: "hover:shadow-blue-500/20"
+      glareColor: "#3b82f6",
+      iconColor: "text-blue-400"
     },
     {
       icon: <Mail className="w-6 h-6" />,
       label: "Email",
       value: "Wishantbhajan@outlook.com",
       href: "mailto:Wishantbhajan@outlook.com",
-      color: "hover:shadow-purple-500/20"
+      glareColor: "#a855f7",
+      iconColor: "text-purple-400"
     },
     {
       icon: <Linkedin className="w-6 h-6" />,
       label: "LinkedIn",
       value: "Wishant Bhajan",
       href: "https://www.linkedin.com/in/wishant-bhajan-0a73832a4/",
-      color: "hover:shadow-blue-500/20"
+      glareColor: "#0ea5e9",
+      iconColor: "text-sky-400"
     },
     {
       icon: <Github className="w-6 h-6" />,
       label: "GitHub",
       value: "Wishant010",
       href: "https://github.com/Wishant010",
-      color: "hover:shadow-purple-500/20"
+      glareColor: "#ec4899",
+      iconColor: "text-pink-400"
     }
   ]
 
@@ -80,35 +85,54 @@ const ContactBar: React.FC<ContactBarProps> = ({ useHomepageStyle = false }) => 
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
         >
           {contactItems.map((item, index) => (
-            <motion.a
+            <motion.div
               key={item.label}
-              href={item.href}
-              target={item.href.startsWith('http') ? '_blank' : undefined}
-              rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-              className={`group backdrop-blur-sm rounded-xl p-6 border transition-all duration-300 ${item.color}`}
-              style={{
-                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))',
-                borderColor: 'rgba(255, 255, 255, 0.08)',
-              }}
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 + index * 0.1 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                transition: { delay: 0.3 + index * 0.1 }
+              }}
               whileHover={{
                 y: -5,
                 scale: 1.02,
-                borderColor: 'rgba(255, 255, 255, 0.15)',
+                transition: { duration: 0.1, ease: "easeOut" }
               }}
+              transition={{
+                duration: 0
+              }}
+              whileTap={{ scale: 0.98 }}
             >
-              <div className="flex flex-col items-center text-center space-y-3">
-                <span className="text-blue-400 group-hover:text-purple-400 transition-colors">
-                  {item.icon}
-                </span>
-                <div>
-                  <p className="text-xs text-slate-500 mb-1">{item.label}</p>
-                  <p className="text-sm font-medium text-slate-300">{item.value}</p>
-                </div>
-              </div>
-            </motion.a>
+              <a
+                href={item.href}
+                target={item.href.startsWith('http') ? '_blank' : undefined}
+                rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              >
+                <GlareHover
+                  width="100%"
+                  height="100%"
+                  background="linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))"
+                  borderRadius="0.75rem"
+                  borderColor="rgba(255, 255, 255, 0.08)"
+                  glareColor={item.glareColor}
+                  glareOpacity={0.3}
+                  glareAngle={-45}
+                  glareSize={200}
+                  transitionDuration={500}
+                  className="backdrop-blur-sm"
+                >
+                  <div className="flex flex-col items-center text-center space-y-3 p-6">
+                    <span className={item.iconColor}>
+                      {item.icon}
+                    </span>
+                    <div>
+                      <p className="text-xs text-slate-500 mb-1">{item.label}</p>
+                      <p className="text-sm font-medium text-slate-300">{item.value}</p>
+                    </div>
+                  </div>
+                </GlareHover>
+              </a>
+            </motion.div>
           ))}
         </motion.div>
 
