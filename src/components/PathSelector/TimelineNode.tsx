@@ -29,6 +29,7 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({ data, index, color }) => {
   const [lightboxStartIndex, setLightboxStartIndex] = useState(0);
   const [showSlideshow, setShowSlideshow] = useState(false);
   const [slideshowIndex, setSlideshowIndex] = useState(0);
+  const [hasBeenHovered, setHasBeenHovered] = useState(false);
 
   // Bepaal welke foto's beschikbaar zijn
   const lightboxImages = data.images || (data.image ? [data.image] : []);
@@ -105,6 +106,12 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({ data, index, color }) => {
         {currentImage && data.imageStyle === 'icon' && (
           <motion.div
             onClick={() => openLightbox(0)}
+            onMouseEnter={() => {
+              if (!hasBeenHovered) {
+                setHasBeenHovered(true);
+                openLightbox(0);
+              }
+            }}
             className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0 cursor-pointer relative md:hover:scale-105 ml-3"
             style={{
               border: `3px solid ${color}60`,
@@ -162,24 +169,52 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({ data, index, color }) => {
       {/* Tags */}
       {data.tags && data.tags.length > 0 && (
         <div className="flex flex-wrap gap-2">
-          {data.tags.map((tag, i) => (
-            <motion.span
-              key={tag}
-              className="px-3 py-1 rounded-full text-xs font-medium"
-              style={{
-                backgroundColor: `${color}20`,
-                color,
-                border: `1px solid ${color}40`,
-                willChange: 'transform',
-              }}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.15 + i * 0.05 }}
-              whileHover={{ scale: 1.05, y: -2, transition: { duration: 0.15 } }}
-            >
-              {tag}
-            </motion.span>
-          ))}
+          {data.tags.map((tag, i) => {
+            const isMohammad = tag === 'Mohammad Falaha';
+            const isDamian = tag === 'Damian Willemse';
+            const isClickable = isMohammad || isDamian;
+            const TagComponent = isClickable ? motion.a : motion.span;
+
+            let tagProps;
+            if (isMohammad) {
+              tagProps = {
+                href: 'https://moportofolio.io/',
+                target: '_blank',
+                rel: 'noopener noreferrer',
+                className: 'px-3 py-1 rounded-full text-xs font-medium cursor-pointer',
+              };
+            } else if (isDamian) {
+              tagProps = {
+                href: 'http://www.damianwillemse.nl',
+                target: '_blank',
+                rel: 'noopener noreferrer',
+                className: 'px-3 py-1 rounded-full text-xs font-medium cursor-pointer',
+              };
+            } else {
+              tagProps = {
+                className: 'px-3 py-1 rounded-full text-xs font-medium',
+              };
+            }
+
+            return (
+              <TagComponent
+                key={tag}
+                {...tagProps}
+                style={{
+                  backgroundColor: `${color}20`,
+                  color,
+                  border: `1px solid ${color}40`,
+                  willChange: 'transform',
+                }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: index * 0.15 + i * 0.05 }}
+                whileHover={{ scale: 1.05, y: -2, transition: { duration: 0.15 } }}
+              >
+                {tag}
+              </TagComponent>
+            );
+          })}
         </div>
       )}
 

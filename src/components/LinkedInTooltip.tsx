@@ -13,7 +13,7 @@ const LinkedInTooltip = () => {
                 <div className="username">Co-founder TableTech</div>
               </div>
             </div>
-            <div className="about">150+ Connections • Open to Work</div>
+            <div className="about">220+ Connections • Open to Work</div>
           </div>
         </div>
         <div className="text">
