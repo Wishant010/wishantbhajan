@@ -92,15 +92,15 @@ export const pathsData: PathData[] = [
       },
       {
         year: 'Sep 2026',
-        title: 'Externe Minor - Slovenië',
+        title: 'Externe Minor - Spanje',
         description:
-          'Internationale ervaring opdoen met een externe minor in Slovenië. Samenwerken met internationale studenten en nieuwe technologieën en culturen ontdekken.',
+          'Internationale ervaring opdoen met een externe minor in Spanje. Samenwerken met internationale studenten en nieuwe technologieën en culturen ontdekken.',
         achievements: [
           'Internationale minor gekozen',
           'Cross-cultural collaboration',
           'Nieuwe technologieën verkennen',
         ],
-        tags: ['Slovenië', 'International', 'Minor', 'Exchange'],
+        tags: ['Spanje', 'International', 'Minor', 'Exchange'],
       },
       {
         year: '2027',
@@ -129,7 +129,11 @@ export const pathsData: PathData[] = [
         title: 'Vendingmachine Business',
         description:
           'In 2020 begon ik mijn vendingmachine business. Eerste stappen in ondernemerschap door het plaatsen en beheren van snackautomaten op strategische locaties.',
+        image: '/over-mij/bedrijven-pad/vooraad-vending.jpg',
         images: [
+          '/over-mij/bedrijven-pad/vooraad-vending.jpg',
+          '/over-mij/bedrijven-pad/vooraad-op-fiets.jpg',
+          '/over-mij/bedrijven-pad/veidning-video.mp4',
           '/over-mij/bedrijven-pad/Afbeelding van WhatsApp op 2025-11-01 om 16.28.57_013930df.jpg',
           '/over-mij/bedrijven-pad/Afbeelding van WhatsApp op 2025-11-01 om 16.28.57_eda1cb03.jpg',
           '/over-mij/bedrijven-pad/Untitled design.mp4'
@@ -177,11 +181,24 @@ export const pathsData: PathData[] = [
         website: 'https://tabletech.nl',
       },
       {
+        year: 'Dec 2025',
+        title: 'Rijschool Systeem',
+        description:
+          'Een innovatief managementsysteem ontwikkeld voor de rijschoolbranche. Het platform verbindt rijscholen, rijinstructeurs en rijschool-studenten en maakt communicatie en administratie efficiënter. Van lesplanning tot voortgangsregistratie - alles in één overzichtelijk systeem.\n\nComing soon',
+        achievements: [
+          'Communicatieplatform voor rijscholen',
+          'Lesplanning en agenda management',
+          'Voortgangsregistratie voor studenten',
+          'Administratieve workflows geoptimaliseerd',
+        ],
+        tags: ['Wishant Bhajan', 'Damian Willemse', 'Hicham Tahiri', 'Mohammad Falaha'],
+      },
+      {
         year: '2026',
         title: 'Rdam App',
         description: 'Coming soon',
         achievements: [],
-        tags: ['App', 'Innovatie', 'Rotterdam', 'Technology'],
+        tags: ['Wishant Bhajan', 'Damian Willemse', 'Hicham Tahiri', 'Mohammad Falaha'],
       },
     ],
   },
@@ -209,7 +226,7 @@ export const pathsData: PathData[] = [
         year: '2021-2023',
         title: 'Freelance Horeca & Event Medewerker',
         description:
-          'Als freelancer via YouNonges en Staff You werkte ik bij diverse evenementen en horecagelegenheden. Veelzijdige rol waarbij ik werkte bij tankstations, Ahoy, Maassilo, Blijdorp, Feyenoord Stadion, Number One en vele andere horecalocaties. Ervaring opgedaan als barman, sales medewerker en event staff.',
+          'Als freelancer via YoungOnes en Staff You werkte ik bij diverse evenementen en horecagelegenheden. Veelzijdige rol waarbij ik werkte bij tankstations, Ahoy, Maassilo, Blijdorp, Feyenoord Stadion, Number One en vele andere horecalocaties. Ervaring opgedaan als barman, sales medewerker en event staff.',
         achievements: [
           'Event staff bij grote evenementen (Ahoy, Maassilo, Feyenoord)',
           'Barman bij diverse horecagelegenheden',
@@ -271,7 +288,7 @@ export const pathsData: PathData[] = [
   {
     id: 'life',
     icon: 'heart',
-    label: 'Leven',
+    label: 'Persoonlijk',
     color: '#F59E0B', // Professional amber/orange
     angle: 180, // Left
     timeline: [
@@ -279,17 +296,17 @@ export const pathsData: PathData[] = [
         year: 'Hobbies',
         title: 'Gaming, Sport & Tech',
         description:
-          'Passie voor gaming sinds jong. Daarnaast ben ik sportief actief met darten, tennis, voetbal, padel, Jujitsu en MMA. Ook grote interesse in tech gadgets, websites maken, lezen van ontwikkelingsboeken en schaken.',
+          'Passie voor gaming sinds jong. Daarnaast ben ik actief met verschillende sporten zoals darten, tennis, voetbal, padel, Jujitsu en MMA. Ook grote interesse in tech gadgets, websites maken, lezen van ontwikkelingsboeken, schaken en dammen.',
         achievements: [
           'PC gebouwd van scratch',
           'Actief in verschillende sporten (darten, tennis, voetbal, padel)',
           'Jujitsu en MMA training',
-          'Websites maken als hobby',
-          'Tech reviewer hobbyist',
+          'Websites maken als hobby en werk',
+          'Tech tester',
           'Lezen van ontwikkelingsboeken',
-          'Schaken',
+          'Schaken en dammen',
         ],
-        tags: ['Gaming', 'Sport', 'MMA', 'Webdevelopment', 'Tech', 'Fitness', 'Schaken', 'Lezen'],
+        tags: ['Gaming', 'Sport', 'MMA', 'Webdevelopment', 'Tech', 'Fitness', 'Schaken', 'Dammen', 'Lezen'],
       },
       {
         year: 'Passies',
@@ -307,6 +324,22 @@ export const pathsData: PathData[] = [
       },
       {
         year: 'Creativiteit',
+        title: 'Branding & Content Creatie',
+        description:
+          'Passie voor branding en visuele identiteit van bedrijven. Van AI-gegenereerde video\'s tot complete merkidentiteit - ik help bedrijven om op te vallen. Creatieve combinatie van design, technologie en storytelling om merken tot leven te brengen.',
+        achievements: [
+          'AI-video\'s maken voor bedrijven',
+          'Product branding en visuele identiteit',
+          'Flyers en promotional designs',
+          'Email templates ontwerpen',
+          'Social media content creatie',
+          'Logo\'s en merkmateriaal ontwikkelen',
+          'Marketing campagnes vormgeven',
+        ],
+        tags: ['Branding', 'AI Video', 'Graphic Design', 'Marketing', 'Content Creatie', 'Visual Identity'],
+      },
+      {
+        year: 'Digitale Fantasie',
         title: 'Web Design & Ontwikkeling',
         description:
           'Creatieve uitlaatklep waar design en technologie samenkomen. Van concept tot deployment - de gehele workflow van websites maken, ontwerpen en bouwen. UX/UI design, prototyping, frontend development en alles daartussenin.',

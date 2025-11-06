@@ -118,7 +118,7 @@ const Contact: React.FC<ContactProps> = ({ isVisible = true }) => {
                 <div>
                   <p className="text-gray-500 text-sm">{t('contact.linkedin')}</p>
                   <a href="https://linkedin.com/in/wishantbhajan" target="_blank" rel="noopener noreferrer" className="text-white font-medium group-hover:text-emerald-400 transition-none">
-                    /in/wishantbhajan
+                    /in/wishantbhajan • 220+ connecties
                   </a>
                 </div>
               </motion.div>

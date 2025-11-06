@@ -33,12 +33,11 @@ export default defineConfig(({ command, mode }) => {
       }
     },
     server: {
-      port: 4173,
+      port: 5173,
       open: true,
       cors: true,
       hmr: {
-        overlay: true,
-        port: 24678
+        overlay: true
       },
       headers: {
         'Cross-Origin-Embedder-Policy': 'credentialless',

@@ -62,9 +62,11 @@
 
 /* Cross-browser scrollbar styling */
 /* Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--scrollbar-color-1) rgba(15, 23, 42, 0.3);
+@supports (scrollbar-color: red blue) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-color-1) rgba(15, 23, 42, 0.3);
+  }
 }
 /* Webkit (Chrome, Safari, Edge) */
 *::-webkit-scrollbar {

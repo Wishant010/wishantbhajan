@@ -258,6 +258,7 @@ const AboutSection: React.FC = () => {
           >
             <ProfileCard
               avatarUrl="/wish-photo.jpg"
+              miniAvatarUrl="/favicon.svg"
               name="Wishant Bhajan"
               title="Software Engineer"
               handle="wishant010"
