@@ -6,18 +6,22 @@ import { useLanguage } from "../../contexts/LanguageContext"
 
 interface ContactProps {
   isVisible?: boolean
+  transparentBackground?: boolean
 }
 
-const Contact: React.FC<ContactProps> = ({ isVisible = true }) => {
+const Contact: React.FC<ContactProps> = ({ isVisible = true, transparentBackground = false }) => {
   const { t } = useLanguage();
 
   return (
     <div className="relative overflow-hidden py-16 page-content">
       {/* Simple gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950"></div>
-
-      {/* Subtle overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-cyan-950/10 via-transparent to-indigo-950/10"></div>
+      {!transparentBackground && (
+        <>
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950"></div>
+          {/* Subtle overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-950/10 via-transparent to-indigo-950/10"></div>
+        </>
+      )}
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">

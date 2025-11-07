@@ -1,18 +1,32 @@
 import React, { useEffect, useRef } from 'react';
 
-const MatrixRain: React.FC = () => {
+interface MatrixRainProps {
+  fullHeight?: boolean;
+}
+
+const MatrixRain: React.FC<MatrixRainProps> = ({ fullHeight = false }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // Set canvas size - use parent container height if fullHeight is true
+    const updateSize = () => {
+      canvas.width = window.innerWidth;
+      if (fullHeight && container.parentElement) {
+        canvas.height = container.parentElement.clientHeight || window.innerHeight;
+      } else {
+        canvas.height = window.innerHeight;
+      }
+    };
+
+    updateSize();
 
     const characters = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン01';
     const fontSize = 14;
@@ -51,25 +65,22 @@ const MatrixRain: React.FC = () => {
     const interval = setInterval(draw, 50);
 
     // Handle resize
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', updateSize);
 
     return () => {
       clearInterval(interval);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', updateSize);
     };
-  }, []);
+  }, [fullHeight]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 pointer-events-none opacity-20"
-      style={{ mixBlendMode: 'screen' }}
-    />
+    <div ref={containerRef} className="absolute inset-0 w-full h-full">
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 pointer-events-none opacity-20 w-full h-full"
+        style={{ mixBlendMode: 'screen' }}
+      />
+    </div>
   );
 };
 
