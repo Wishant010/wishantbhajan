@@ -3,25 +3,28 @@ import { useLanguage } from "../contexts/LanguageContext"
 
 interface FooterProps {
   useHomepageStyle?: boolean
+  transparentBackground?: boolean
 }
 
-const Footer: React.FC<FooterProps> = ({ useHomepageStyle = false }) => {
+const Footer: React.FC<FooterProps> = ({ useHomepageStyle = false, transparentBackground = false }) => {
   const { t } = useLanguage();
   return (
     <footer className="relative py-20">
       {/* Background matching portfolio section on homepage */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: useHomepageStyle
-            ? 'rgb(15, 23, 42)' // bg-slate-900 to match portfolio
-            : `linear-gradient(180deg,
-                rgba(30, 35, 54, 0.5) 0%,
-                rgba(32, 37, 56, 0.55) 50%,
-                rgba(34, 39, 62, 0.6) 100%
-              )`
-        }}
-      />
+      {!transparentBackground && (
+        <div
+          className="absolute inset-0"
+          style={{
+            background: useHomepageStyle
+              ? 'rgb(15, 23, 42)' // bg-slate-900 to match portfolio
+              : `linear-gradient(180deg,
+                  rgba(30, 35, 54, 0.5) 0%,
+                  rgba(32, 37, 56, 0.55) 50%,
+                  rgba(34, 39, 62, 0.6) 100%
+                )`
+          }}
+        />
+      )}
 
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
@@ -86,7 +89,7 @@ const Footer: React.FC<FooterProps> = ({ useHomepageStyle = false }) => {
         </div>
 
         {/* Additional Footer Info - subtiele scheidingslijn */}
-        <div className="mt-12 pt-8 border-t border-slate-700/40">
+        <div className={`mt-12 pt-8 ${!transparentBackground ? 'border-t border-slate-700/40' : ''}`}>
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-slate-300 text-sm">
               {t('footer.copyright')}

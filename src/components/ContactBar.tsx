@@ -5,9 +5,10 @@ import GlareHover from './GlareHover'
 
 interface ContactBarProps {
   useHomepageStyle?: boolean
+  transparentBackground?: boolean
 }
 
-const ContactBar: React.FC<ContactBarProps> = ({ useHomepageStyle = false }) => {
+const ContactBar: React.FC<ContactBarProps> = ({ useHomepageStyle = false, transparentBackground = false }) => {
   const contactItems = [
     {
       icon: <Phone className="w-6 h-6" />,
@@ -46,18 +47,20 @@ const ContactBar: React.FC<ContactBarProps> = ({ useHomepageStyle = false }) => 
   return (
     <div className="relative -mt-1">
       {/* Background matching portfolio section on homepage */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: useHomepageStyle
-            ? 'rgb(15, 23, 42)' // bg-slate-900 to match portfolio
-            : `linear-gradient(180deg,
-                rgba(26, 31, 46, 0.4) 0%,
-                rgba(27, 32, 48, 0.45) 50%,
-                rgba(30, 35, 54, 0.5) 100%
-              )`
-        }}
-      />
+      {!transparentBackground && (
+        <div
+          className="absolute inset-0"
+          style={{
+            background: useHomepageStyle
+              ? 'rgb(15, 23, 42)' // bg-slate-900 to match portfolio
+              : `linear-gradient(180deg,
+                  rgba(26, 31, 46, 0.4) 0%,
+                  rgba(27, 32, 48, 0.45) 50%,
+                  rgba(30, 35, 54, 0.5) 100%
+                )`
+          }}
+        />
+      )}
 
       <div className="relative max-w-7xl mx-auto px-6 py-20">
         {/* Main title section */}

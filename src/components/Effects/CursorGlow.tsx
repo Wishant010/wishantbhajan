@@ -106,12 +106,13 @@ const CursorGlow: React.FC<CursorGlowProps> = ({
       {/* Main glow effect */}
       <div
         ref={glowRef}
-        className="fixed pointer-events-none z-50"
+        className="fixed pointer-events-none"
         style={{
           width: `${size}px`,
           height: `${size}px`,
           opacity: 0,
-          willChange: 'transform'
+          willChange: 'transform',
+          zIndex: 9999
         }}
       >
         <div
@@ -127,12 +128,13 @@ const CursorGlow: React.FC<CursorGlowProps> = ({
       {/* Cursor dot */}
       <div
         ref={cursorRef}
-        className="fixed pointer-events-none z-50"
+        className="fixed pointer-events-none"
         style={{
           width: '8px',
           height: '8px',
           opacity: 0,
-          willChange: 'transform'
+          willChange: 'transform',
+          zIndex: 9999
         }}
       >
         <div
@@ -146,11 +148,15 @@ const CursorGlow: React.FC<CursorGlowProps> = ({
 
       {/* Hide default cursor */}
       <style>{`
-        body {
-          cursor: none;
+        * {
+          cursor: none !important;
         }
 
-        a, button, [role="button"], input, textarea, select {
+        body, html {
+          cursor: none !important;
+        }
+
+        a, button, [role="button"], input, textarea, select, div, section, footer {
           cursor: none !important;
         }
       `}</style>
