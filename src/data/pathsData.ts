@@ -353,6 +353,22 @@ export const pathsData: PathData[] = [
         tags: ['Web Design', 'UX/UI', 'Frontend', 'Prototyping', 'Workflow'],
       },
       {
+        year: 'Blockchain & Crypto',
+        title: 'Blockchain & Crypto Lifestyle',
+        description:
+          'In mijn vrije tijd ben ik actief bezig met blockchain technologie en cryptocurrency. Ik bouw blockchain applicaties, experimenteer met smart contracts op Ethereum, en verdiep me in DeFi protocollen. Van NFT projecten tot on-chain data analyse - ik blijf continu leren. Daarnaast volg ik Web3 ontwikkelingen en experimenteer met layer 2 oplossingen.',
+        achievements: [
+          'Blockchain applicaties ontwikkelen',
+          'Smart contracts op Ethereum',
+          'DeFi protocollen toepassen',
+          'NFT projecten ontwikkelen',
+          'On-chain data analyseren',
+          'Web3 technologieën verkennen',
+          'Layer 2 oplossingen implementeren',
+        ],
+        tags: ['Blockchain', 'Cryptocurrency', 'Smart Contracts', 'DeFi', 'NFTs', 'Web3', 'Ethereum', 'Layer 2'],
+      },
+      {
         year: 'Lifestyle',
         title: 'Actief & Ondernemend',
         description:

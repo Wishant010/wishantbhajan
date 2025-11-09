@@ -262,23 +262,28 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     handleDeviceOrientation
   ]);
 
-  const cardStyle = useMemo(
-    () =>
-      ({
-        '--icon': iconUrl ? `url(${iconUrl})` : 'none',
-        '--grain': grainUrl ? `url(${grainUrl})` : 'none',
-        '--behind-gradient': showBehindGradient ? (behindGradient ?? DEFAULT_BEHIND_GRADIENT) : 'none',
-        '--inner-gradient': innerGradient ?? DEFAULT_INNER_GRADIENT
-      }) as React.CSSProperties,
-    [iconUrl, grainUrl, showBehindGradient, behindGradient, innerGradient]
-  );
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+
+    const properties = {
+      '--icon': iconUrl ? `url(${iconUrl})` : 'none',
+      '--grain': grainUrl ? `url(${grainUrl})` : 'none',
+      '--behind-gradient': showBehindGradient ? (behindGradient ?? DEFAULT_BEHIND_GRADIENT) : 'none',
+      '--inner-gradient': innerGradient ?? DEFAULT_INNER_GRADIENT
+    };
+
+    Object.entries(properties).forEach(([property, value]) => {
+      wrap.style.setProperty(property, value);
+    });
+  }, [iconUrl, grainUrl, showBehindGradient, behindGradient, innerGradient]);
 
   const handleContactClick = useCallback(() => {
     onContactClick?.();
   }, [onContactClick]);
 
   return (
-    <div ref={wrapRef} className={`pc-card-wrapper ${className}`.trim()} style={cardStyle}>
+    <div ref={wrapRef} className={`pc-card-wrapper ${className}`.trim()}>
       <section ref={cardRef} className="pc-card">
         <div className="pc-inside">
           <div className="pc-shine" />
@@ -317,7 +322,6 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
                 <button
                   className="pc-contact-btn"
                   onClick={handleContactClick}
-                  style={{ pointerEvents: 'auto' }}
                   type="button"
                   aria-label={`Contact ${name || 'user'}`}
                 >

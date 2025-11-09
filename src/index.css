@@ -196,14 +196,14 @@ p, span, h1, h2, h3, h4, h5, h6, a, li {
 
 /* Enhanced selection styling */
 ::selection {
-  background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
-  color: #0a0a0a;
+  background: rgba(100, 116, 139, 0.5);
+  color: #ffffff;
   text-shadow: none;
 }
 
 ::-moz-selection {
-  background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
-  color: #0a0a0a;
+  background: rgba(100, 116, 139, 0.5);
+  color: #ffffff;
   text-shadow: none;
 }
 

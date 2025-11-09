@@ -191,6 +191,7 @@ const translations = {
     'skills.category.frontend': 'Frontend Development',
     'skills.category.backend': 'Backend Development',
     'skills.category.tools': 'Tools & Technologies',
+    'skills.category.languages': 'Programming Languages',
 
     // ContactPage
     'contactpage.hero.title': 'Let\'s Connect',
@@ -448,6 +449,7 @@ const translations = {
     'skills.category.frontend': 'Frontend Development',
     'skills.category.backend': 'Backend Development',
     'skills.category.tools': 'Tools & Technologies',
+    'skills.category.languages': 'Programming Languages',
 
     // ContactPage
     'contactpage.hero.title': 'Let\'s Connect',

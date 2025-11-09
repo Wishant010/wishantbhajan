@@ -48,18 +48,11 @@ const ShieldContainer: React.FC<ShieldContainerProps> = ({
       description: 'Security tools & research'
     },
     {
-      id: 'school',
-      label: 'School',
-      icon: '🎓',
-      color: '#6366f1',
-      description: 'Academic projects'
-    },
-    {
-      id: 'bedrijf',
-      label: 'Bedrijf',
+      id: 'bedrijven',
+      label: 'Bedrijven',
       icon: '💼',
       color: '#f59e0b',
-      description: 'Professional work'
+      description: 'Business solutions'
     },
     {
       id: 'persoonlijk',

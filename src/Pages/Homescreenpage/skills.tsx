@@ -10,6 +10,12 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ isVisible = true }) => {
   const { t } = useLanguage();
   const skillCategories = [
     {
+      titleKey: 'skills.category.languages',
+      skills: [
+        { name: 'Alle Programming Languages', level: 85, color: 'from-purple-400 to-pink-600', note: 'Ik weet hoe ik met AI moet praten' },
+      ]
+    },
+    {
       titleKey: 'skills.category.frontend',
       skills: [
         { name: 'React', level: 95, color: 'from-blue-400 to-blue-600' },
@@ -114,7 +120,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ isVisible = true }) => {
           variants={containerVariants}
           initial="hidden"
           animate={isVisible ? "visible" : "hidden"}
-          className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
         >
           {skillCategories.map((category) => (
             <motion.div
@@ -137,7 +143,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ isVisible = true }) => {
                         {skill.level}%
                       </span>
                     </div>
-                    
+
                     <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
                       <motion.div
                         className={`h-full bg-gradient-to-r ${skill.color} rounded-full relative`}
@@ -148,6 +154,13 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ isVisible = true }) => {
                       />
                       {/* Removed animate-pulse for cleaner look */}
                     </div>
+
+                    {/* AI Note if exists */}
+                    {'note' in skill && skill.note && (
+                      <p className="text-xs text-slate-400 italic mt-1">
+                        {skill.note}
+                      </p>
+                    )}
                   </div>
                 ))}
               </div>

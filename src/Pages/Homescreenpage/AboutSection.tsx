@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import ProfileCard from '../../components/ProfileCard';
+import styles from './AboutSection.module.css';
 
 // Terminal Component with Typing Animation
 const Terminal: React.FC<{ startTyping: boolean; onTypingComplete?: () => void }> = ({ startTyping, onTypingComplete }) => {
@@ -121,49 +122,14 @@ const AboutSection: React.FC = () => {
   return (
     <section
       ref={ref}
-      className="about-section relative min-h-screen py-32 px-6 lg:px-12 overflow-hidden"
-      style={{
-        background: `linear-gradient(180deg,
-          #0A0E27 0%,
-          #0B1029 8%,
-          #0C132B 16%,
-          #0D152E 24%,
-          #0E1831 32%,
-          #0F1A34 40%,
-          #101D37 48%,
-          #0F1B35 56%,
-          #0E1932 64%,
-          #0C1630 72%,
-          #0A142D 80%,
-          #08112A 88%,
-          #060E26 94%,
-          #050B22 97%,
-          #04081E 100%
-        )`,
-      }}
+      className={`about-section relative min-h-screen py-32 px-6 lg:px-12 overflow-hidden ${styles.aboutSection}`}
     >
       {/* Multi-layer gradient overlays for extra smoothness */}
       <div className="absolute inset-0">
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `radial-gradient(ellipse at 30% 0%, rgba(0, 245, 255, 0.05) 0%, transparent 40%)`
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `radial-gradient(ellipse at 70% 100%, rgba(0, 255, 185, 0.03) 0%, transparent 40%)`
-          }}
-        />
+        <div className={`absolute inset-0 ${styles.gradientOverlay1}`} />
+        <div className={`absolute inset-0 ${styles.gradientOverlay2}`} />
         {/* Noise texture overlay for natural gradient */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E")`,
-            mixBlendMode: 'soft-light',
-          }}
-        />
+        <div className={`absolute inset-0 opacity-[0.03] ${styles.noiseTexture}`} />
       </div>
 
       <div className="container mx-auto max-w-[1600px] relative z-10">
@@ -183,11 +149,7 @@ const AboutSection: React.FC = () => {
               transition={{ duration: 0.5 }}
             >
               <h2
-                className="text-5xl lg:text-7xl font-bold mb-6"
-                style={{
-                  color: '#00B8D4', // Donkerder cyaan voor titel
-                  textShadow: '0 0 25px rgba(0, 184, 212, 0.5), 0 0 8px rgba(0, 150, 168, 0.7)',
-                }}
+                className={`text-5xl lg:text-7xl font-bold mb-6 ${styles.titleHeading}`}
               >
                 Over Mij
               </h2>
@@ -214,16 +176,13 @@ const AboutSection: React.FC = () => {
               >
                 <motion.a
                   href="/about"
-                  className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-teal-500 text-white font-bold rounded-xl overflow-hidden"
+                  className={`group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-teal-500 text-white font-bold rounded-xl overflow-hidden ${styles.ctaButton}`}
                   whileHover={{
                     scale: 1.08,
                     x: 10,
                     boxShadow: '0 0 40px rgba(0, 184, 212, 0.6), 0 0 60px rgba(0, 245, 255, 0.3)'
                   }}
                   whileTap={{ scale: 0.95 }}
-                  style={{
-                    boxShadow: '0 0 30px rgba(0, 184, 212, 0.4)',
-                  }}
                 >
                   <span className="relative z-10 transition-all duration-300 group-hover:tracking-wider">
                     Meer Over Mij
