@@ -12,6 +12,7 @@ interface Skill {
   category: string;
   icon: React.ReactNode;
   color: string;
+  note?: string;
 }
 
 const FeaturedProjectsAndSkills: React.FC = () => {
@@ -75,6 +76,7 @@ const FeaturedProjectsAndSkills: React.FC = () => {
   ];
 
   const skills: Skill[] = [
+    { name: 'All Programming Languages', level: 85, category: 'AI', icon: <Brain />, color: 'from-purple-400 to-pink-500', note: 'Ik weet hoe ik met AI moet praten' },
     { name: 'React / Next.js', level: 95, category: 'Frontend', icon: <Code />, color: 'from-cyan-400 to-blue-500' },
     { name: 'TypeScript', level: 90, category: 'Frontend', icon: <Code />, color: 'from-blue-400 to-purple-500' },
     { name: 'C#', level: 85, category: 'Backend', icon: <Code />, color: 'from-purple-400 to-indigo-500' },
@@ -322,6 +324,13 @@ const FeaturedProjectsAndSkills: React.FC = () => {
                         />
                       </motion.div>
                     </div>
+
+                    {/* AI Note if exists */}
+                    {skill.note && (
+                      <p className="text-xs text-gray-400 italic mt-1 ml-6">
+                        {skill.note}
+                      </p>
+                    )}
                   </motion.div>
                 ))}
               </div>

@@ -1,4 +1,4 @@
-export type Category = "cybersecurity" | "school" | "bedrijf" | "persoonlijk";
+export type Category = "cybersecurity" | "bedrijven" | "persoonlijk";
 
 export interface Project {
   id: string;
@@ -14,6 +14,10 @@ export interface Project {
   };
   featured: boolean;
   details?: string;
+  tier?: 'I' | 'II' | 'III';
+  subcategory?: string;
+  backgroundVideo?: string;
+  darkOverlay?: boolean;
 }
 
 export interface CategoryConfig {

@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import GlobalNavbar from "../../components/GlobalNavbar";
 import ContactBar from "../../components/ContactBar";
 import Footer from "../../components/Footer";
-import ParticleField from "../Homescreenpage/ParticleField";
 
 interface Event {
   id: number;
@@ -109,7 +108,6 @@ const ArticlePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-900" data-page="article">
       <GlobalNavbar />
-      <ParticleField isActive={true} />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 overflow-hidden">
