@@ -7,7 +7,7 @@ import tseslint from 'typescript-eslint'
 export default tseslint.config([
   // Global ignores
   {
-    ignores: ['dist', 'build', 'node_modules', '*.config.js', 'coverage']
+    ignores: ['dist', 'build', 'node_modules', '*.config.js', 'coverage', 'vitest.setup.ts']
   },
   
   // Main configuration for TypeScript and React files
@@ -16,7 +16,6 @@ export default tseslint.config([
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommended,
-      reactHooks.configs.recommended,
     ],
     languageOptions: {
       ecmaVersion: 2020,
@@ -27,6 +26,7 @@ export default tseslint.config([
       },
     },
     plugins: {
+      'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
     rules: {
@@ -35,6 +35,10 @@ export default tseslint.config([
         'warn',
         { allowConstantExport: true },
       ],
+      
+      // React Hooks rules
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
       
       // TypeScript specific rules
       '@typescript-eslint/no-unused-vars': [
@@ -46,16 +50,12 @@ export default tseslint.config([
         },
       ],
       '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/prefer-const': 'error',
       
       // General code quality rules
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'prefer-const': 'error',
       'no-var': 'error',
       'no-duplicate-imports': 'error',
-      
-      // React specific rules
-      'react-hooks/exhaustive-deps': 'warn',
       
       // Disabled rules that can be problematic with modern React/TS
       '@typescript-eslint/no-non-null-assertion': 'off',

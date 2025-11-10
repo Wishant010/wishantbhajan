@@ -1,5 +1,25 @@
 export type Category = "cybersecurity" | "bedrijven" | "persoonlijk";
 
+export interface ProjectFeature {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+export interface ProjectData {
+  problem?: string;
+  solution?: string;
+  features?: ProjectFeature[];
+  techStack?: {
+    frontend?: string[];
+    backend?: string[];
+    architecture?: string[];
+  };
+  architecture?: string;
+  challenges?: string[];
+  learnings?: string[];
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -18,6 +38,8 @@ export interface Project {
   subcategory?: string;
   backgroundVideo?: string;
   darkOverlay?: boolean;
+  comingSoon?: boolean;
+  projectData?: ProjectData;
 }
 
 export interface CategoryConfig {

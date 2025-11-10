@@ -6,6 +6,7 @@ import './index.css';
 // Import performance utilities
 import { safeguardAnimations } from './utils/animationUtils';
 
+/* eslint-disable no-console */
 // Simplified and safe app initialization
 const initializeApp = () => {
   // Apply animation safeguards immediately
@@ -13,11 +14,10 @@ const initializeApp = () => {
   
   // Disable console in production for security
   if (import.meta.env.PROD) {
+    // Keep warn and error for debugging
     console.log = () => {};
-    console.warn = () => {};
     console.info = () => {};
     console.debug = () => {};
-    console.error = () => {}; // Also disable error in production
   }
 
   // Performance monitoring (only in development)
@@ -41,7 +41,7 @@ const initializeApp = () => {
             configurable: false,
             enumerable: false
           });
-        } catch (e) {
+        } catch (_e) {
           // Silently fail if can't define property
         }
       }

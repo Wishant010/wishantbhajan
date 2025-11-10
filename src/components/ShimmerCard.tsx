@@ -11,10 +11,10 @@ interface ShimmerCardProps {
   background?: string;
   scaleX?: number;
   scaleY?: number;
-  initial?: any;
-  animate?: any;
-  transition?: any;
-  whileHover?: any;
+  initial?: boolean | Record<string, unknown>;
+  animate?: Record<string, unknown>;
+  transition?: Record<string, unknown>;
+  whileHover?: Record<string, unknown>;
 }
 
 const ShimmerCard: React.FC<ShimmerCardProps> = ({
@@ -36,10 +36,10 @@ const ShimmerCard: React.FC<ShimmerCardProps> = ({
     <motion.div
       className={`group relative flex items-center gap-3 overflow-hidden border border-white/10 ${className}`}
       style={{
-        ['--spread' as any]: '90deg',
-        ['--shimmer-color' as any]: shimmerColor,
-        ['--radius' as any]: borderRadius,
-        ['--speed' as any]: shimmerDuration,
+        ['--spread' as string]: '90deg',
+        ['--shimmer-color' as string]: shimmerColor,
+        ['--radius' as string]: borderRadius,
+        ['--speed' as string]: shimmerDuration,
         borderRadius: borderRadius,
       }}
       initial={initial}
@@ -60,7 +60,7 @@ const ShimmerCard: React.FC<ShimmerCardProps> = ({
       {/* Subtle inner shadow */}
       <div
         className="absolute inset-0 shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] pointer-events-none transition-shadow duration-300 group-hover:shadow-[inset_0_1px_3px_rgba(255,255,255,0.15)]"
-        style={{ borderRadius: borderRadius }}
+        {...(borderRadius && { style: { borderRadius } })}
       />
     </motion.div>
   );

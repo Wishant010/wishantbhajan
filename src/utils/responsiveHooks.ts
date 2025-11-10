@@ -260,22 +260,35 @@ export function useResponsivePerformance() {
     // Monitor memory usage
     const checkMemory = () => {
       if ('memory' in performance) {
-        const memory = (performance as any).memory;
-        setPerformance(prev => ({
-          ...prev,
-          memoryUsage: memory.usedJSHeapSize / memory.jsHeapSizeLimit
-        }));
+        const memory = (performance as typeof performance & {
+          memory?: {
+            usedJSHeapSize: number;
+            jsHeapSizeLimit: number;
+          };
+        }).memory;
+        if (memory) {
+          setPerformance(prev => ({
+            ...prev,
+            memoryUsage: memory.usedJSHeapSize / memory.jsHeapSizeLimit
+          }));
+        }
       }
     };
 
     // Monitor network speed
     const checkNetworkSpeed = () => {
       if ('connection' in navigator) {
-        const connection = (navigator as any).connection;
-        const speed = connection.effectiveType === '4g' || connection.effectiveType === '3g' 
-          ? 'fast' 
-          : 'slow';
-        setPerformance(prev => ({ ...prev, networkSpeed: speed }));
+        const connection = (navigator as typeof navigator & {
+          connection?: {
+            effectiveType?: string;
+          };
+        }).connection;
+        if (connection) {
+          const speed = connection.effectiveType === '4g' || connection.effectiveType === '3g' 
+            ? 'fast' 
+            : 'slow';
+          setPerformance(prev => ({ ...prev, networkSpeed: speed }));
+        }
       }
     };
 
@@ -292,6 +305,7 @@ export function useResponsivePerformance() {
       clearInterval(memoryInterval);
       clearInterval(networkInterval);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prefersReducedMotion]);
 
   // Performance recommendations
@@ -500,19 +514,19 @@ export function useResponsiveKeyboard() {
 }
 
 // Utility function for throttling
-function throttle<T extends (...args: any[]) => void>(fn: T, wait: number): T {
+function throttle<T extends (...args: unknown[]) => void>(fn: T, wait: number): T {
   let last = 0;
   let timeout: ReturnType<typeof setTimeout> | null = null;
-  return function(this: any, ...args: any[]) {
+  return function(this: unknown, ...args: unknown[]) {
     const now = Date.now();
     if (now - last >= wait) {
       last = now;
-      fn.apply(this, args);
+      fn.apply(this, args as Parameters<T>);
     } else if (!timeout) {
       timeout = setTimeout(() => {
         last = Date.now();
         timeout = null;
-        fn.apply(this, args);
+        fn.apply(this, args as Parameters<T>);
       }, wait - (now - last));
     }
   } as T;

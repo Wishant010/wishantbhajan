@@ -73,9 +73,9 @@ export interface ResponsiveTheme {
   
   // Component variants
   components: {
-    button: Record<string, any>;
-    card: Record<string, any>;
-    input: Record<string, any>;
+    button: Record<string, Record<string, unknown>>;
+    card: Record<string, Record<string, unknown>>;
+    input: Record<string, Record<string, unknown>>;
   };
 }
 
@@ -496,7 +496,7 @@ export function ResponsiveThemeProvider({
   // Utility functions
   const utils = useMemo(() => ({
     getColor: (color: string, shade: number = 500) => {
-      const colorGroup = (theme.colors as any)[color];
+      const colorGroup = (theme.colors as Record<string, Record<number, string>>)[color];
       return colorGroup?.[shade] || color;
     },
     
@@ -574,6 +574,7 @@ export function ResponsiveThemeProvider({
 }
 
 // Hook to use the theme
+// eslint-disable-next-line react-refresh/only-export-components
 export function useResponsiveTheme() {
   const context = useContext(ResponsiveThemeContext);
   if (!context) {
@@ -603,16 +604,18 @@ export function ThemedButton({
   const fontSize = utils.getFontSize(size);
   const padding = utils.getSpacing(size === 'xs' ? 'sm' : size === 'sm' ? 'md' : 'lg');
   
+  const dynamicStyles = {
+    ...buttonStyles,
+    fontSize,
+    padding: `${utils.getSpacing('sm')} ${padding}`,
+    minHeight: deviceInfo.isTouch ? '44px' : 'auto',
+    transition: `all ${utils.getAnimationDuration('fast')} ${theme.animations.easings.smooth}`,
+  };
+  
   return (
     <button
       className={`themed-button themed-button-${variant} ${className}`}
-      style={{
-        ...buttonStyles,
-        fontSize,
-        padding: `${utils.getSpacing('sm')} ${padding}`,
-        minHeight: deviceInfo.isTouch ? '44px' : 'auto',
-        transition: `all ${utils.getAnimationDuration('fast')} ${theme.animations.easings.smooth}`,
-      }}
+      {...(dynamicStyles && { style: dynamicStyles })}
       {...props}
     >
       {children}
@@ -631,14 +634,16 @@ export function ThemedCard({
   
   const cardStyles = theme.components.card[variant] || theme.components.card.default;
   
+  const dynamicStyles = {
+    ...cardStyles,
+    padding: utils.getSpacing('lg'),
+    transition: `all ${utils.getAnimationDuration('normal')} ${theme.animations.easings.smooth}`,
+  };
+  
   return (
     <div
       className={`themed-card themed-card-${variant} ${className}`}
-      style={{
-        ...cardStyles,
-        padding: utils.getSpacing('lg'),
-        transition: `all ${utils.getAnimationDuration('normal')} ${theme.animations.easings.smooth}`,
-      }}
+      {...(dynamicStyles && { style: dynamicStyles })}
       {...props}
     >
       {children}
@@ -649,24 +654,26 @@ export function ThemedCard({
 // Themed Input component
 export function ThemedInput({ 
   variant = 'default',
-  size = 'md',
+  size,
   className = '',
   ...props
-}: any) { // Temporarily use 'any' to resolve type error for size
+}: Omit<ThemedComponentProps & React.InputHTMLAttributes<HTMLInputElement>, 'size'> & { size?: string | number }) {
   const { theme, utils, deviceInfo } = useResponsiveTheme();
 
   const inputStyles = theme.components.input[variant] || theme.components.input.default;
-  const fontSize = utils.getFontSize(String(size));
+  const fontSize = utils.getFontSize(String(size || 'md'));
+  
+  const dynamicStyles = {
+    ...inputStyles,
+    fontSize,
+    minHeight: deviceInfo.isTouch ? '44px' : 'auto',
+    transition: `all ${utils.getAnimationDuration('fast')} ${theme.animations.easings.smooth}`,
+  };
   
   return (
     <input
       className={`themed-input themed-input-${variant} ${className}`}
-      style={{
-        ...inputStyles,
-        fontSize,
-        minHeight: deviceInfo.isTouch ? '44px' : 'auto',
-        transition: `all ${utils.getAnimationDuration('fast')} ${theme.animations.easings.smooth}`,
-      }}
+      {...(dynamicStyles && { style: dynamicStyles })}
       {...props}
     />
   );

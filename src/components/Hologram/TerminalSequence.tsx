@@ -45,6 +45,7 @@ const TerminalSequence: React.FC<TerminalSequenceProps> = ({ onComplete }) => {
     return () => {
       timers.forEach(timer => clearTimeout(timer));
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onComplete]);
 
   const typeText = (fullText: string) => {

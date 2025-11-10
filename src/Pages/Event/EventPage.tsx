@@ -18,7 +18,7 @@ interface Event {
   link?: string;
 }
 
-const ArticlePage: React.FC = () => {
+const EventPage: React.FC = () => {
   const [selectedType, setSelectedType] = useState("all");
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
@@ -106,7 +106,7 @@ const ArticlePage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900" data-page="article">
+    <div className="min-h-screen bg-slate-900" data-page="event">
       <GlobalNavbar />
 
       {/* Hero Section */}
@@ -299,7 +299,7 @@ const ArticlePage: React.FC = () => {
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e: React.MouseEvent) => e.stopPropagation()}
             >
-              {/* Close Button - Fixed z-index and hover effect */}
+              {/* Close Button */}
               <button
                 onClick={() => setSelectedEvent(null)}
                 className="absolute top-4 right-4 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-slate-700/80 backdrop-blur-sm border border-purple-500/30 text-purple-400 hover:bg-purple-500/20 hover:text-purple-300 hover:border-purple-400/50 transition-all duration-200 hover:scale-110"
@@ -315,7 +315,7 @@ const ArticlePage: React.FC = () => {
                 </svg>
               </button>
 
-              {/* Event Details - Main content with proper z-index */}
+              {/* Event Details */}
               <div className="relative z-10 flex justify-center text-purple-400 mb-6">
                 {selectedEvent.image}
               </div>
@@ -417,4 +417,4 @@ const ArticlePage: React.FC = () => {
   );
 };
 
-export default ArticlePage;
+export default EventPage;

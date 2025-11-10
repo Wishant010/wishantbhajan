@@ -1,4 +1,5 @@
 import { useRef, useEffect, useCallback, useMemo } from 'react';
+import styles from './OptimizedSplashCursor.module.css';
 
 interface OptimizedSplashCursorProps {
   isActive?: boolean;
@@ -38,10 +39,13 @@ const OptimizedSplashCursor = ({
   ], []);
 
   // Optimized throttle with cleanup
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   const throttle = useCallback((func: Function, limit: number) => {
     let inThrottle = false;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (...args: any[]) => {
       if (!inThrottle) {
+        // eslint-disable-next-line prefer-spread
         func.apply(null, args);
         inThrottle = true;
         setTimeout(() => (inThrottle = false), limit);
@@ -140,41 +144,47 @@ const OptimizedSplashCursor = ({
   }, [isActive]);
 
   // Optimized mouse handlers with better movement detection
-  const handleMouseMove = useCallback(
-    throttle((e: MouseEvent) => {
-      const prevX = mousePos.current.x;
-      const prevY = mousePos.current.y;
-      
-      mousePos.current = { x: e.clientX, y: e.clientY };
-      
-      const distance = Math.sqrt(
-        Math.pow(e.clientX - prevX, 2) + Math.pow(e.clientY - prevY, 2)
-      );
-      
-      // Only create particles for meaningful movement
-      if (distance > 3 && distance < 100) {
-        addParticle(e.clientX, e.clientY);
-      }
-    }, throttleDelay),
-    [throttle, addParticle, throttleDelay]
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    const prevX = mousePos.current.x;
+    const prevY = mousePos.current.y;
+    
+    mousePos.current = { x: e.clientX, y: e.clientY };
+    
+    const distance = Math.sqrt(
+      Math.pow(e.clientX - prevX, 2) + Math.pow(e.clientY - prevY, 2)
+    );
+    
+    // Only create particles for meaningful movement
+    if (distance > 3 && distance < 100) {
+      addParticle(e.clientX, e.clientY);
+    }
+  }, [addParticle]);
+
+  // Throttled version for event listener
+  const throttledMouseMove = useMemo(
+    () => throttle(handleMouseMove, throttleDelay),
+    [throttle, handleMouseMove, throttleDelay]
   );
 
   // Enhanced click effect with burst pattern
-  const handleClick = useCallback(
-    throttle((e: MouseEvent) => {
-      const burstCount = 8; // Reduced from 10
-      const burstRadius = 15;
-      
-      for (let i = 0; i < burstCount; i++) {
-        const angle = (i / burstCount) * Math.PI * 2;
-        const distance = Math.random() * burstRadius;
-        addParticle(
-          e.clientX + Math.cos(angle) * distance,
-          e.clientY + Math.sin(angle) * distance
-        );
-      }
-    }, 150), // Increased cooldown
-    [throttle, addParticle]
+  const handleClick = useCallback((e: MouseEvent) => {
+    const burstCount = 8; // Reduced from 10
+    const burstRadius = 15;
+    
+    for (let i = 0; i < burstCount; i++) {
+      const angle = (i / burstCount) * Math.PI * 2;
+      const distance = Math.random() * burstRadius;
+      addParticle(
+        e.clientX + Math.cos(angle) * distance,
+        e.clientY + Math.sin(angle) * distance
+      );
+    }
+  }, [addParticle]);
+
+  // Throttled version for event listener
+  const throttledClick = useMemo(
+    () => throttle(handleClick, 150),
+    [throttle, handleClick]
   );
 
   // Enhanced lifecycle management
@@ -193,8 +203,8 @@ const OptimizedSplashCursor = ({
 
     // Passive event listeners for better performance
     const passiveOptions = { passive: true };
-    document.addEventListener('mousemove', handleMouseMove, passiveOptions);
-    document.addEventListener('click', handleClick, passiveOptions);
+    document.addEventListener('mousemove', throttledMouseMove, passiveOptions);
+    document.addEventListener('click', throttledClick, passiveOptions);
 
     // Start optimized render loop
     animationId.current = requestAnimationFrame(render);
@@ -206,24 +216,17 @@ const OptimizedSplashCursor = ({
         animationId.current = undefined;
       }
       particles.current = [];
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('click', handleClick);
+      document.removeEventListener('mousemove', throttledMouseMove);
+      document.removeEventListener('click', throttledClick);
     };
-  }, [isActive, handleMouseMove, handleClick, render]);
+  }, [isActive, throttledMouseMove, throttledClick, render]);
 
   if (!isActive) return null;
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-40"
-      style={{
-        width: '100vw',
-        height: '100vh',
-        mixBlendMode: 'screen',
-        willChange: 'transform', // GPU acceleration hint
-        imageRendering: 'auto'
-      }}
+      className={styles.canvas}
     />
   );
 };

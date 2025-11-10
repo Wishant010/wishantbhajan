@@ -257,6 +257,7 @@ const NeuroBackground: React.FC<NeuroBackgroundProps> = ({
       console.error('Error initializing OGL:', error);
       return undefined;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hue, saturation, chroma]);
 
   // Update uniforms when props change

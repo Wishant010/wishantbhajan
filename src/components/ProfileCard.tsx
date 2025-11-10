@@ -44,6 +44,10 @@ const adjust = (value: number, fromMin: number, fromMax: number, toMin: number, 
 
 const easeInOutCubic = (x: number): number => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 
+interface DeviceMotionEventWithPermission extends DeviceMotionEvent {
+  requestPermission?: () => Promise<string>;
+}
+
 const ProfileCardComponent: React.FC<ProfileCardProps> = ({
   avatarUrl = '/wish-photo.jpg',
   iconUrl,
@@ -219,15 +223,15 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
 
     const handleClick = () => {
       if (!enableMobileTilt || location.protocol !== 'https:') return;
-      if (typeof (window.DeviceMotionEvent as any).requestPermission === 'function') {
-        (window.DeviceMotionEvent as any)
-          .requestPermission()
+      if (typeof (window.DeviceMotionEvent as unknown as DeviceMotionEventWithPermission).requestPermission === 'function') {
+        (window.DeviceMotionEvent as unknown as DeviceMotionEventWithPermission)
+          .requestPermission?.()
           .then((state: string) => {
             if (state === 'granted') {
               window.addEventListener('deviceorientation', deviceOrientationHandler);
             }
           })
-          .catch((err: any) => console.error(err));
+          .catch((err: unknown) => console.error(err));
       } else {
         window.addEventListener('deviceorientation', deviceOrientationHandler);
       }

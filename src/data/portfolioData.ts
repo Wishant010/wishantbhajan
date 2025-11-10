@@ -151,37 +151,16 @@ export const portfolioData: CategoryConfig[] = [
         details: "Complete restaurant management system with POS integration"
       },
       {
-        id: "rdam-app",
-        title: "Rdam App",
-        description: "Innovative mobile application for Rotterdam (Coming Soon)",
-        category: "bedrijven",
-        thumbnail: "/their_is_a_lil_glitch_fix_it.jpeg",
-        technologies: ["React Native", "TypeScript", "Mobile", "Innovation"],
-        links: {},
-        featured: true,
-        details: "Revolutionary app for Rotterdam citizens - in development"
-      },
-      {
-        id: "shipment-tracking",
-        title: "Shipment Tracking System",
-        description: "Real-time logistics and shipment tracking solution for businesses",
-        category: "bedrijven",
-        thumbnail: "/modern_warehouse_logistics_visualization_large_distribution_center.jpeg",
-        technologies: ["React", "TypeScript", "Logistics", "Real-time Tracking", "API Integration"],
-        links: {},
-        featured: true,
-        details: "Complete shipment tracking system with real-time updates and logistics management"
-      },
-      {
         id: "rijschool-management",
         title: "Rijschool Management Systeem",
         description: "Comprehensive driving school management system for lessons and students",
         category: "bedrijven",
         thumbnail: "/modern_driving_school_management_dashboard_clean_scheduling.jpeg",
-        technologies: ["React", "TypeScript", "Scheduling", "Student Management"],
+        technologies: ["Coming Soon December 2025"],
         links: {},
         featured: true,
-        details: "Complete management system for driving schools with scheduling and student tracking"
+        details: "Complete management system for driving schools with scheduling and student tracking",
+        comingSoon: true
       },
       {
         id: "wk-game",
@@ -189,21 +168,23 @@ export const portfolioData: CategoryConfig[] = [
         description: "Interactive World Cup prediction game platform",
         category: "bedrijven",
         thumbnail: "/dynamic_football_stadium_scene_with_bright_floodlights.png",
-        technologies: ["React", "TypeScript", "Gaming", "Real-time"],
+        technologies: ["Coming Soon Mei 2026"],
         links: {},
         featured: true,
-        details: "Engaging World Cup prediction game with real-time updates and leaderboards"
+        details: "Engaging World Cup prediction game with real-time updates and leaderboards",
+        comingSoon: true
       },
       {
-        id: "sneak-up",
-        title: "Sneak UP",
-        description: "Innovative sneaker marketplace and community platform",
+        id: "rdam-app",
+        title: "Rdam App",
+        description: "Innovative mobile application for Rotterdam",
         category: "bedrijven",
-        thumbnail: "/_remove_the_flits_and_remove_dare.jpeg",
-        technologies: ["React", "TypeScript", "E-commerce", "Community"],
+        thumbnail: "/their_is_a_lil_glitch_fix_it.jpeg",
+        technologies: ["Coming Soon June 2026"],
         links: {},
         featured: true,
-        details: "Modern sneaker marketplace with community features and authentication"
+        details: "Revolutionary app for Rotterdam citizens - in development",
+        comingSoon: true
       },
       {
         id: "meet-up",
@@ -211,10 +192,23 @@ export const portfolioData: CategoryConfig[] = [
         description: "Social networking platform for organizing and joining local meetups",
         category: "bedrijven",
         thumbnail: "/meet_up_needs_to_be_on_top.jpeg",
-        technologies: ["React", "TypeScript", "Social", "Events"],
+        technologies: ["Coming Soon December 2026"],
         links: {},
         featured: true,
-        details: "Platform for creating and discovering local events and meetups"
+        details: "Platform for creating and discovering local events and meetups",
+        comingSoon: true
+      },
+      {
+        id: "sneak-up",
+        title: "Sneak UP",
+        description: "Multiplayer challenge game with friends",
+        category: "bedrijven",
+        thumbnail: "/_remove_the_flits_and_remove_dare.jpeg",
+        technologies: ["Coming Soon June 2027"],
+        links: {},
+        featured: true,
+        details: "Interactive game platform with diverse challenges and competitions",
+        comingSoon: true
       }
     ]
   },
@@ -228,14 +222,66 @@ export const portfolioData: CategoryConfig[] = [
       {
         id: "calendify",
         title: "Calendify",
-        description: "Smart calendar application for managing schedules and events",
+        description: "Office calendar web application for hybrid workplace collaboration",
         category: "persoonlijk",
         subcategory: "websites",
         thumbnail: "/professional_office_management_dashboard_clean_calendar_interface.jpeg",
-        technologies: ["React", "TypeScript", "Calendar API", "UI/UX"],
+        technologies: ["React", "TypeScript", "C#", ".NET", "SQL Server", "REST API"],
         links: {},
         featured: true,
-        details: "Modern calendar app with intuitive interface and smart scheduling features"
+        details: "Full-stack web application designed to help employees coordinate office attendance, book meeting rooms, and participate in company events",
+        projectData: {
+          problem: "In hybrid work environments, teams struggle to know who will be in the office, which makes collaboration and event planning difficult. Existing solutions lack the simplicity and social features needed to encourage office attendance.",
+          solution: "Calendify provides a clear, shared overview of office presence and event attendance with an intuitive interface accessible across all devices. The application serves as a social hub that motivates employees to collaborate and connect in person.",
+          features: [
+            {
+              title: "Office Attendance Tracking",
+              description: "Employees can easily mark when they'll be in the office, helping teams coordinate and plan collaboration days",
+              icon: "calendar"
+            },
+            {
+              title: "Event Management",
+              description: "Admins can create company events like boardgame nights and hack-a-thons, while employees can easily sign up and track participation",
+              icon: "event"
+            },
+            {
+              title: "Room Booking System",
+              description: "Real-time meeting room availability with instant booking functionality to streamline workspace management",
+              icon: "room"
+            },
+            {
+              title: "Admin Dashboard",
+              description: "Comprehensive management interface for admins to create, edit, and monitor events with attendee tracking",
+              icon: "dashboard"
+            },
+            {
+              title: "Role-Based Access",
+              description: "Secure authentication system with distinct permissions for administrators and regular employees",
+              icon: "security"
+            },
+            {
+              title: "Responsive Design",
+              description: "Fully responsive interface that works seamlessly on desktop, tablet, and mobile devices with WCAG accessibility compliance",
+              icon: "responsive"
+            }
+          ],
+          techStack: {
+            frontend: ["React", "TypeScript", "React Router", "Aceternity UI", "Framer Motion", "GSAP"],
+            backend: ["C#", "ASP.NET Core", "Entity Framework", "SQL Server"],
+            architecture: ["RESTful API", "Session-based Authentication", "Service Layer Pattern", "DTO Pattern"]
+          },
+          architecture: "The application follows a modern client-server architecture with a React frontend communicating with an ASP.NET Core backend through RESTful APIs. The backend implements a clean service layer pattern with separate controllers for authentication, events, attendance, and room bookings.",
+          challenges: [
+            "Implementing real-time room availability checking to prevent double bookings",
+            "Designing an intuitive UI that works across multiple device sizes while maintaining WCAG accessibility standards",
+            "Building a robust role-based authentication system with session management"
+          ],
+          learnings: [
+            "Mastered full-stack development with React and C#/.NET integration",
+            "Gained experience with complex relational database design and Entity Framework",
+            "Learned to implement accessible and responsive interfaces following WCAG guidelines"
+          ]
+        }
       },
       {
         id: "urban-mobility",
@@ -250,46 +296,21 @@ export const portfolioData: CategoryConfig[] = [
         details: "Innovative urban mobility platform connecting transport options in the city"
       },
       {
-        id: "crypto-bot",
-        title: "Crypto Bot",
-        description: "Automated cryptocurrency trading bot with advanced algorithms",
-        category: "persoonlijk",
-        subcategory: "crypto",
-        thumbnail: "/futuristic_cryptocurrency_trading_bot_visualization_wb_logo.jpg",
-        technologies: ["Python", "Trading APIs", "Machine Learning", "Blockchain"],
-        links: {},
-        featured: true,
-        details: "Intelligent trading bot for cryptocurrency markets with real-time analytics"
-      },
-      {
-        id: "dc-par",
-        title: "DC PAR - Damclub",
-        description: "Digital platform for the local checkers club",
-        category: "persoonlijk",
-        subcategory: "websites",
-        thumbnail: "/professional_checkers_board_game_dc_par_logo.jpg",
-        technologies: ["React", "TypeScript", "Community", "Sports"],
-        links: {},
-        featured: true,
-        details: "Community platform for checkers enthusiasts with game management and member features",
-        darkOverlay: true
-      },
-      {
-        id: "dp-trucks",
-        title: "DP-Trucks Management Systeem",
-        description: "Comprehensive fleet management system for truck operations",
+        id: "shipment-tracking",
+        title: "Shipment Tracking System",
+        description: "Real-time logistics and shipment tracking solution",
         category: "persoonlijk",
         subcategory: "systemen",
-        thumbnail: "/dynamic_truck_logistics_visualization_interactive_map.jpg",
-        technologies: ["React", "TypeScript", "Fleet Management", "Logistics"],
+        thumbnail: "/modern_warehouse_logistics_visualization_large_distribution_center.jpeg",
+        technologies: ["React", "TypeScript", "Logistics", "Real-time Tracking", "API Integration"],
         links: {},
         featured: true,
-        details: "Advanced management system for tracking and managing truck fleet operations"
+        details: "Complete shipment tracking system with real-time updates and logistics management"
       },
       {
         id: "spirit-engineering",
         title: "Spirit Engineering Portfolio",
-        description: "Professional portfolio website for engineering services",
+        description: "Portfolio website",
         category: "persoonlijk",
         subcategory: "websites",
         thumbnail: "/dark_modern_engineering_portfolio_brain_wb_logo.jpg",
@@ -301,14 +322,55 @@ export const portfolioData: CategoryConfig[] = [
       {
         id: "spirit-engineering-bv",
         title: "SpirIT Engineering BV",
-        description: "Corporate engineering solutions and consulting services",
+        description: "Portfolio website",
         category: "persoonlijk",
         subcategory: "websites",
         thumbnail: "/sophisticated_dark_engineering_luminous_split_brain.jpg",
-        technologies: ["React", "TypeScript", "Corporate", "Engineering", "Consulting"],
+        technologies: ["Coming Soon"],
         links: {},
         featured: true,
-        details: "Professional engineering consultancy platform with advanced technical solutions"
+        details: "Professional engineering consultancy platform with advanced technical solutions",
+        comingSoon: true
+      },
+      {
+        id: "crypto-bot",
+        title: "Crypto Bot",
+        description: "Automated cryptocurrency trading bot with advanced algorithms",
+        category: "persoonlijk",
+        subcategory: "crypto",
+        thumbnail: "/futuristic_cryptocurrency_trading_bot_visualization_wb_logo.jpg",
+        technologies: ["Almost Done"],
+        links: {},
+        featured: true,
+        details: "Intelligent trading bot for cryptocurrency markets with real-time analytics",
+        comingSoon: true
+      },
+      {
+        id: "dc-par",
+        title: "DC PAR - Damclub",
+        description: "Club website",
+        category: "persoonlijk",
+        subcategory: "websites",
+        thumbnail: "/professional_checkers_board_game_dc_par_logo.jpg",
+        technologies: ["Almost Done"],
+        links: {},
+        featured: true,
+        details: "Community platform for checkers enthusiasts with game management and member features",
+        darkOverlay: true,
+        comingSoon: true
+      },
+      {
+        id: "dp-trucks",
+        title: "DP-Trucks Management Systeem",
+        description: "Inventory management system",
+        category: "persoonlijk",
+        subcategory: "systemen",
+        thumbnail: "/dynamic_truck_logistics_visualization_interactive_map.jpg",
+        technologies: ["Almost Done"],
+        links: {},
+        featured: true,
+        details: "Advanced management system for tracking and managing truck fleet operations",
+        comingSoon: true
       }
     ]
   }

@@ -7,8 +7,8 @@ interface PerformanceOptimizerProps {
 class PerformanceManager {
   private static instance: PerformanceManager;
   private animationFrames: number[] = [];
-  private timeouts: any[] = [];
-  private intervals: any[] = [];
+  private timeouts: ReturnType<typeof setTimeout>[] = [];
+  private intervals: ReturnType<typeof setInterval>[] = [];
   private eventListeners: Array<{
     target: EventTarget;
     type: string;
@@ -34,7 +34,7 @@ class PerformanceManager {
   }
 
   // Optimized setTimeout
-  addTimeout(callback: () => void, delay: number): any {
+  addTimeout(callback: () => void, delay: number): ReturnType<typeof setTimeout> {
     const id = setTimeout(() => {
       this.timeouts = this.timeouts.filter(timeoutId => timeoutId !== id);
       callback();
@@ -44,7 +44,7 @@ class PerformanceManager {
   }
 
   // Optimized setInterval
-  addInterval(callback: () => void, delay: number): any {
+  addInterval(callback: () => void, delay: number): ReturnType<typeof setInterval> {
     const id = setInterval(callback, delay);
     this.intervals.push(id);
     return id;
@@ -67,7 +67,7 @@ class PerformanceManager {
   }
 
   // Throttled function creator
-  throttle<T extends (...args: any[]) => any>(
+  throttle<T extends (...args: unknown[]) => unknown>(
     func: T,
     limit: number
   ): (...args: Parameters<T>) => void {
@@ -82,13 +82,15 @@ class PerformanceManager {
   }
 
   // Debounced function creator
-  debounce<T extends (...args: any[]) => any>(
+  debounce<T extends (...args: unknown[]) => unknown>(
     func: T,
     delay: number
   ): (...args: Parameters<T>) => void {
-    let timeoutId: any;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
     return (...args: Parameters<T>) => {
-      clearTimeout(timeoutId);
+      if (timeoutId !== undefined) {
+        clearTimeout(timeoutId);
+      }
       timeoutId = this.addTimeout(() => func.apply(this, args), delay);
     };
   }
@@ -112,18 +114,25 @@ class PerformanceManager {
 
   // Force garbage collection (if available)
   forceGC(): void {
-    if ('gc' in window && typeof (window as any).gc === 'function') {
-      (window as any).gc();
+    if ('gc' in window && typeof (window as { gc?: () => void }).gc === 'function') {
+      (window as { gc: () => void }).gc();
     }
   }
 
   // Memory usage monitoring
-  getMemoryUsage(): any {
-    if ('memory' in performance && (performance as any).memory) {
+  getMemoryUsage(): { used: number; total: number; limit: number } | null {
+    const perf = performance as typeof performance & {
+      memory?: {
+        usedJSHeapSize: number;
+        totalJSHeapSize: number;
+        jsHeapSizeLimit: number;
+      };
+    };
+    if ('memory' in performance && perf.memory) {
       return {
-        used: Math.round((performance as any).memory.usedJSHeapSize / 1048576),
-        total: Math.round((performance as any).memory.totalJSHeapSize / 1048576),
-        limit: Math.round((performance as any).memory.jsHeapSizeLimit / 1048576)
+        used: Math.round(perf.memory.usedJSHeapSize / 1048576),
+        total: Math.round(perf.memory.totalJSHeapSize / 1048576),
+        limit: Math.round(perf.memory.jsHeapSizeLimit / 1048576)
       };
     }
     return null;
@@ -176,6 +185,7 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ children })
 };
 
 // Hook for using performance manager
+// eslint-disable-next-line react-refresh/only-export-components
 export const usePerformance = () => {
   const performanceManager = useRef(PerformanceManager.getInstance());
 
@@ -200,11 +210,11 @@ export const usePerformance = () => {
     return performanceManager.current.addEventListener(target, type, listener, options);
   }, []);
 
-  const throttle = useCallback(<T extends (...args: any[]) => any>(func: T, limit: number) => {
+  const throttle = useCallback(<T extends (...args: unknown[]) => unknown>(func: T, limit: number) => {
     return performanceManager.current.throttle(func, limit);
   }, []);
 
-  const debounce = useCallback(<T extends (...args: any[]) => any>(func: T, delay: number) => {
+  const debounce = useCallback(<T extends (...args: unknown[]) => unknown>(func: T, delay: number) => {
     return performanceManager.current.debounce(func, delay);
   }, []);
 

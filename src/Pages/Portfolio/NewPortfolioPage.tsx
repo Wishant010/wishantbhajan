@@ -137,26 +137,31 @@ const NewPortfolioPage: React.FC = () => {
 
                 {/* Category Filters */}
                 <div className="flex flex-wrap gap-3 justify-center">
-                  {portfolioData.map((category) => (
-                    <button
-                      key={category.id}
-                      onClick={() => setSelectedCategory(category.id)}
-                      type="button"
-                      className={`px-6 py-3 rounded-lg font-medium cursor-pointer flex items-center gap-2 ${styles.categoryButton} ${
-                        selectedCategory === category.id
-                          ? 'text-white shadow-md border'
-                          : 'bg-slate-800/50 text-gray-300 border border-cyan-500/30'
-                      }`}
-                      style={{
-                        '--category-bg': selectedCategory === category.id ? `${category.color}40` : undefined,
-                        '--category-border': selectedCategory === category.id ? category.color : undefined,
-                        '--category-shadow': selectedCategory === category.id ? `0 4px 15px ${category.color}20` : undefined,
-                      } as React.CSSProperties}
-                    >
-                      {getCategoryIcon(category.id, selectedCategory === category.id)}
-                      <span>{category.label}</span>
-                    </button>
-                  ))}
+                  {portfolioData.map((category) => {
+                    const isActive = selectedCategory === category.id;
+                    const buttonStyle = isActive ? {
+                      '--category-bg': `${category.color}40`,
+                      '--category-border': category.color,
+                      '--category-shadow': `0 4px 15px ${category.color}20`,
+                    } as React.CSSProperties : {};
+                    
+                    return (
+                      <button
+                        key={category.id}
+                        onClick={() => setSelectedCategory(category.id)}
+                        type="button"
+                        className={`px-6 py-3 rounded-lg font-medium cursor-pointer flex items-center gap-2 ${styles.categoryButton} ${
+                          isActive
+                            ? 'text-white shadow-md border'
+                            : 'bg-slate-800/50 text-gray-300 border border-cyan-500/30'
+                        }`}
+                        {...(isActive && { style: buttonStyle })}
+                      >
+                        {getCategoryIcon(category.id, isActive)}
+                        <span>{category.label}</span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
