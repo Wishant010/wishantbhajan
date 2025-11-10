@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useAnimation } from 'framer-motion';
-import { useInView } from 'framer-motion';
+import { motion, useAnimation, useInView } from 'framer-motion';
 import ProfileCard from '../../components/ProfileCard';
 import styles from './AboutSection.module.css';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 // Terminal Component with Typing Animation
-const Terminal: React.FC<{ startTyping: boolean; onTypingComplete?: () => void }> = ({ startTyping, onTypingComplete }) => {
+const Terminal: React.FC<{ startTyping: boolean; onTypingComplete?: () => void; t: (key: string) => string }> = ({ startTyping, onTypingComplete, t }) => {
   const [displayedText, setDisplayedText] = useState('');
   const [currentLine, setCurrentLine] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
@@ -13,13 +13,13 @@ const Terminal: React.FC<{ startTyping: boolean; onTypingComplete?: () => void }
 
   const terminalLines = [
     { prompt: '>', command: './about-me.sh', delay: 500 },
-    { prompt: '>', text: 'Name: Wishant Bhajan', delay: 100 },
-    { prompt: '>', text: 'Age: 20', delay: 100 },
-    { prompt: '>', text: 'Location: Rotterdam, NL', delay: 100 },
-    { prompt: '>', text: 'Role: Student Informatica 3e jaars', delay: 100 },
-    { prompt: '>', text: 'Status: Available for work', delay: 100 },
-    { prompt: '>', text: 'Passion: Cybersecurity & Innovation', delay: 100 },
-    { prompt: '>', text: 'Experience: 3+ years', delay: 100 }
+    { prompt: '>', text: t('aboutsection.terminal.name'), delay: 100 },
+    { prompt: '>', text: t('aboutsection.terminal.age'), delay: 100 },
+    { prompt: '>', text: t('aboutsection.terminal.location'), delay: 100 },
+    { prompt: '>', text: t('aboutsection.terminal.role'), delay: 100 },
+    { prompt: '>', text: t('aboutsection.terminal.status'), delay: 100 },
+    { prompt: '>', text: t('aboutsection.terminal.passion'), delay: 100 },
+    { prompt: '>', text: t('aboutsection.terminal.experience'), delay: 100 }
   ];
 
   useEffect(() => {
@@ -60,6 +60,7 @@ const Terminal: React.FC<{ startTyping: boolean; onTypingComplete?: () => void }
     }, 500);
 
     return () => clearInterval(cursorInterval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startTyping, hasTyped]);
 
   return (
@@ -111,6 +112,7 @@ const AboutSection: React.FC = () => {
   const isInView = useInView(ref, { once: false, amount: 0.3 });
   const controls = useAnimation();
   const [isTypingComplete, setIsTypingComplete] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (isInView) {
@@ -151,12 +153,10 @@ const AboutSection: React.FC = () => {
               <h2
                 className={`text-5xl lg:text-7xl font-bold mb-6 ${styles.titleHeading}`}
               >
-                Over Mij
+                {t('aboutsection.title')}
               </h2>
               <p className="text-lg lg:text-xl text-gray-300 leading-relaxed max-w-xl">
-                3e jaars Informatica student met een passie voor cybersecurity
-                en innovatieve weboplossingen. Ik combineer creativiteit met technische
-                expertise om veilige en gebruiksvriendelijke applicaties te bouwen.
+                {t('aboutsection.subtitle')}
               </p>
             </motion.div>
 
@@ -164,6 +164,7 @@ const AboutSection: React.FC = () => {
             <Terminal
               startTyping={isInView}
               onTypingComplete={() => setIsTypingComplete(true)}
+              t={t}
             />
 
             {/* Button that appears after typing is complete */}
@@ -185,7 +186,7 @@ const AboutSection: React.FC = () => {
                   whileTap={{ scale: 0.95 }}
                 >
                   <span className="relative z-10 transition-all duration-300 group-hover:tracking-wider">
-                    Meer Over Mij
+                    {t('aboutsection.button')}
                   </span>
                   <svg
                     className="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-2 group-hover:scale-110"
@@ -218,11 +219,11 @@ const AboutSection: React.FC = () => {
             <ProfileCard
               avatarUrl="/wish-photo.jpg"
               miniAvatarUrl="/favicon.svg"
-              name="Wishant Bhajan"
-              title="Software Engineer"
+              name={t('aboutsection.profilecard.name')}
+              title={t('aboutsection.profilecard.title')}
               handle="wishant010"
-              status="Available for work"
-              contactText="Contact"
+              status={t('aboutsection.profilecard.status')}
+              contactText={t('aboutsection.profilecard.contact')}
               showUserInfo={true}
               enableTilt={true}
               enableMobileTilt={false}

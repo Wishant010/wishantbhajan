@@ -12,23 +12,23 @@ const LandingPage = React.lazy(() => import("./Pages/LandinPage/FirstScreen"));
 const HomePage = React.lazy(() => import("./Pages/Homescreenpage/index"));
 const AboutPage = React.lazy(() => import("./Pages/About/AboutPage"));
 const PortfolioPage = React.lazy(() => import("./Pages/Portfolio/NewPortfolioPage"));
-const ArticlePage = React.lazy(() => import("./Pages/Article/ArticlePage"));
 const ProjectDetailPage = React.lazy(() => import("./Pages/ProjectDetail/ProjectDetailPage"));
+const EventPage = React.lazy(() => import("./Pages/Event/EventPage"));
 
 // Component to handle first visit check
 function FirstVisitRedirect() {
+  // Mark as visited on mount
+  React.useEffect(() => {
+    sessionStorage.setItem('hasVisitedSite', 'true');
+  }, []);
+
   // Check if user has visited before in this session
-  const hasVisited = sessionStorage.getItem('hasVisitedSite');
+  const hasVisited = sessionStorage.getItem('hasVisited Site');
 
   // If already visited, redirect to home
   if (hasVisited === 'true') {
     return <Navigate to="/home" replace />;
   }
-
-  // Mark as visited and show landing page
-  React.useEffect(() => {
-    sessionStorage.setItem('hasVisitedSite', 'true');
-  }, []);
 
   return <LandingPage />;
 }
@@ -74,9 +74,8 @@ function PerformanceMonitor({ children }: { children: React.ReactNode }) {
             configurable: false,
           });
         }
-      } catch (error) {
-        // Silently ignore if already defined
-        console.debug("Wallet extension prevention failed:", error);
+      } catch (_error) {
+        // Silently ignore if already defined - no logging needed
       }
     };
 
@@ -336,7 +335,7 @@ function App() {
               <Route path="/home" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/portfolio" element={<PortfolioPage />} />
-              <Route path="/article" element={<ArticlePage />} />
+              <Route path="/event" element={<EventPage />} />
               <Route path="/project/:projectId" element={<ProjectDetailPage />} />
             </Routes>
           </React.Suspense>

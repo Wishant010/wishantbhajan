@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import styles from './WireframeCube.module.css';
 
 interface WireframeCubeProps {
   size?: number;
@@ -12,25 +13,45 @@ const WireframeCube: React.FC<WireframeCubeProps> = ({
   color = '#00f3ff',
   speed = 20
 }) => {
+  const containerStyle = {
+    width: size,
+    height: size,
+  };
+
+  const frontFaceStyle = {
+    border: `1px solid ${color}`,
+    transform: `translateZ(${size / 2}px)`,
+  };
+
+  const backFaceStyle = {
+    border: `1px solid ${color}`,
+    transform: `translateZ(-${size / 2}px) rotateY(180deg)`,
+  };
+
+  const rightFaceStyle = {
+    border: `1px solid ${color}`,
+    transform: `rotateY(90deg) translateZ(${size / 2}px)`,
+  };
+
+  const leftFaceStyle = {
+    border: `1px solid ${color}`,
+    transform: `rotateY(-90deg) translateZ(${size / 2}px)`,
+  };
+
+  const topFaceStyle = {
+    border: `1px solid ${color}`,
+    transform: `rotateX(90deg) translateZ(${size / 2}px)`,
+  };
+
+  const bottomFaceStyle = {
+    border: `1px solid ${color}`,
+    transform: `rotateX(-90deg) translateZ(${size / 2}px)`,
+  };
+
   return (
-    <div className="wireframe-cube-container" style={{
-      width: size,
-      height: size,
-      perspective: '1000px',
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      pointerEvents: 'none',
-    }}>
+    <div className={styles.container} {...(containerStyle && { style: containerStyle })}>
       <motion.div
-        className="cube"
-        style={{
-          width: '100%',
-          height: '100%',
-          position: 'relative',
-          transformStyle: 'preserve-3d',
-        }}
+        className={styles.cube}
         animate={{
           rotateX: [0, 360],
           rotateY: [0, 360],
@@ -43,93 +64,42 @@ const WireframeCube: React.FC<WireframeCubeProps> = ({
       >
         {/* Front Face */}
         <div
-          className="cube-face"
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            border: `1px solid ${color}`,
-            opacity: 0.3,
-            transform: `translateZ(${size / 2}px)`,
-          }}
+          className={styles.cubeFace}
+          {...(frontFaceStyle && { style: frontFaceStyle })}
         />
 
         {/* Back Face */}
         <div
-          className="cube-face"
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            border: `1px solid ${color}`,
-            opacity: 0.3,
-            transform: `translateZ(-${size / 2}px) rotateY(180deg)`,
-          }}
+          className={styles.cubeFace}
+          {...(backFaceStyle && { style: backFaceStyle })}
         />
 
         {/* Right Face */}
         <div
-          className="cube-face"
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            border: `1px solid ${color}`,
-            opacity: 0.3,
-            transform: `rotateY(90deg) translateZ(${size / 2}px)`,
-          }}
+          className={styles.cubeFace}
+          {...(rightFaceStyle && { style: rightFaceStyle })}
         />
 
         {/* Left Face */}
         <div
-          className="cube-face"
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            border: `1px solid ${color}`,
-            opacity: 0.3,
-            transform: `rotateY(-90deg) translateZ(${size / 2}px)`,
-          }}
+          className={styles.cubeFace}
+          {...(leftFaceStyle && { style: leftFaceStyle })}
         />
 
         {/* Top Face */}
         <div
-          className="cube-face"
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            border: `1px solid ${color}`,
-            opacity: 0.3,
-            transform: `rotateX(90deg) translateZ(${size / 2}px)`,
-          }}
+          className={styles.cubeFace}
+          {...(topFaceStyle && { style: topFaceStyle })}
         />
 
         {/* Bottom Face */}
         <div
-          className="cube-face"
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            border: `1px solid ${color}`,
-            opacity: 0.3,
-            transform: `rotateX(-90deg) translateZ(${size / 2}px)`,
-          }}
+          className={styles.cubeFace}
+          {...(bottomFaceStyle && { style: bottomFaceStyle })}
         />
 
         {/* Diagonal lines for extra wireframe effect */}
-        <svg
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            top: 0,
-            left: 0,
-            pointerEvents: 'none',
-          }}
-        >
+        <svg className={styles.diagonalSvg}>
           <line x1="0" y1="0" x2="100%" y2="100%" stroke={color} strokeWidth="1" opacity="0.2" />
           <line x1="100%" y1="0" x2="0" y2="100%" stroke={color} strokeWidth="1" opacity="0.2" />
         </svg>

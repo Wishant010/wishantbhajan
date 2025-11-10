@@ -74,9 +74,9 @@ export default function SplashCursor({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    let pointers: Pointer[] = [pointerPrototype()];
+    const pointers: Pointer[] = [pointerPrototype()];
 
-    let config = {
+    const config = {
       SIM_RESOLUTION: SIM_RESOLUTION!,
       DYE_RESOLUTION: DYE_RESOLUTION!,
       CAPTURE_RESOLUTION: CAPTURE_RESOLUTION!,
@@ -149,11 +149,11 @@ export default function SplashCursor({
 
       const halfFloatTexType = isWebGL2
         ? (gl as WebGL2RenderingContext).HALF_FLOAT
-        : (halfFloat && (halfFloat as any).HALF_FLOAT_OES) || 0;
+        : (halfFloat && (halfFloat as { HALF_FLOAT_OES?: number }).HALF_FLOAT_OES) || 0;
 
-      let formatRGBA: any;
-      let formatRG: any;
-      let formatR: any;
+      let formatRGBA: { internalFormat: number; format: number };
+      let formatRG: { internalFormat: number; format: number };
+      let formatR: { internalFormat: number; format: number };
 
       if (isWebGL2) {
         formatRGBA = getSupportedFormat(
@@ -161,23 +161,23 @@ export default function SplashCursor({
           (gl as WebGL2RenderingContext).RGBA16F,
           gl.RGBA,
           halfFloatTexType
-        );
+        )!;
         formatRG = getSupportedFormat(
           gl,
           (gl as WebGL2RenderingContext).RG16F,
           (gl as WebGL2RenderingContext).RG,
           halfFloatTexType
-        );
+        )!;
         formatR = getSupportedFormat(
           gl,
           (gl as WebGL2RenderingContext).R16F,
           (gl as WebGL2RenderingContext).RED,
           halfFloatTexType
-        );
+        )!;
       } else {
-        formatRGBA = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
-        formatRG = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
-        formatR = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
+        formatRGBA = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType)!;
+        formatRG = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType)!;
+        formatR = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType)!;
       }
 
       return {
@@ -286,7 +286,7 @@ export default function SplashCursor({
       gl.shaderSource(shader, shaderSource);
       gl.compileShader(shader);
       if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        console.trace(gl.getShaderInfoLog(shader));
+        console.error('Shader compilation error:', gl.getShaderInfoLog(shader));
       }
       return shader;
     }
@@ -302,13 +302,13 @@ export default function SplashCursor({
       gl.attachShader(program, fragmentShader);
       gl.linkProgram(program);
       if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-        console.trace(gl.getProgramInfoLog(program));
+        console.error('Program linking error:', gl.getProgramInfoLog(program));
       }
       return program;
     }
 
     function getUniforms(program: WebGLProgram) {
-      let uniforms: Record<string, WebGLUniformLocation | null> = {};
+      const uniforms: Record<string, WebGLUniformLocation | null> = {};
       const uniformCount = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
       for (let i = 0; i < uniformCount; i++) {
         const uniformInfo = gl.getActiveUniform(program, i);
@@ -970,7 +970,7 @@ export default function SplashCursor({
       const w = gl.drawingBufferWidth;
       const h = gl.drawingBufferHeight;
       const aspectRatio = w / h;
-      let aspect = aspectRatio < 1 ? 1 / aspectRatio : aspectRatio;
+      const aspect = aspectRatio < 1 ? 1 / aspectRatio : aspectRatio;
       const min = Math.round(resolution);
       const max = Math.round(resolution * aspect);
       if (w > h) {

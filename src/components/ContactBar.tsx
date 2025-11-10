@@ -2,6 +2,7 @@ import React from "react"
 import { motion } from "framer-motion"
 import { Phone, Mail, Linkedin, Github } from 'lucide-react'
 import GlareHover from './GlareHover'
+import { useLanguage } from '../contexts/LanguageContext'
 
 interface ContactBarProps {
   useHomepageStyle?: boolean
@@ -9,10 +10,12 @@ interface ContactBarProps {
 }
 
 const ContactBar: React.FC<ContactBarProps> = ({ useHomepageStyle = false, transparentBackground = false }) => {
+  const { t } = useLanguage();
+
   const contactItems = [
     {
       icon: <Phone className="w-6 h-6" />,
-      label: "Telefoon",
+      label: t('contact.phone'),
       value: "+31 648 447 234",
       href: "tel:+31648447234",
       glareColor: "#3b82f6",
@@ -20,7 +23,7 @@ const ContactBar: React.FC<ContactBarProps> = ({ useHomepageStyle = false, trans
     },
     {
       icon: <Mail className="w-6 h-6" />,
-      label: "Email",
+      label: t('contact.email'),
       value: "Wishantbhajan@outlook.com",
       href: "mailto:Wishantbhajan@outlook.com",
       glareColor: "#a855f7",
@@ -28,7 +31,7 @@ const ContactBar: React.FC<ContactBarProps> = ({ useHomepageStyle = false, trans
     },
     {
       icon: <Linkedin className="w-6 h-6" />,
-      label: "LinkedIn",
+      label: t('contact.linkedin'),
       value: "Wishant Bhajan",
       href: "https://www.linkedin.com/in/wishant-bhajan-0a73832a4/",
       glareColor: "#0ea5e9",
@@ -36,7 +39,7 @@ const ContactBar: React.FC<ContactBarProps> = ({ useHomepageStyle = false, trans
     },
     {
       icon: <Github className="w-6 h-6" />,
-      label: "GitHub",
+      label: t('contact.github'),
       value: "Wishant010",
       href: "https://github.com/Wishant010",
       glareColor: "#ec4899",
@@ -72,11 +75,11 @@ const ContactBar: React.FC<ContactBarProps> = ({ useHomepageStyle = false, trans
         >
           <h2 className="text-3xl lg:text-4xl font-bold mb-4">
             <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Let's Work Together
+              {t('contact.title')}
             </span>
           </h2>
           <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-            Open voor nieuwe projecten en samenwerkingen. Neem contact op voor innovatieve digitale oplossingen.
+            {t('contact.intro')}
           </p>
         </motion.div>
 
@@ -148,7 +151,7 @@ const ContactBar: React.FC<ContactBarProps> = ({ useHomepageStyle = false, trans
         >
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-sm text-slate-400">Currently available for work</span>
+            <span className="text-sm text-slate-400">{t('contact.availability.status')}</span>
           </div>
         </motion.div>
       </div>

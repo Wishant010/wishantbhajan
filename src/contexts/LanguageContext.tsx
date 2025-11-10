@@ -16,7 +16,8 @@ const translations = {
     'nav.home': 'Home',
     'nav.about': 'Over Mij',
     'nav.portfolio': 'Portfolio',
-    'nav.article': 'Events',
+    'nav.events': 'Events',
+    'nav.article': 'Artikelen',
 
     // Hero Section
     'hero.welcome': 'Welkom in mijn',
@@ -268,13 +269,85 @@ const translations = {
     'aboutpage.cta.title': 'Laten We Samen Bouwen',
     'aboutpage.cta.subtitle': 'Op zoek naar een developer die jouw visie kan realiseren?',
     'aboutpage.cta.button': 'Bekijk Portfolio',
+
+    // Featured Projects & Skills Section
+    'featured.projects.title': 'Uitgelichte Projecten',
+    'featured.projects.description': 'Geavanceerde oplossingen met moderne technologieën',
+    'featured.skills.title': 'Technische Vaardigheden',
+    'featured.skills.description': 'Expertise in moderne technologieën en frameworks',
+    'featured.viewAllProjects': 'Bekijk Alle Projecten',
+
+    // Project Cards
+    'featured.project1.title': 'CyberGuard Pro',
+    'featured.project1.desc': 'Geavanceerd netwerk security monitoring systeem met real-time threat detection en geautomatiseerde response mogelijkheden',
+    'featured.project1.label': 'Live',
+    'featured.project2.title': 'Data Vault',
+    'featured.project2.desc': 'Versleutelde cloud opslag met zero-knowledge architectuur',
+    'featured.project2.label': 'In Ontwikkeling',
+    'featured.project3.title': 'AI Assistent',
+    'featured.project3.desc': 'Slim automatiserings platform aangedreven door machine learning',
+    'featured.project3.label': 'Featured',
+    'featured.project4.title': 'Blockchain Wallet',
+    'featured.project4.desc': 'Veilige crypto wallet met multi-chain support en DeFi integratie',
+    'featured.project4.label': 'Beta',
+    'featured.project5.title': 'Task Manager',
+    'featured.project5.desc': 'Productiviteits app met AI suggesties',
+    'featured.project5.label': 'Live',
+    'featured.project6.title': 'Weather Dashboard',
+    'featured.project6.desc': 'Real-time weer analytics met voorspellende modellen',
+    'featured.project6.label': 'Live',
+
+    // Skills
+    'featured.skill.ai': 'Alle Programmeertalen',
+    'featured.skill.ai.note': 'Ik weet hoe ik met AI moet praten',
+    'featured.skill.react': 'React / Next.js',
+    'featured.skill.typescript': 'TypeScript',
+    'featured.skill.csharp': 'C#',
+    'featured.skill.nodejs': 'Node.js',
+    'featured.skill.python': 'Python',
+    'featured.skill.cybersecurity': 'Cybersecurity',
+    'featured.skill.databases': 'Databases',
+    'featured.skill.docker': 'Docker / K8s',
+    'featured.skill.ml': 'Machine Learning',
+    'featured.skill.other': 'Overige technologieën',
+
+    // Skill Categories
+    'featured.category.ai': 'AI',
+    'featured.category.frontend': 'Frontend',
+    'featured.category.backend': 'Backend',
+    'featured.category.security': 'Security',
+    'featured.category.database': 'Database',
+    'featured.category.devops': 'DevOps',
+    'featured.category.tools': 'Tools',
+
+    // Skill Stats
+    'featured.stats.technologies': 'Technologieën',
+    'featured.stats.experience': 'Jaar Ervaring',
+    'featured.stats.projects': 'Projecten',
+
+    // About Section (Homepage)
+    'aboutsection.title': 'Over Mij',
+    'aboutsection.subtitle': '3e jaars Informatica student met een passie voor cybersecurity en innovatieve weboplossingen. Ik combineer creativiteit met technische expertise om veilige en gebruiksvriendelijke applicaties te bouwen.',
+    'aboutsection.terminal.name': 'Naam: Wishant Bhajan',
+    'aboutsection.terminal.age': 'Leeftijd: 20',
+    'aboutsection.terminal.location': 'Locatie: Rotterdam, NL',
+    'aboutsection.terminal.role': 'Rol: Student Informatica 3e jaars',
+    'aboutsection.terminal.status': 'Status: Beschikbaar voor werk',
+    'aboutsection.terminal.passion': 'Passie: Cybersecurity & Innovatie',
+    'aboutsection.terminal.experience': 'Ervaring: 3+ jaar',
+    'aboutsection.button': 'Meer Over Mij',
+    'aboutsection.profilecard.name': 'Wishant Bhajan',
+    'aboutsection.profilecard.title': 'Software Engineer',
+    'aboutsection.profilecard.status': 'Beschikbaar voor werk',
+    'aboutsection.profilecard.contact': 'Contact',
   },
   en: {
     // Navbar
     'nav.home': 'Home',
     'nav.about': 'About Me',
     'nav.portfolio': 'Portfolio',
-    'nav.article': 'Events',
+    'nav.events': 'Events',
+    'nav.article': 'Articles',
 
     // Hero Section
     'hero.welcome': 'Welcome to my',
@@ -526,6 +599,77 @@ const translations = {
     'aboutpage.cta.title': 'Let\'s Build Together',
     'aboutpage.cta.subtitle': 'Looking for a developer who can realize your vision?',
     'aboutpage.cta.button': 'View Portfolio',
+
+    // Featured Projects & Skills Section
+    'featured.projects.title': 'Featured Projects',
+    'featured.projects.description': 'Cutting-edge solutions with modern technologies',
+    'featured.skills.title': 'Technical Skills',
+    'featured.skills.description': 'Expertise in modern technologies and frameworks',
+    'featured.viewAllProjects': 'View All Projects',
+
+    // Project Cards
+    'featured.project1.title': 'CyberGuard Pro',
+    'featured.project1.desc': 'Advanced network security monitoring system with real-time threat detection and automated response capabilities',
+    'featured.project1.label': 'Live',
+    'featured.project2.title': 'Data Vault',
+    'featured.project2.desc': 'Encrypted cloud storage with zero-knowledge architecture',
+    'featured.project2.label': 'In Development',
+    'featured.project3.title': 'AI Assistant',
+    'featured.project3.desc': 'Smart automation platform powered by machine learning',
+    'featured.project3.label': 'Featured',
+    'featured.project4.title': 'Blockchain Wallet',
+    'featured.project4.desc': 'Secure crypto wallet with multi-chain support and DeFi integration',
+    'featured.project4.label': 'Beta',
+    'featured.project5.title': 'Task Manager',
+    'featured.project5.desc': 'Productivity app with AI suggestions',
+    'featured.project5.label': 'Live',
+    'featured.project6.title': 'Weather Dashboard',
+    'featured.project6.desc': 'Real-time weather analytics with predictive models',
+    'featured.project6.label': 'Live',
+
+    // Skills
+    'featured.skill.ai': 'All Programming Languages',
+    'featured.skill.ai.note': 'I know how to talk to AI',
+    'featured.skill.react': 'React / Next.js',
+    'featured.skill.typescript': 'TypeScript',
+    'featured.skill.csharp': 'C#',
+    'featured.skill.nodejs': 'Node.js',
+    'featured.skill.python': 'Python',
+    'featured.skill.cybersecurity': 'Cybersecurity',
+    'featured.skill.databases': 'Databases',
+    'featured.skill.docker': 'Docker / K8s',
+    'featured.skill.ml': 'Machine Learning',
+    'featured.skill.other': 'Other technologies',
+
+    // Skill Categories
+    'featured.category.ai': 'AI',
+    'featured.category.frontend': 'Frontend',
+    'featured.category.backend': 'Backend',
+    'featured.category.security': 'Security',
+    'featured.category.database': 'Database',
+    'featured.category.devops': 'DevOps',
+    'featured.category.tools': 'Tools',
+
+    // Skill Stats
+    'featured.stats.technologies': 'Technologies',
+    'featured.stats.experience': 'Years Exp',
+    'featured.stats.projects': 'Projects',
+
+    // About Section (Homepage)
+    'aboutsection.title': 'About Me',
+    'aboutsection.subtitle': '3rd year Computer Science student with a passion for cybersecurity and innovative web solutions. I combine creativity with technical expertise to build secure and user-friendly applications.',
+    'aboutsection.terminal.name': 'Name: Wishant Bhajan',
+    'aboutsection.terminal.age': 'Age: 20',
+    'aboutsection.terminal.location': 'Location: Rotterdam, NL',
+    'aboutsection.terminal.role': 'Role: 3rd Year Computer Science Student',
+    'aboutsection.terminal.status': 'Status: Available for work',
+    'aboutsection.terminal.passion': 'Passion: Cybersecurity & Innovation',
+    'aboutsection.terminal.experience': 'Experience: 3+ years',
+    'aboutsection.button': 'More About Me',
+    'aboutsection.profilecard.name': 'Wishant Bhajan',
+    'aboutsection.profilecard.title': 'Software Engineer',
+    'aboutsection.profilecard.status': 'Available for work',
+    'aboutsection.profilecard.contact': 'Contact',
   },
 };
 
@@ -550,6 +694,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
   if (!context) {

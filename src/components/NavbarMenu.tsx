@@ -2,9 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 
-interface NavbarMenuProps {}
-
-const NavbarMenu = ({}: NavbarMenuProps) => {
+const NavbarMenu = () => {
   const [activeSection, setActiveSection] = useState<string>('home');
   const [scrolled, setScrolled] = useState(false);
   const { language, setLanguage, t } = useLanguage();

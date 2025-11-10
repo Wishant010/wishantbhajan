@@ -4,9 +4,8 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 
-export default defineConfig(({ command, mode }) => {
+export default defineConfig(({ mode }) => {
   const isProduction = mode === 'production';
-  const isGitHubPages = process.env.GITHUB_PAGES === 'true' || process.env.CI === 'true';
   
   // Voor custom domain (wishantbhajan.nl) gebruik altijd root base
   const base = '/';

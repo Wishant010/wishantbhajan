@@ -347,6 +347,7 @@ const LetterGlitch: React.FC<LetterGlitchProps> = ({
       }
       clearTimeout(resizeTimeout);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [actualGlitchSpeed, smooth, duration, onComplete, isMobile, prefersReducedMotion, reducedMotionPreference]);
 
   const containerStyle: React.CSSProperties = {

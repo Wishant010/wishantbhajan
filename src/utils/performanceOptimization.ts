@@ -5,7 +5,7 @@
 /**
  * Debounce function to limit the rate at which a function can fire
  */
-export const debounce = <T extends (...args: any[]) => any>(
+export const debounce = <T extends (...args: unknown[]) => unknown>(
   func: T,
   wait: number
 ): ((...args: Parameters<T>) => void) => {
@@ -25,7 +25,7 @@ export const debounce = <T extends (...args: any[]) => any>(
 /**
  * Throttle function to ensure a function is only called once in a specified time period
  */
-export const throttle = <T extends (...args: any[]) => any>(
+export const throttle = <T extends (...args: unknown[]) => unknown>(
   func: T,
   limit: number
 ): ((...args: Parameters<T>) => void) => {
@@ -43,7 +43,7 @@ export const throttle = <T extends (...args: any[]) => any>(
 /**
  * RequestAnimationFrame wrapper for smooth animations
  */
-export const rafThrottle = <T extends (...args: any[]) => any>(
+export const rafThrottle = <T extends (...args: unknown[]) => unknown>(
   func: T
 ): ((...args: Parameters<T>) => void) => {
   let rafId: number | null = null;
@@ -174,7 +174,7 @@ export class PerformanceTracker {
     if (performance.measure && endMark) {
       try {
         performance.measure(name, startMark, endMark);
-      } catch (e) {
+      } catch (_e) {
         console.warn('Performance.measure not available');
       }
     }

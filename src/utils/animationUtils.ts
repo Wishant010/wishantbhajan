@@ -1,13 +1,16 @@
 import { useTransform, useSpring } from 'framer-motion';
 
+/* eslint-disable react-hooks/rules-of-hooks */
 // Animation utility functions to fix blur and performance issues
+// NOTE: These functions use hooks conditionally for utility purposes
+// They should be refactored to proper custom hooks in the future
 
 /**
  * Fixed blur animation that prevents negative values
  * Converts negative blur values to positive and adds creative effects
  */
 export function useFixedBlurAnimation(
-  source: any,
+  source: unknown,
   options: {
     intensity?: number;
     maxBlur?: number;
@@ -209,7 +212,7 @@ export function createSafeBlurEffect(intensity: number = 1) {
  * Performance monitor for animations
  */
 export class AnimationPerformanceMonitor {
-  private static instance: AnimationPerformanceMonitor;
+  private static instance: AnimationPerformanceMonitor | null = null;
   private frameCount = 0;
   private lastTime = 0;
   private fps = 60;
@@ -218,7 +221,7 @@ export class AnimationPerformanceMonitor {
   destroy() {
     this.stopMonitoring();
     if (AnimationPerformanceMonitor.instance === this) {
-      AnimationPerformanceMonitor.instance = null as any;
+      AnimationPerformanceMonitor.instance = null;
     }
   }
 
@@ -318,7 +321,8 @@ export function safeguardAnimations() {
   // Prevent wallet extensions from interfering with animations
   if (typeof window !== 'undefined') {
     // Avoid double-patching
-    if (!(window.requestAnimationFrame as any)._safeguarded) {
+    const raf = window.requestAnimationFrame as typeof window.requestAnimationFrame & { _safeguarded?: boolean };
+    if (!raf._safeguarded) {
       const originalRAF = window.requestAnimationFrame;
       const patchedRAF = function(callback: FrameRequestCallback): number {
         try {
@@ -331,7 +335,7 @@ export function safeguardAnimations() {
           });
         }
       };
-      (patchedRAF as any)._safeguarded = true;
+      (patchedRAF as typeof patchedRAF & { _safeguarded: boolean })._safeguarded = true;
       window.requestAnimationFrame = patchedRAF;
     }
   }

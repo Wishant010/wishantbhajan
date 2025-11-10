@@ -15,6 +15,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) =>
   const navigate = useNavigate();
 
   const handleClick = () => {
+    // Don't navigate if the project is coming soon
+    if (project.comingSoon) {
+      return;
+    }
+
     if (onClick) {
       onClick();
     } else {
@@ -25,10 +30,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) =>
   return (
     <motion.div
       ref={cardRef}
-      className="project-card relative cursor-pointer group/canvas-card"
+      className={`project-card relative group/canvas-card ${project.comingSoon ? 'cursor-default' : 'cursor-pointer'}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{
+      whileHover={project.comingSoon ? {} : {
         scale: 1.02,
         rotateX: 2,
         rotateY: 2,
@@ -57,10 +62,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) =>
               }}
             />
             {/* Overlay - darker for projects with darkOverlay flag */}
-            <div className={`absolute inset-0 ${project.darkOverlay ? 'bg-gradient-to-t from-slate-900/90 via-slate-900/60 to-slate-900/40' : 'bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent'}`} />
+            <div className={`absolute inset-0 transition-all duration-300 ${project.darkOverlay ? 'bg-gradient-to-t from-slate-900/90 via-slate-900/60 to-slate-900/40 group-hover/canvas-card:from-slate-900/95 group-hover/canvas-card:via-slate-900/70 group-hover/canvas-card:to-slate-900/50' : 'bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent group-hover/canvas-card:from-slate-900/90 group-hover/canvas-card:via-slate-900/50 group-hover/canvas-card:to-slate-900/20'}`} />
           </div>
         ) : (
-          <div className="absolute inset-0 z-0 bg-slate-800/50 backdrop-blur-lg" />
+          <div className="absolute inset-0 z-0 bg-slate-800/50 backdrop-blur-lg transition-all duration-300 group-hover/canvas-card:bg-slate-800/70" />
         )}
 
         {/* Project content */}
@@ -75,12 +80,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) =>
           {/* Top section - Title and Description */}
           <div className="flex-1">
             {/* Title */}
-            <h3 className="text-2xl font-bold text-white mb-3 transition-all duration-200 group-hover/canvas-card:text-cyan-100 drop-shadow-lg">
+            <h3 className="text-2xl font-bold text-white mb-3 drop-shadow-lg">
               {project.title}
             </h3>
 
             {/* Description */}
-            <p className="text-slate-200 text-sm mb-4 leading-relaxed transition-colors duration-200 group-hover/canvas-card:text-white drop-shadow-md">
+            <p className="text-slate-200 text-sm mb-4 leading-relaxed drop-shadow-md">
               {project.description}
             </p>
           </div>

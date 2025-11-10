@@ -5,8 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useNavigate } from "react-router-dom"
 import SplashCursor from "../../components/SplashCursor"
 import LetterGlitch from "../../components/LetterGlitch"
-import { useViewport, useResponsiveValue } from "../../utils/responsive"
-import type { ResponsiveValue } from "../../utils/responsive"
+import { useViewport, useResponsiveValue, type ResponsiveValue } from "../../utils/responsive"
 
 // Type definitions
 interface AccessGrantedProps {
@@ -345,7 +344,10 @@ const HomePage: React.FC = () => {
     timersRef.current.push(contentTimer)
 
     return () => {
-      timersRef.current.forEach(timer => clearTimeout(timer))
+      // Copy ref value to local variable for cleanup
+      const timers = timersRef.current
+      timers.forEach(timer => clearTimeout(timer))
+      timersRef.current = []
       document.body.style.overflow = "unset"
       document.body.style.height = "auto"
       document.documentElement.style.removeProperty('--container-padding')
