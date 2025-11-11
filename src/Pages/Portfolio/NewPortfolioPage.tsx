@@ -8,8 +8,10 @@ import ContactBar from '../../components/ContactBar';
 import Footer from '../../components/Footer';
 import { portfolioData } from '../../data/portfolioData';
 import ProjectsGrid from '../../components/Projects/ProjectsGrid';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const NewPortfolioPage: React.FC = () => {
+  const { t } = useLanguage();
   const location = useLocation();
   const pageRef = React.useRef<HTMLDivElement>(null);
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -108,10 +110,10 @@ const NewPortfolioPage: React.FC = () => {
             {/* Header */}
             <div className="max-w-7xl mx-auto mb-12">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-cyan-400 mb-4 text-center">
-                Mijn Portfolio
+                {t('portfoliopage.title')}
               </h1>
               <p className="text-gray-300 text-center text-lg mb-8">
-                Ontdek mijn projecten en werk
+                {t('portfoliopage.subtitle')}
               </p>
 
               {/* Search and Filter Section */}
@@ -120,7 +122,7 @@ const NewPortfolioPage: React.FC = () => {
                 <div className="relative w-full lg:w-96">
                   <input
                     type="text"
-                    placeholder="Zoek projecten..."
+                    placeholder={t('portfoliopage.search')}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full px-6 py-3 bg-slate-800/50 border border-cyan-500/30 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all backdrop-blur-sm"
@@ -176,7 +178,7 @@ const NewPortfolioPage: React.FC = () => {
                         : 'bg-slate-800/50 text-gray-300 border border-cyan-500/30'
                     }`}
                   >
-                    All Tiers
+                    {t('portfoliopage.tier.all')}
                   </button>
                   <button
                     onClick={() => setSelectedTier('I')}
@@ -186,7 +188,7 @@ const NewPortfolioPage: React.FC = () => {
                         : 'bg-slate-800/50 text-gray-300 border border-green-500/30'
                     }`}
                   >
-                    Tier I
+                    {t('portfoliopage.tier.i')}
                   </button>
                   <button
                     onClick={() => setSelectedTier('II')}
@@ -196,7 +198,7 @@ const NewPortfolioPage: React.FC = () => {
                         : 'bg-slate-800/50 text-gray-300 border border-yellow-500/30'
                     }`}
                   >
-                    Tier II
+                    {t('portfoliopage.tier.ii')}
                   </button>
                   <button
                     onClick={() => setSelectedTier('III')}
@@ -206,7 +208,7 @@ const NewPortfolioPage: React.FC = () => {
                         : 'bg-slate-800/50 text-gray-300 border border-red-500/30'
                     }`}
                   >
-                    Tier III
+                    {t('portfoliopage.tier.iii')}
                   </button>
                 </div>
               )}
@@ -222,7 +224,7 @@ const NewPortfolioPage: React.FC = () => {
                         : 'bg-slate-800/50 text-gray-300 border border-pink-500/30'
                     }`}
                   >
-                    Alles
+                    {t('portfoliopage.subcategory.all')}
                   </button>
                   <button
                     onClick={() => setSelectedSubcategory('websites')}
@@ -232,7 +234,7 @@ const NewPortfolioPage: React.FC = () => {
                         : 'bg-slate-800/50 text-gray-300 border border-purple-500/30'
                     }`}
                   >
-                    Websites
+                    {t('portfoliopage.subcategory.websites')}
                   </button>
                   <button
                     onClick={() => setSelectedSubcategory('crypto')}
@@ -242,7 +244,7 @@ const NewPortfolioPage: React.FC = () => {
                         : 'bg-slate-800/50 text-gray-300 border border-yellow-500/30'
                     }`}
                   >
-                    Crypto
+                    {t('portfoliopage.subcategory.crypto')}
                   </button>
                   <button
                     onClick={() => setSelectedSubcategory('systemen')}
@@ -252,7 +254,7 @@ const NewPortfolioPage: React.FC = () => {
                         : 'bg-slate-800/50 text-gray-300 border border-blue-500/30'
                     }`}
                   >
-                    Systemen
+                    {t('portfoliopage.subcategory.systems')}
                   </button>
                 </div>
               )}

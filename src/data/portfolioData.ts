@@ -222,46 +222,46 @@ export const portfolioData: CategoryConfig[] = [
       {
         id: "calendify",
         title: "Calendify",
-        description: "Office calendar web application for hybrid workplace collaboration",
+        description: "Kantoorkalender webapplicatie voor hybride werkplek samenwerking",
         category: "persoonlijk",
         subcategory: "websites",
         thumbnail: "/professional_office_management_dashboard_clean_calendar_interface.jpeg",
         technologies: ["React", "TypeScript", "C#", ".NET", "SQL Server", "REST API"],
         links: {},
         featured: true,
-        details: "Full-stack web application designed to help employees coordinate office attendance, book meeting rooms, and participate in company events",
+        details: "Full-stack webapplicatie ontworpen om medewerkers te helpen kantooraanwezigheid te coördineren, vergaderruimtes te boeken en deel te nemen aan bedrijfsevenementen",
         projectData: {
-          problem: "In hybrid work environments, teams struggle to know who will be in the office, which makes collaboration and event planning difficult. Existing solutions lack the simplicity and social features needed to encourage office attendance.",
-          solution: "Calendify provides a clear, shared overview of office presence and event attendance with an intuitive interface accessible across all devices. The application serves as a social hub that motivates employees to collaborate and connect in person.",
+          problem: "In hybride werkomgevingen hebben teams moeite om te weten wie er op kantoor zal zijn, wat samenwerking en evenementenplanning moeilijk maakt. Bestaande oplossingen missen de eenvoud en sociale functies die nodig zijn om kantooraanwezigheid aan te moedigen.",
+          solution: "Calendify biedt een duidelijk, gedeeld overzicht van kantooraanwezigheid en evenementdeelname met een intuïtieve interface die toegankelijk is op alle apparaten. De applicatie dient als een sociale hub die medewerkers motiveert om samen te werken en persoonlijk contact te maken.",
           features: [
             {
-              title: "Office Attendance Tracking",
-              description: "Employees can easily mark when they'll be in the office, helping teams coordinate and plan collaboration days",
+              title: "Kantooraanwezigheid Bijhouden",
+              description: "Medewerkers kunnen gemakkelijk aangeven wanneer ze op kantoor zijn, waardoor teams samenwerkingsdagen kunnen coördineren en plannen",
               icon: "calendar"
             },
             {
-              title: "Event Management",
-              description: "Admins can create company events like boardgame nights and hack-a-thons, while employees can easily sign up and track participation",
+              title: "Evenementenbeheer",
+              description: "Beheerders kunnen bedrijfsevenementen aanmaken zoals bordspellenavonden en hackathons, terwijl medewerkers zich gemakkelijk kunnen aanmelden en deelname kunnen volgen",
               icon: "event"
             },
             {
-              title: "Room Booking System",
-              description: "Real-time meeting room availability with instant booking functionality to streamline workspace management",
+              title: "Ruimteboekingssysteem",
+              description: "Real-time beschikbaarheid van vergaderruimtes met directe boekingsfunctionaliteit om werkplekbeheer te stroomlijnen",
               icon: "room"
             },
             {
-              title: "Admin Dashboard",
-              description: "Comprehensive management interface for admins to create, edit, and monitor events with attendee tracking",
+              title: "Beheerderspaneel",
+              description: "Uitgebreide beheerinterface voor beheerders om evenementen aan te maken, te bewerken en te monitoren met deelnemerstracking",
               icon: "dashboard"
             },
             {
-              title: "Role-Based Access",
-              description: "Secure authentication system with distinct permissions for administrators and regular employees",
+              title: "Rolgebaseerde Toegang",
+              description: "Veilig authenticatiesysteem met verschillende rechten voor beheerders en gewone medewerkers",
               icon: "security"
             },
             {
-              title: "Responsive Design",
-              description: "Fully responsive interface that works seamlessly on desktop, tablet, and mobile devices with WCAG accessibility compliance",
+              title: "Responsief Ontwerp",
+              description: "Volledig responsieve interface die naadloos werkt op desktop, tablet en mobiele apparaten met WCAG toegankelijkheidsnaleving",
               icon: "responsive"
             }
           ],
@@ -270,16 +270,16 @@ export const portfolioData: CategoryConfig[] = [
             backend: ["C#", "ASP.NET Core", "Entity Framework", "SQL Server"],
             architecture: ["RESTful API", "Session-based Authentication", "Service Layer Pattern", "DTO Pattern"]
           },
-          architecture: "The application follows a modern client-server architecture with a React frontend communicating with an ASP.NET Core backend through RESTful APIs. The backend implements a clean service layer pattern with separate controllers for authentication, events, attendance, and room bookings.",
+          architecture: "De applicatie volgt een moderne client-server architectuur met een React frontend die communiceert met een ASP.NET Core backend via RESTful API's. De backend implementeert een clean service layer patroon met aparte controllers voor authenticatie, evenementen, aanwezigheid en ruimteboekingen.",
           challenges: [
-            "Implementing real-time room availability checking to prevent double bookings",
-            "Designing an intuitive UI that works across multiple device sizes while maintaining WCAG accessibility standards",
-            "Building a robust role-based authentication system with session management"
+            "Implementeren van real-time beschikbaarheidscontrole van ruimtes om dubbele boekingen te voorkomen",
+            "Ontwerpen van een intuïtieve UI die werkt op meerdere apparaatformaten terwijl WCAG toegankelijkheidsnormen worden gehandhaafd",
+            "Bouwen van een robuust rolgebaseerd authenticatiesysteem met sessiebeheer"
           ],
           learnings: [
-            "Mastered full-stack development with React and C#/.NET integration",
-            "Gained experience with complex relational database design and Entity Framework",
-            "Learned to implement accessible and responsive interfaces following WCAG guidelines"
+            "Full-stack ontwikkeling met React en C#/.NET integratie onder de knie gekregen",
+            "Ervaring opgedaan met complex relationeel database ontwerp en Entity Framework",
+            "Geleerd om toegankelijke en responsieve interfaces te implementeren volgens WCAG richtlijnen"
           ]
         }
       },
