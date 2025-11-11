@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import GlobalNavbar from "../../components/GlobalNavbar";
 import ContactBar from "../../components/ContactBar";
 import Footer from "../../components/Footer";
+import { useLanguage } from "../../contexts/LanguageContext";
 
 interface Event {
   id: number;
@@ -19,6 +20,7 @@ interface Event {
 }
 
 const EventPage: React.FC = () => {
+  const { t } = useLanguage();
   const [selectedType, setSelectedType] = useState("all");
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
@@ -142,7 +144,7 @@ const EventPage: React.FC = () => {
             transition={{ duration: 0.8 }}
           >
             <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              Events & Hackathons
+              {t('eventpage.title')}
             </span>
           </motion.h1>
           <motion.p
@@ -151,8 +153,7 @@ const EventPage: React.FC = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Ontdek mijn journey door verschillende tech events, hackathons en workshops waar ik
-            heb deelgenomen en nieuwe skills heb geleerd.
+            {t('eventpage.subtitle')}
           </motion.p>
         </div>
       </section>
@@ -173,7 +174,7 @@ const EventPage: React.FC = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {type.charAt(0).toUpperCase() + type.slice(1)}
+                {t(`eventpage.filter.${type}`)}
               </motion.button>
             ))}
           </div>
@@ -245,7 +246,7 @@ const EventPage: React.FC = () => {
                       ))}
                       {event.tech.length > 3 && (
                         <span className="px-2 py-1 text-purple-400/60 text-xs">
-                          +{event.tech.length - 3} meer
+                          +{event.tech.length - 3} {t('eventpage.more')}
                         </span>
                       )}
                     </div>
@@ -266,7 +267,7 @@ const EventPage: React.FC = () => {
               className="text-center py-20"
             >
               <p className="text-blue-200/60 text-lg">
-                Geen events gevonden in deze categorie.
+                {t('eventpage.empty')}
               </p>
             </motion.div>
           )}
@@ -346,7 +347,7 @@ const EventPage: React.FC = () => {
 
                 {/* Highlights */}
                 <div className="mb-6">
-                  <h3 className="text-xl font-semibold text-purple-400 mb-3">Highlights</h3>
+                  <h3 className="text-xl font-semibold text-purple-400 mb-3">{t('eventpage.modal.highlights')}</h3>
                   <ul className="space-y-2">
                     {selectedEvent.highlights.map((highlight, idx) => (
                       <li key={idx} className="flex items-center gap-2 text-blue-200/70">
@@ -358,7 +359,7 @@ const EventPage: React.FC = () => {
 
                 {/* Tech Stack */}
                 <div className="mb-6">
-                  <h3 className="text-xl font-semibold text-purple-400 mb-3">Technologies</h3>
+                  <h3 className="text-xl font-semibold text-purple-400 mb-3">{t('eventpage.modal.technologies')}</h3>
                   <div className="flex flex-wrap gap-2">
                     {selectedEvent.tech.map((tech) => (
                       <span
@@ -380,7 +381,7 @@ const EventPage: React.FC = () => {
                       rel="noopener noreferrer"
                       className="px-6 py-3 bg-gradient-to-r from-purple-400 to-blue-400 text-slate-900 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-400/25 transition-all"
                     >
-                      Meer Info
+                      {t('eventpage.modal.moreinfo')}
                     </a>
                   </div>
                 )}
@@ -401,10 +402,10 @@ const EventPage: React.FC = () => {
             className="bg-gradient-to-r from-purple-950/50 to-blue-950/50 backdrop-blur-lg rounded-2xl p-12 border border-purple-500/30"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-purple-300 mb-6">
-              Wil je samen naar een event?
+              {t('eventpage.cta.title')}
             </h2>
             <p className="text-xl text-blue-200/80">
-              Ik ben altijd op zoek naar nieuwe hackathons en tech events om bij te wonen.
+              {t('eventpage.cta.subtitle')}
             </p>
           </motion.div>
         </div>

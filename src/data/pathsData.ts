@@ -133,10 +133,7 @@ export const pathsData: PathData[] = [
         images: [
           '/over-mij/bedrijven-pad/vooraad-vending.jpg',
           '/over-mij/bedrijven-pad/vooraad-op-fiets.jpg',
-          '/over-mij/bedrijven-pad/veidning-video.mp4',
-          '/over-mij/bedrijven-pad/Afbeelding van WhatsApp op 2025-11-01 om 16.28.57_013930df.jpg',
-          '/over-mij/bedrijven-pad/Afbeelding van WhatsApp op 2025-11-01 om 16.28.57_eda1cb03.jpg',
-          '/over-mij/bedrijven-pad/Untitled design.mp4'
+          '/over-mij/bedrijven-pad/veidning-video.mp4'
         ],
         imageStyle: 'icon',
         achievements: [

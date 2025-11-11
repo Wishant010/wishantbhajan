@@ -145,7 +145,7 @@ const FeaturedProjects: React.FC = () => {
           className="text-center"
         >
           <button
-            onClick={() => navigate('/projects')}
+            onClick={() => navigate('/portfolio')}
             className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300"
             style={{
               background: 'linear-gradient(135deg, rgba(0, 245, 255, 0.1) 0%, rgba(0, 184, 212, 0.1) 100%)',
