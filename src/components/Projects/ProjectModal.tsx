@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Project } from '../../types/portfolio.types';
-import styles from './ProjectModal.module.css';
 
 interface ProjectModalProps {
   project: Project;
@@ -25,9 +24,12 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
   }, [onClose]);
+
+  const categoryColor = getCategoryColor(project.category);
+
   return (
     <motion.div
-      className={styles.modal}
+      className="fixed inset-0 z-50 flex items-center justify-center p-6"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -35,7 +37,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
     >
       {/* Backdrop */}
       <motion.div
-        className={styles.backdrop}
+        className="absolute inset-0 bg-black/80 backdrop-blur-sm"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -43,7 +45,10 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
 
       {/* Modal Content */}
       <motion.div
-        className={`${styles.content} ${styles[getThemeClass(project.category)]}`}
+        className="relative bg-slate-800/95 backdrop-blur-xl backdrop-saturate-[1.8] rounded-2xl p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto border-2"
+        style={{
+          borderColor: `color-mix(in srgb, ${categoryColor} 30%, transparent)`
+        }}
         initial={{ scale: 0.9, y: 20 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 20 }}
@@ -53,7 +58,17 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
         <button
           type="button"
           onClick={() => onClose()}
-          className={styles.closeButton}
+          className="absolute top-4 right-4 p-2 rounded-lg transition-colors duration-200"
+          style={{
+            color: categoryColor,
+            backgroundColor: `color-mix(in srgb, ${categoryColor} 10%, transparent)`
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = `color-mix(in srgb, ${categoryColor} 20%, transparent)`;
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = `color-mix(in srgb, ${categoryColor} 10%, transparent)`;
+          }}
           title="Close modal"
           aria-label="Close modal"
         >
@@ -63,58 +78,70 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
         </button>
 
         {/* Project Image/Icon */}
-        <div className={styles.imageContainer}>
+        <div className="w-full h-64 bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl mb-6 flex items-center justify-center overflow-hidden">
           {project.thumbnail ? (
             <img
               src={project.thumbnail}
               alt={project.title}
-              className={styles.projectImage}
+              className="w-full h-full object-cover"
               onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                 (e.target as HTMLImageElement).style.display = 'none';
               }}
             />
           ) : (
-            <span className={styles.categoryIcon}>{getCategoryIcon(project.category)}</span>
+            <span className="text-8xl">{getCategoryIcon(project.category)}</span>
           )}
         </div>
 
         {/* Project Details */}
         <h2
-          className={styles.title}
+          className="text-3xl font-bold mb-4"
+          style={{ color: categoryColor }}
         >
           {project.title}
         </h2>
 
         {project.featured && (
           <span
-            className={styles.featuredBadge}
+            className="inline-block px-4 py-2 rounded-full text-sm font-semibold mb-4 border"
+            style={{
+              color: categoryColor,
+              backgroundColor: `color-mix(in srgb, ${categoryColor} 20%, transparent)`,
+              borderColor: `color-mix(in srgb, ${categoryColor} 40%, transparent)`
+            }}
           >
             Featured Project
           </span>
         )}
 
-        <p className={styles.description}>
+        <p className="text-slate-300 mb-6 text-lg leading-relaxed">
           {project.description}
         </p>
 
         {project.details && (
-          <p className={styles.details}>
+          <p className="text-slate-400 mb-6">
             {project.details}
           </p>
         )}
 
         {/* Technologies */}
-        <div className={styles.technologiesSection}>
+        <div className="mb-6">
           <h3
-            className={styles.technologiesTitle}
+            className="text-xl font-bold mb-3"
+            style={{ color: categoryColor }}
           >
             Technologies
           </h3>
-          <div className={styles.technologiesContainer}>
+          <div className="flex flex-wrap gap-2">
             {project.technologies.map((tech: string) => (
               <span
                 key={tech}
-                className={styles.technologyTag}
+                className="px-4 py-2 rounded-full text-sm font-semibold border"
+                style={{
+                  color: categoryColor,
+                  backgroundColor: `color-mix(in srgb, ${categoryColor} 20%, transparent)`,
+                  borderColor: `color-mix(in srgb, ${categoryColor} 30%, transparent)`
+                }}
               >
                 {tech}
               </span>
@@ -124,13 +151,18 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
 
         {/* Links */}
         {(project.links.github || project.links.demo || project.links.case_study) && (
-          <div className={styles.linksContainer}>
+          <div className="flex flex-wrap gap-4 pt-6 border-t border-slate-700">
             {project.links.github && (
               <a
                 href={project.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${styles.linkButton} ${styles.githubLink}`}
+                className="px-6 py-3 rounded-lg font-bold transition-all duration-300 border"
+                style={{
+                  color: categoryColor,
+                  backgroundColor: `color-mix(in srgb, ${categoryColor} 20%, transparent)`,
+                  borderColor: `color-mix(in srgb, ${categoryColor} 40%, transparent)`
+                }}
               >
                 View on GitHub →
               </a>
@@ -140,7 +172,11 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
                 href={project.links.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${styles.linkButton} ${styles.demoLink}`}
+                className="px-6 py-3 rounded-lg font-bold transition-all duration-300"
+                style={{
+                  color: '#0f172a',
+                  backgroundColor: categoryColor
+                }}
               >
                 Live Demo →
               </a>
@@ -150,7 +186,12 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
                 href={project.links.case_study}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${styles.linkButton} ${styles.caseStudyLink}`}
+                className="px-6 py-3 rounded-lg font-bold transition-all duration-300 border"
+                style={{
+                  color: categoryColor,
+                  backgroundColor: `color-mix(in srgb, ${categoryColor} 20%, transparent)`,
+                  borderColor: `color-mix(in srgb, ${categoryColor} 40%, transparent)`
+                }}
               >
                 Case Study →
               </a>
@@ -162,18 +203,18 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
   );
 };
 
-function getThemeClass(category: string): string {
+function getCategoryColor(category: string): string {
   switch (category) {
     case 'cybersecurity':
-      return 'themeCybersecurity';
+      return '#10b981';
     case 'school':
-      return 'themeSchool';
+      return '#3b82f6';
     case 'bedrijf':
-      return 'themeBedrijf';
+      return '#8b5cf6';
     case 'persoonlijk':
-      return 'themePersoonlijk';
+      return '#f59e0b';
     default:
-      return 'themeDefault';
+      return '#06b6d4';
   }
 }
 

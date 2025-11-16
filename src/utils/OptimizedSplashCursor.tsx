@@ -1,5 +1,4 @@
 import { useRef, useEffect, useCallback, useMemo } from 'react';
-import styles from './OptimizedSplashCursor.module.css';
 
 interface OptimizedSplashCursorProps {
   isActive?: boolean;
@@ -226,7 +225,8 @@ const OptimizedSplashCursor = ({
   return (
     <canvas
       ref={canvasRef}
-      className={styles.canvas}
+      className="fixed inset-0 pointer-events-none z-40 w-screen h-screen mix-blend-screen will-change-transform"
+      style={{ imageRendering: 'auto' }}
     />
   );
 };

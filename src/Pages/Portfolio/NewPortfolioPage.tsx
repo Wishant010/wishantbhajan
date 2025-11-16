@@ -1,7 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import GlobalNavbar from '../../components/GlobalNavbar';
-import styles from './NewPortfolioPage.module.css';
 import MatrixRain from '../../components/Effects/MatrixRain';
 import ParticleField from '../../components/Effects/ParticleField';
 import ContactBar from '../../components/ContactBar';
@@ -63,7 +62,7 @@ const NewPortfolioPage: React.FC = () => {
 
 
   return (
-    <div ref={pageRef} className={`bg-slate-900 relative w-full ${styles.portfolioPage}`} data-page="portfolio">
+    <div ref={pageRef} className="bg-slate-900 relative w-full min-h-screen overflow-visible" data-page="portfolio">
         {/* Background Layer - Absolute positioning covering full page */}
         <div className="fixed top-0 left-0 right-0 bottom-0 z-0 pointer-events-none overflow-hidden w-full">
           {/* Matrix Rain Background */}
@@ -86,7 +85,13 @@ const NewPortfolioPage: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-cyan-950/20 via-slate-900 to-emerald-950/20 w-full h-full" />
 
           {/* Animated Hexagon Pattern */}
-          <div className={`absolute inset-0 ${styles.hexPattern} w-full h-full`} />
+          <div
+            className="absolute inset-0 w-full h-full opacity-5"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%2310b981' stroke-width='0.5'%3E%3Cpath d='M30 0L52 15L52 45L30 60L8 45L8 15Z'/%3E%3C/g%3E%3C/svg%3E")`,
+              backgroundSize: '60px 60px'
+            }}
+          />
         </div>
 
         {/* Navbar - Fixed on top */}
@@ -99,7 +104,7 @@ const NewPortfolioPage: React.FC = () => {
           <img
             src="/logo.png"
             alt="WB Logo"
-            className={`w-[600px] h-auto opacity-[0.15] select-none ${styles.logoWatermark}`}
+            className="w-[600px] h-auto opacity-[0.15] select-none"
           />
         </div>
 
@@ -141,23 +146,22 @@ const NewPortfolioPage: React.FC = () => {
                 <div className="flex flex-wrap gap-3 justify-center">
                   {portfolioData.map((category) => {
                     const isActive = selectedCategory === category.id;
-                    const buttonStyle = isActive ? {
-                      '--category-bg': `${category.color}40`,
-                      '--category-border': category.color,
-                      '--category-shadow': `0 4px 15px ${category.color}20`,
-                    } as React.CSSProperties : {};
-                    
+
                     return (
                       <button
                         key={category.id}
                         onClick={() => setSelectedCategory(category.id)}
                         type="button"
-                        className={`px-6 py-3 rounded-lg font-medium cursor-pointer flex items-center gap-2 ${styles.categoryButton} ${
+                        className={`px-6 py-3 rounded-lg font-medium cursor-pointer flex items-center gap-2 transition-all duration-300 ${
                           isActive
                             ? 'text-white shadow-md border'
                             : 'bg-slate-800/50 text-gray-300 border border-cyan-500/30'
                         }`}
-                        {...(isActive && { style: buttonStyle })}
+                        style={isActive ? {
+                          backgroundColor: `${category.color}40`,
+                          borderColor: category.color,
+                          boxShadow: `0 4px 15px ${category.color}20`
+                        } : {}}
                       >
                         {getCategoryIcon(category.id, isActive)}
                         <span>{category.label}</span>

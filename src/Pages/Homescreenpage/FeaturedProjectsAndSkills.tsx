@@ -4,7 +4,6 @@ import { ArrowRight, Code, Shield, Database, Cloud, Brain, Terminal } from 'luci
 import { useNavigate } from 'react-router-dom';
 import MagicBento from '../../components/MagicBento';
 import { useLanguage } from '../../contexts/LanguageContext';
-import styles from './FeaturedProjectsAndSkills.module.css';
 
 // Skill type definition
 interface Skill {
@@ -96,18 +95,46 @@ const FeaturedProjectsAndSkills: React.FC = () => {
   return (
     <section
       ref={ref}
-      className={`featured-projects-skills-section relative min-h-screen pt-20 pb-24 px-6 lg:px-12 overflow-hidden ${styles.sectionBackground}`}
+      className="featured-projects-skills-section relative min-h-screen pt-20 pb-24 px-6 lg:px-12 overflow-hidden"
+      style={{
+        background: `linear-gradient(180deg,
+          #04081E 0%,
+          #050B22 10%,
+          #060E26 20%,
+          #08112A 30%,
+          #0A142D 40%,
+          #0C1630 50%,
+          #0A142D 60%,
+          #08112A 70%,
+          #091527 80%,
+          #0a1527 85%,
+          #0a1628 95%,
+          #0a1628 100%
+        )`
+      }}
     >
       {/* Background Effects */}
       <div className="absolute inset-0">
         {/* Cyber Grid Pattern */}
-        <div className={`absolute inset-0 opacity-5 ${styles.cyberGrid}`} />
+        <div
+          className="absolute inset-0 opacity-5"
+          style={{
+            backgroundImage: `linear-gradient(rgba(0, 245, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 245, 255, 0.1) 1px, transparent 1px)`,
+            backgroundSize: '50px 50px'
+          }}
+        />
 
         {/* Left side subtle overlay for projects */}
-        <div className={`absolute left-0 top-0 bottom-0 w-1/2 hidden lg:block ${styles.leftOverlay}`} />
+        <div
+          className="absolute left-0 top-0 bottom-0 w-1/2 hidden lg:block"
+          style={{ background: 'linear-gradient(90deg, rgba(0, 184, 212, 0.02) 0%, transparent 100%)' }}
+        />
 
         {/* Right side subtle overlay for skills */}
-        <div className={`absolute right-0 top-0 bottom-0 w-1/2 hidden lg:block ${styles.rightOverlay}`} />
+        <div
+          className="absolute right-0 top-0 bottom-0 w-1/2 hidden lg:block"
+          style={{ background: 'linear-gradient(270deg, rgba(0, 255, 185, 0.02) 0%, transparent 100%)' }}
+        />
 
         {/* Center Divider Line - Enhanced */}
         <div className="absolute left-1/2 top-[5%] bottom-[5%] w-px transform -translate-x-1/2 z-10 hidden lg:block">
@@ -124,7 +151,7 @@ const FeaturedProjectsAndSkills: React.FC = () => {
           <div className="absolute inset-0 w-[8px] bg-gradient-to-b from-transparent via-cyan-300/15 to-transparent blur-lg" />
 
           {/* Animated pulse - stronger */}
-          <div className={`absolute inset-0 w-[2px] bg-gradient-to-b from-transparent via-cyan-500/50 to-transparent ${styles.pulseAnimation}`} />
+          <div className="absolute inset-0 w-[2px] bg-gradient-to-b from-transparent via-cyan-500/50 to-transparent animate-pulse-slow" />
 
           {/* Top decorative orb */}
           <div className="absolute top-0 left-1/2 transform -translate-x-1/2">
@@ -152,7 +179,12 @@ const FeaturedProjectsAndSkills: React.FC = () => {
           >
             {/* Projects Header */}
             <div className="text-left">
-              <h2 className={`text-4xl lg:text-5xl font-bold mb-4 ${styles.projectsTitle}`}>
+              <h2
+                className="text-4xl lg:text-5xl font-bold mb-4 text-[#00F5FF]"
+                style={{
+                  textShadow: '0 0 30px rgba(0, 245, 255, 0.5), 0 0 10px rgba(0, 184, 212, 0.7)'
+                }}
+              >
                 {t('featured.projects.title')}
               </h2>
               <p className="text-lg text-gray-400">
@@ -184,7 +216,16 @@ const FeaturedProjectsAndSkills: React.FC = () => {
               <button
                 type="button"
                 onClick={() => navigate('/portfolio')}
-                className={`group inline-flex items-center gap-3 px-6 py-3 rounded-full font-semibold ${styles.viewAllButton}`}
+                className="group inline-flex items-center gap-3 px-6 py-3 rounded-full font-semibold bg-[linear-gradient(135deg,rgba(0,245,255,0.1)_0%,rgba(0,184,212,0.1)_100%)] border-2 border-[rgba(0,245,255,0.3)] text-[#00F5FF] transition-all duration-300 hover:-translate-y-0.5"
+                style={{
+                  boxShadow: '0 0 20px rgba(0, 245, 255, 0.2)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 245, 255, 0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 245, 255, 0.2)';
+                }}
               >
                 {t('featured.viewAllProjects')}
                 <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -201,7 +242,12 @@ const FeaturedProjectsAndSkills: React.FC = () => {
           >
             {/* Skills Header */}
             <div className="text-left">
-              <h2 className={`text-4xl lg:text-5xl font-bold mb-4 ${styles.skillsTitle}`}>
+              <h2
+                className="text-4xl lg:text-5xl font-bold mb-4 text-[#00FFB9]"
+                style={{
+                  textShadow: '0 0 30px rgba(0, 255, 185, 0.5), 0 0 10px rgba(0, 235, 175, 0.7)'
+                }}
+              >
                 {t('featured.skills.title')}
               </h2>
               <p className="text-lg text-gray-400">
@@ -252,7 +298,7 @@ const FeaturedProjectsAndSkills: React.FC = () => {
                         className={`absolute h-full bg-gradient-to-r ${skill.color} rounded-full`}
                       >
                         {/* Glow Effect */}
-                        <div className={`absolute inset-0 opacity-50 ${styles.skillIconShimmer} ${styles.shimmerAnimation}`} />
+                        <div className="absolute inset-0 opacity-50 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent)] animate-shimmer" />
                       </motion.div>
                     </div>
 
@@ -300,35 +346,6 @@ const FeaturedProjectsAndSkills: React.FC = () => {
           </motion.div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-
-        @keyframes pulse {
-          0%, 100% {
-            opacity: 0.4;
-          }
-          50% {
-            opacity: 1;
-          }
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 1024px) {
-          .featured-projects-skills-section {
-            padding: 3rem 1.5rem;
-          }
-        }
-
-        @media (max-width: 768px) {
-          .featured-projects-skills-section {
-            padding: 2rem 1rem;
-          }
-        }
-      `}</style>
     </section>
   );
 };

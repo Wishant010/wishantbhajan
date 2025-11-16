@@ -169,7 +169,7 @@ module.exports = {
         'glow': 'glow 2s ease-in-out infinite alternate',
         'float': 'float 3s ease-in-out infinite',
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        
+
         // Additional from file 2
         'fade-in-slow': 'fadeIn 1s ease-out',
         'fade-in-fast': 'fadeIn 0.3s ease-out',
@@ -185,6 +185,18 @@ module.exports = {
         'spin-fast': 'spin 0.5s linear infinite',
         'pulse-soft': 'pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'pulse-fast': 'pulseFast 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+
+        // AboutSection specific animations
+        'terminal-line-fade': 'fadeIn 0.3s ease forwards',
+        'particle-float': 'particleFloat 4s linear infinite',
+        'draw-line': 'drawLine 3s ease-in-out infinite',
+        'hexagon-pulse': 'pulse 3s ease-in-out infinite',
+        'scan-vertical': 'scanVertical 8s linear infinite',
+        'glitch-1': 'glitch1 0.3s linear infinite alternate-reverse',
+        'glitch-2': 'glitch2 0.3s linear infinite alternate-reverse',
+        'blink': 'blink 1s infinite',
+        'gradient-shift': 'gradientShift 15s ease infinite',
+        'shimmer': 'shimmer 2s infinite',
       },
 
       // Combined keyframes from both files
@@ -268,6 +280,51 @@ module.exports = {
         pulseFast: {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0.5' },
+        },
+
+        // AboutSection specific keyframes
+        particleFloat: {
+          '0%': { opacity: '0', transform: 'translate(0, 0) scale(0)' },
+          '10%': { opacity: '1', transform: 'translate(10px, -10px) scale(1)' },
+          '90%': { opacity: '1', transform: 'translate(100px, -100px) scale(1)' },
+          '100%': { opacity: '0', transform: 'translate(120px, -120px) scale(0)' },
+        },
+        drawLine: {
+          '0%': { strokeDashoffset: '1000', opacity: '0' },
+          '20%': { opacity: '1' },
+          '50%': { strokeDashoffset: '0', opacity: '1' },
+          '80%': { opacity: '1' },
+          '100%': { strokeDashoffset: '-1000', opacity: '0' },
+        },
+        scanVertical: {
+          '0%': { top: '-10%' },
+          '100%': { top: '110%' },
+        },
+        glitch1: {
+          '0%, 100%': { clipPath: 'inset(0 0 0 0)', transform: 'translate(0)' },
+          '20%': { clipPath: 'inset(20% 0 60% 0)', transform: 'translate(-2px, 2px)' },
+          '40%': { clipPath: 'inset(40% 0 40% 0)', transform: 'translate(2px, -2px)' },
+          '60%': { clipPath: 'inset(60% 0 20% 0)', transform: 'translate(-1px, 1px)' },
+          '80%': { clipPath: 'inset(80% 0 0 0)', transform: 'translate(1px, -1px)' },
+        },
+        glitch2: {
+          '0%, 100%': { clipPath: 'inset(0 0 0 0)', transform: 'translate(0)' },
+          '20%': { clipPath: 'inset(80% 0 0 0)', transform: 'translate(1px, -1px)' },
+          '40%': { clipPath: 'inset(60% 0 20% 0)', transform: 'translate(-1px, 1px)' },
+          '60%': { clipPath: 'inset(40% 0 40% 0)', transform: 'translate(2px, -2px)' },
+          '80%': { clipPath: 'inset(20% 0 60% 0)', transform: 'translate(-2px, 2px)' },
+        },
+        blink: {
+          '0%, 50%': { opacity: '1' },
+          '51%, 100%': { opacity: '0' },
+        },
+        gradientShift: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+        shimmer: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' },
         },
       },
 

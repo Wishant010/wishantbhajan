@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import ProfileCard from '../../components/ProfileCard';
-import styles from './AboutSection.module.css';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 // Terminal Component with Typing Animation
@@ -68,13 +67,13 @@ const Terminal: React.FC<{ startTyping: boolean; onTypingComplete?: () => void; 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3, duration: 0.5 }}
-      className="terminal-container relative bg-[#0D1117] rounded-xl overflow-hidden shadow-2xl border border-cyan-500/20 w-full max-w-2xl"
+      className="group relative bg-gradient-to-br from-[#0D1117] to-[#0A0E27] rounded-xl overflow-hidden shadow-2xl border border-cyan-500/20 w-full max-w-2xl backdrop-blur-[10px] transition-all duration-300 before:content-[''] before:absolute before:inset-[-1px] before:bg-gradient-to-r before:from-[#00F5FF] before:to-[#00FFB9] before:opacity-10 before:rounded-lg before:-z-10 before:transition-opacity before:duration-300 hover:before:opacity-20"
       style={{
         boxShadow: '0 0 60px rgba(0, 245, 255, 0.15)',
       }}
     >
       {/* Terminal Header */}
-      <div className="terminal-header bg-[#161B22] px-6 py-3 flex items-center gap-2">
+      <div className="bg-gradient-to-r from-[#161B22] to-[#1C2128] px-6 py-3 flex items-center gap-2 border-b border-[rgba(0,245,255,0.1)]">
         <div className="flex gap-2">
           <span className="w-3 h-3 rounded-full bg-red-500"></span>
           <span className="w-3 h-3 rounded-full bg-yellow-500"></span>
@@ -84,9 +83,9 @@ const Terminal: React.FC<{ startTyping: boolean; onTypingComplete?: () => void; 
       </div>
 
       {/* Terminal Content */}
-      <div className="terminal-content p-8 font-mono text-base lg:text-lg">
+      <div className="p-8 font-mono text-base lg:text-lg min-h-[200px] relative overflow-hidden">
         {displayedText.split('\n').map((line, index) => (
-          <div key={index} className="terminal-line mb-2">
+          <div key={index} className="mb-2 flex items-center animate-terminal-line-fade">
             {line.includes(':') ? (
               <>
                 <span className="text-teal-500">{line.split(':')[0]}</span>
@@ -97,7 +96,7 @@ const Terminal: React.FC<{ startTyping: boolean; onTypingComplete?: () => void; 
               <span className="text-teal-500">{line}</span>
             )}
             {index === currentLine && showCursor && (
-              <span className="terminal-cursor text-cyan-500">_</span>
+              <span className="text-cyan-500 animate-blink">_</span>
             )}
           </div>
         ))}
@@ -124,14 +123,38 @@ const AboutSection: React.FC = () => {
   return (
     <section
       ref={ref}
-      className={`about-section relative min-h-screen py-32 px-6 lg:px-12 overflow-hidden ${styles.aboutSection}`}
+      className="about-section relative min-h-screen py-32 px-6 lg:px-12 overflow-hidden bg-[length:200%_200%] animate-gradient-shift"
+      style={{
+        background: `linear-gradient(180deg,
+          #0A0E27 0%,
+          #0B1029 8%,
+          #0C132B 16%,
+          #0D152E 24%,
+          #0E1831 32%,
+          #0F1A34 40%,
+          #101D37 48%,
+          #0F1B35 56%,
+          #0E1932 64%,
+          #0C1630 72%,
+          #0A142D 80%,
+          #08112A 88%,
+          #060E26 94%,
+          #050B22 97%,
+          #04081E 100%
+        )`,
+      }}
     >
       {/* Multi-layer gradient overlays for extra smoothness */}
       <div className="absolute inset-0">
-        <div className={`absolute inset-0 ${styles.gradientOverlay1}`} />
-        <div className={`absolute inset-0 ${styles.gradientOverlay2}`} />
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 30% 0%, rgba(0, 245, 255, 0.05) 0%, transparent 40%)' }} />
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 70% 100%, rgba(0, 255, 185, 0.03) 0%, transparent 40%)' }} />
         {/* Noise texture overlay for natural gradient */}
-        <div className={`absolute inset-0 opacity-[0.03] ${styles.noiseTexture}`} />
+        <div
+          className="absolute inset-0 opacity-[0.03] mix-blend-soft-light"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E")`
+          }}
+        />
       </div>
 
       <div className="container mx-auto max-w-[1600px] relative z-10">
@@ -151,7 +174,10 @@ const AboutSection: React.FC = () => {
               transition={{ duration: 0.5 }}
             >
               <h2
-                className={`text-5xl lg:text-7xl font-bold mb-6 ${styles.titleHeading}`}
+                className="text-5xl lg:text-7xl font-bold mb-6 text-[#00B8D4]"
+                style={{
+                  textShadow: '0 0 25px rgba(0, 184, 212, 0.5), 0 0 8px rgba(0, 150, 168, 0.7)'
+                }}
               >
                 {t('aboutsection.title')}
               </h2>
@@ -177,7 +203,10 @@ const AboutSection: React.FC = () => {
               >
                 <motion.a
                   href="/about"
-                  className={`group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-teal-500 text-white font-bold rounded-xl overflow-hidden ${styles.ctaButton}`}
+                  className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-teal-500 text-white font-bold rounded-xl overflow-hidden before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:w-0 before:h-0 before:rounded-full before:bg-white/10 before:-translate-x-1/2 before:-translate-y-1/2 before:transition-all before:duration-[600ms] hover:before:w-[300px] hover:before:h-[300px]"
+                  style={{
+                    boxShadow: '0 0 30px rgba(0, 184, 212, 0.4)'
+                  }}
                   whileHover={{
                     scale: 1.08,
                     x: 10,
@@ -239,57 +268,17 @@ const AboutSection: React.FC = () => {
         </div>
       </div>
 
-      <style>{`
-        /* Smooth gradient animation for extra smoothness */
-        @keyframes gradientShift {
-          0%, 100% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-        }
-
-        .about-section {
-          background-size: 200% 200%;
-          animation: gradientShift 15s ease infinite;
-        }
-
-        /* Mesh gradient overlay for ultra-smooth effect */
-        .about-section::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background:
+      {/* Mesh gradient overlay for ultra-smooth effect */}
+      <div
+        className="absolute inset-0 pointer-events-none z-[1]"
+        style={{
+          background: `
             radial-gradient(circle at 20% 50%, rgba(15, 26, 52, 0.4) 0%, transparent 50%),
             radial-gradient(circle at 80% 80%, rgba(10, 20, 45, 0.3) 0%, transparent 50%),
-            radial-gradient(circle at 40% 20%, rgba(13, 21, 46, 0.3) 0%, transparent 50%);
-          pointer-events: none;
-          z-index: 1;
-        }
-
-
-        .terminal-cursor {
-          animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-          0%, 50% { opacity: 1; }
-          51%, 100% { opacity: 0; }
-        }
-
-        @media (max-width: 1024px) {
-          .about-section {
-            padding: 4rem 2rem;
-          }
-        }
-
-        @media (max-width: 768px) {
-          .about-section {
-            padding: 3rem 1rem;
-          }
-        }
-      `}</style>
+            radial-gradient(circle at 40% 20%, rgba(13, 21, 46, 0.3) 0%, transparent 50%)
+          `
+        }}
+      />
     </section>
   );
 };
