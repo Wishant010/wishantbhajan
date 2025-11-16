@@ -3,12 +3,24 @@ import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ProjectCard from './ProjectCard';
-import styles from './ProjectsGrid.module.css';
 import { Category, Project } from '../../types/portfolio.types';
 import { portfolioData } from '../../data/portfolioData';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
+
+function getCategoryColor(category: string): string {
+  switch (category) {
+    case 'cybersecurity':
+      return '#00ffff';
+    case 'bedrijven':
+      return '#f59e0b';
+    case 'persoonlijk':
+      return '#ec4899';
+    default:
+      return '#06b6d4';
+  }
+}
 
 interface ProjectsGridProps {
   category?: Category;
@@ -112,7 +124,7 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({
   return (
     <>
       <motion.div
-        className={`relative w-full min-h-screen px-4 sm:px-6 py-10 sm:py-16 md:py-20 ${category ? styles[getThemeClass(category)] : ''}`}
+        className="relative w-full min-h-screen px-4 sm:px-6 py-10 sm:py-16 md:py-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -121,7 +133,18 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({
         {/* Back button - only show if onBack is provided */}
         {onBack && (
           <motion.button
-            className={`mb-6 sm:mb-8 px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl font-bold flex items-center gap-2 transition-all duration-300 text-sm sm:text-base ${styles.backButton}`}
+            className="mb-6 sm:mb-8 px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl font-bold flex items-center gap-2 transition-all duration-300 text-sm sm:text-base border"
+            style={{
+              color: getCategoryColor(selectedCategory),
+              borderColor: `color-mix(in srgb, ${getCategoryColor(selectedCategory)} 40%, transparent)`,
+              backgroundColor: `color-mix(in srgb, ${getCategoryColor(selectedCategory)} 10%, transparent)`
+            }}
+            onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+              e.currentTarget.style.backgroundColor = `color-mix(in srgb, ${getCategoryColor(selectedCategory)} 20%, transparent)`;
+            }}
+            onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+              e.currentTarget.style.backgroundColor = `color-mix(in srgb, ${getCategoryColor(selectedCategory)} 10%, transparent)`;
+            }}
             onClick={onBack}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -140,7 +163,8 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({
             transition={{ delay: 0.2 }}
           >
             <h2
-              className={`text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 ${styles.categoryTitle}`}
+              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4"
+              style={{ color: getCategoryColor(selectedCategory) }}
             >
               {categoryData.label}
             </h2>
@@ -185,18 +209,5 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({
     </>
   );
 };
-
-function getThemeClass(category: Category): keyof typeof styles {
-  switch (category) {
-    case 'cybersecurity':
-      return 'themeCybersecurity';
-    case 'bedrijven':
-      return 'themeBedrijven';
-    case 'persoonlijk':
-      return 'themePersoonlijk';
-    default:
-      return 'themeDefault';
-  }
-}
 
 export default ProjectsGrid;
