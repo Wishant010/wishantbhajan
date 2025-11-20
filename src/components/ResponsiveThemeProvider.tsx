@@ -574,7 +574,6 @@ export function ResponsiveThemeProvider({
 }
 
 // Hook to use the theme
-// eslint-disable-next-line react-refresh/only-export-components
 export function useResponsiveTheme() {
   const context = useContext(ResponsiveThemeContext);
   if (!context) {

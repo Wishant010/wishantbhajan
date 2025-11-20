@@ -1,4 +1,4 @@
-import { motion, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 
 type BlurTextProps = {
@@ -14,12 +14,6 @@ type BlurTextProps = {
   easing?: string | ((t: number) => number) | Array<string | ((t: number) => number)>;
   onAnimationComplete?: () => void;
   stepDuration?: number;
-};
-
-// Custom transform to ensure blur values are always positive
-const safeBlurTransform = (value: number) => {
-  const safeValue = Math.max(0, value);
-  return `blur(${safeValue}px)`;
 };
 
 const buildKeyframes = (

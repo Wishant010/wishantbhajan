@@ -13,7 +13,6 @@ node_modules
 # Next.js build output
 .next
 out
-dist
 
 # Production
 /build
@@ -37,7 +36,6 @@ yarn-error.log*
 
 # TypeScript
 *.tsbuildinfo
-next-env.d.ts
 
 # Editor directories and files
 .vscode/*

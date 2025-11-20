@@ -185,7 +185,6 @@ const PerformanceOptimizer: React.FC<PerformanceOptimizerProps> = ({ children })
 };
 
 // Hook for using performance manager
-// eslint-disable-next-line react-refresh/only-export-components
 export const usePerformance = () => {
   const performanceManager = useRef(PerformanceManager.getInstance());
 
