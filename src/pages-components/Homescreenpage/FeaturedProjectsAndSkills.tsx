@@ -1,7 +1,9 @@
+'use client';
+
 import React, { useRef, useEffect } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { ArrowRight, Code, Shield, Database, Cloud, Brain, Terminal } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '../../utils/routerCompat';
 import MagicBento from '../../components/MagicBento';
 import { useLanguage } from '../../contexts/LanguageContext';
 

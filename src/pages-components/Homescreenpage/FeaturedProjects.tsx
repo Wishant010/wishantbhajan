@@ -1,7 +1,9 @@
+'use client';
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '../../utils/routerCompat';
 import MagicBento from '../../components/MagicBento';
 import { useLanguage } from '../../contexts/LanguageContext';
 

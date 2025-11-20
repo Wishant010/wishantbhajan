@@ -1,6 +1,6 @@
 "use client"
 
-import type React from "react"
+import React from "react"
 import { motion } from "framer-motion"
 import '../../components/animations.css'
 import { useLanguage } from "../../contexts/LanguageContext"
