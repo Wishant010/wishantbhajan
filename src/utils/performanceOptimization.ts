@@ -84,7 +84,7 @@ export const isTouchDevice = (): boolean => {
   return (
     'ontouchstart' in window ||
     navigator.maxTouchPoints > 0 ||
-    // @ts-ignore
+    // @ts-expect-error - legacy IE/Edge touch detection
     navigator.msMaxTouchPoints > 0
   );
 };
