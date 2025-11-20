@@ -1,6 +1,8 @@
+'use client';
+
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '../../utils/routerCompat';
 import { Project } from '../../types/portfolio.types';
 import './ProjectCard.css';
 
@@ -104,32 +106,43 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) =>
               ))}
             </div>
 
-            {/* Links */}
-            {(project.links.github || project.links.demo) && (
-              <div className="flex gap-3">
-                {project.links.github && (
-                  <a
-                    href={project.links.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-cyan-300 text-sm font-medium hover:text-cyan-200 transition-colors drop-shadow-md"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    GitHub →
-                  </a>
-                )}
-                {project.links.demo && (
-                  <a
-                    href={project.links.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-emerald-300 text-sm font-medium hover:text-emerald-200 transition-colors drop-shadow-md"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    Live Demo →
-                  </a>
-                )}
+            {/* Links or Coming Soon Button */}
+            {project.comingSoon ? (
+              <div className="mt-4">
+                <button
+                  disabled
+                  className="w-full px-4 py-2 text-center font-bold text-slate-400 bg-slate-800/50 border border-slate-700 rounded-lg cursor-not-allowed"
+                >
+                  Coming Soon
+                </button>
               </div>
+            ) : (
+              (project.links.github || project.links.demo) && (
+                <div className="flex gap-3">
+                  {project.links.github && (
+                    <a
+                      href={project.links.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-cyan-300 text-sm font-medium hover:text-cyan-200 transition-colors drop-shadow-md"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      GitHub →
+                    </a>
+                  )}
+                  {project.links.demo && (
+                    <a
+                      href={project.links.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-emerald-300 text-sm font-medium hover:text-emerald-200 transition-colors drop-shadow-md"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      Live Demo →
+                    </a>
+                  )}
+                </div>
+              )
             )}
           </div>
         </div>

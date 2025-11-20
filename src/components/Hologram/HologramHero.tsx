@@ -1,8 +1,10 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import TerminalSequence from './TerminalSequence';
 import ParticleSystem from './ParticleSystem';
-import { Link } from 'react-router-dom';
+import { Link } from '../../utils/routerCompat';
 
 interface HologramHeroProps {
   name?: string;

@@ -267,7 +267,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isVisible = true }) => {
           animate={{ opacity: isVisible ? 1 : 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
             {filteredProjects.map((project, index) => (
               <motion.div
                 key={project.id}

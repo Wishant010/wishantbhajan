@@ -1,5 +1,4 @@
-"use client";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 interface ColorRGB {
   r: number;

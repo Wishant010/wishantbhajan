@@ -1,6 +1,8 @@
+'use client';
+
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from '../../utils/routerCompat';
 import { portfolioData } from '../../data/portfolioData';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';

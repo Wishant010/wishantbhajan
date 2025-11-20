@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from '../../utils/routerCompat';
 import GlobalNavbar from '../../components/GlobalNavbar';
 import MatrixRain from '../../components/Effects/MatrixRain';
 import ParticleField from '../../components/Effects/ParticleField';

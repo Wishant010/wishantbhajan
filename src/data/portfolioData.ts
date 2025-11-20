@@ -90,7 +90,8 @@ export const portfolioData: CategoryConfig[] = [
         links: {},
         featured: true,
         details: "Automated crawling, active scanning voor XSS, CSRF, SQL injection, dependency analysis, AI-powered code analysis, en automated exploit verification",
-        tier: "II"
+        tier: "II",
+        comingSoon: true
       },
       {
         id: "threat-intelligence-platform",

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect, useCallback, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useNavigate } from "../../utils/routerCompat"
@@ -128,9 +130,8 @@ const AnimatedName: React.FC<AnimatedNameProps> = ({ text, delay = 0, className 
           transition={{
             duration: prefersReducedMotion ? 0.3 : 0.8,
             ease: prefersReducedMotion ? "easeOut" : [0.23, 1, 0.32, 1],
-            type: prefersReducedMotion ? "tween" : "spring",
-            stiffness: 100,
-            damping: 15,
+            type: "tween", // Changed from spring to tween to prevent negative blur values
+            filter: { type: "tween" }, // Ensure filter always uses tween
           }}
           style={{
             textShadow: index < visibleLetters ? "0 0 20px rgba(16,185,129,0.5)" : "none",
@@ -147,14 +148,12 @@ const AnimatedName: React.FC<AnimatedNameProps> = ({ text, delay = 0, className 
 const AccessGranted: React.FC<AccessGrantedProps> = ({ onComplete }) => {
   const [displayText, setDisplayText] = useState<string>("")
   const accessText = "ACCESS GRANTED"
-  // Removed unused prefersReducedMotion
   const buttonTextSize = useResponsiveValue(RESPONSIVE_CONFIG.textSizes.button)
 
   useEffect(() => {
     let index = 0
     const speed = 60
     let completed = false
-    let completionTimer: NodeJS.Timeout | null = null
 
     const interval = setInterval(() => {
       if (index <= accessText.length) {
@@ -162,12 +161,10 @@ const AccessGranted: React.FC<AccessGrantedProps> = ({ onComplete }) => {
         index++
       } else {
         clearInterval(interval)
-        if (!completed) {
+        if (!completed && onComplete) {
           completed = true
-          completionTimer = setTimeout(() => {
-            if (onComplete) {
-              onComplete()
-            }
+          setTimeout(() => {
+            onComplete()
           }, 800)
         }
       }
@@ -175,11 +172,8 @@ const AccessGranted: React.FC<AccessGrantedProps> = ({ onComplete }) => {
 
     return () => {
       clearInterval(interval)
-      if (completionTimer) {
-        clearTimeout(completionTimer)
-      }
     }
-  }, [onComplete])
+  }, [onComplete, accessText])
 
   return (
     <div className="flex items-center justify-center w-full h-full bg-black/70 backdrop-blur-sm rounded-3xl border border-blue-500/30">
@@ -381,12 +375,9 @@ const HomePage: React.FC = () => {
 
   // Access Complete Handler
   const handleAccessComplete = useCallback(() => {
-    // Navigate naar de homepage na ACCESS GRANTED
-    sessionStorage.setItem('hasVisitedSite', 'true')
-    const timer = setTimeout(() => {
-      navigate('/home')
-    }, 500)
-    timersRef.current.push(timer)
+    // Mark als bezocht en navigate naar de homepage na ACCESS GRANTED
+    sessionStorage.setItem('hasVisitedSite', 'true');
+    navigate('/home');
   }, [navigate])
 
   // Button Dimensions
