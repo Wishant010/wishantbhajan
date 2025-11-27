@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState } from "react"
-import '../../components/animations.css'
 import { motion, AnimatePresence } from "framer-motion"
 import { useLanguage } from "../../contexts/LanguageContext"
 

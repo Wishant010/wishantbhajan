@@ -2,7 +2,6 @@
 
 import React from "react"
 import { motion } from "framer-motion"
-import '../../components/animations.css'
 import { useLanguage } from "../../contexts/LanguageContext"
 import ScrambledText from "../../components/ScrambledText"
 import BlurText from "../../components/BlurText"

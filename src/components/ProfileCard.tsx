@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useCallback, useMemo } from 'react';
-import './ProfileCard.css';
 
 interface ProfileCardProps {
   avatarUrl: string;
@@ -49,7 +48,7 @@ interface DeviceMotionEventWithPermission extends DeviceMotionEvent {
 }
 
 const ProfileCardComponent: React.FC<ProfileCardProps> = ({
-  avatarUrl = '/wish-photo.jpg',
+  avatarUrl = '/profile/wish-photo.jpg',
   iconUrl,
   grainUrl,
   behindGradient,

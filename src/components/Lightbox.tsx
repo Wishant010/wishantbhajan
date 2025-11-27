@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import './Lightbox.css';
 
 interface LightboxProps {
   images: string[];
