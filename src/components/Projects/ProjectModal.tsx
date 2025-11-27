@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Project } from '../../types/portfolio.types';
 
@@ -10,7 +10,6 @@ interface ProjectModalProps {
 
 const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryColor: _categoryColor }) => {
   useEffect(() => {
-    // Prevent body scroll when modal is open
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = '';
@@ -27,9 +26,18 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
 
   const categoryColor = getCategoryColor(project.category);
 
+  const cssVars = useMemo(() => ({
+    '--cat-color': categoryColor,
+    '--cat-bg-10': `color-mix(in srgb, ${categoryColor} 10%, transparent)`,
+    '--cat-bg-20': `color-mix(in srgb, ${categoryColor} 20%, transparent)`,
+    '--cat-border-30': `color-mix(in srgb, ${categoryColor} 30%, transparent)`,
+    '--cat-border-40': `color-mix(in srgb, ${categoryColor} 40%, transparent)`,
+  } as React.CSSProperties), [categoryColor]);
+
   return (
     <motion.div
       className="fixed inset-0 z-50 flex items-center justify-center p-6"
+      style={cssVars}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -45,10 +53,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
 
       {/* Modal Content */}
       <motion.div
-        className="relative bg-slate-800/95 backdrop-blur-xl backdrop-saturate-[1.8] rounded-2xl p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto border-2"
-        style={{
-          borderColor: `color-mix(in srgb, ${categoryColor} 30%, transparent)`
-        }}
+        className="relative bg-slate-800/95 backdrop-blur-xl backdrop-saturate-[1.8] rounded-2xl p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto border-2 border-[var(--cat-border-30)]"
         initial={{ scale: 0.9, y: 20 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 20 }}
@@ -58,17 +63,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
         <button
           type="button"
           onClick={() => onClose()}
-          className="absolute top-4 right-4 p-2 rounded-lg transition-colors duration-200"
-          style={{
-            color: categoryColor,
-            backgroundColor: `color-mix(in srgb, ${categoryColor} 10%, transparent)`
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = `color-mix(in srgb, ${categoryColor} 20%, transparent)`;
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = `color-mix(in srgb, ${categoryColor} 10%, transparent)`;
-          }}
+          className="absolute top-4 right-4 p-2 rounded-lg transition-colors duration-200 text-[var(--cat-color)] bg-[var(--cat-bg-10)] hover:bg-[var(--cat-bg-20)]"
           title="Close modal"
           aria-label="Close modal"
         >
@@ -94,22 +89,12 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
         </div>
 
         {/* Project Details */}
-        <h2
-          className="text-3xl font-bold mb-4"
-          style={{ color: categoryColor }}
-        >
+        <h2 className="text-3xl font-bold mb-4 text-[var(--cat-color)]">
           {project.title}
         </h2>
 
         {project.featured && (
-          <span
-            className="inline-block px-4 py-2 rounded-full text-sm font-semibold mb-4 border"
-            style={{
-              color: categoryColor,
-              backgroundColor: `color-mix(in srgb, ${categoryColor} 20%, transparent)`,
-              borderColor: `color-mix(in srgb, ${categoryColor} 40%, transparent)`
-            }}
-          >
+          <span className="inline-block px-4 py-2 rounded-full text-sm font-semibold mb-4 border text-[var(--cat-color)] bg-[var(--cat-bg-20)] border-[var(--cat-border-40)]">
             Featured Project
           </span>
         )}
@@ -126,22 +111,14 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
 
         {/* Technologies */}
         <div className="mb-6">
-          <h3
-            className="text-xl font-bold mb-3"
-            style={{ color: categoryColor }}
-          >
+          <h3 className="text-xl font-bold mb-3 text-[var(--cat-color)]">
             Technologies
           </h3>
           <div className="flex flex-wrap gap-2">
             {project.technologies.map((tech: string) => (
               <span
                 key={tech}
-                className="px-4 py-2 rounded-full text-sm font-semibold border"
-                style={{
-                  color: categoryColor,
-                  backgroundColor: `color-mix(in srgb, ${categoryColor} 20%, transparent)`,
-                  borderColor: `color-mix(in srgb, ${categoryColor} 30%, transparent)`
-                }}
+                className="px-4 py-2 rounded-full text-sm font-semibold border text-[var(--cat-color)] bg-[var(--cat-bg-20)] border-[var(--cat-border-30)]"
               >
                 {tech}
               </span>
@@ -157,12 +134,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
                 href={project.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 rounded-lg font-bold transition-all duration-300 border"
-                style={{
-                  color: categoryColor,
-                  backgroundColor: `color-mix(in srgb, ${categoryColor} 20%, transparent)`,
-                  borderColor: `color-mix(in srgb, ${categoryColor} 40%, transparent)`
-                }}
+                className="px-6 py-3 rounded-lg font-bold transition-all duration-300 border text-[var(--cat-color)] bg-[var(--cat-bg-20)] border-[var(--cat-border-40)] hover:bg-[var(--cat-border-30)]"
               >
                 View on GitHub →
               </a>
@@ -172,11 +144,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
                 href={project.links.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 rounded-lg font-bold transition-all duration-300"
-                style={{
-                  color: '#0f172a',
-                  backgroundColor: categoryColor
-                }}
+                className="px-6 py-3 rounded-lg font-bold transition-all duration-300 text-slate-900 bg-[var(--cat-color)] hover:opacity-90"
               >
                 Live Demo →
               </a>
@@ -186,12 +154,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
                 href={project.links.case_study}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 rounded-lg font-bold transition-all duration-300 border"
-                style={{
-                  color: categoryColor,
-                  backgroundColor: `color-mix(in srgb, ${categoryColor} 20%, transparent)`,
-                  borderColor: `color-mix(in srgb, ${categoryColor} 40%, transparent)`
-                }}
+                className="px-6 py-3 rounded-lg font-bold transition-all duration-300 border text-[var(--cat-color)] bg-[var(--cat-bg-20)] border-[var(--cat-border-40)] hover:bg-[var(--cat-border-30)]"
               >
                 Case Study →
               </a>

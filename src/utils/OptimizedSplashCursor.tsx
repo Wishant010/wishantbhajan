@@ -225,8 +225,7 @@ const OptimizedSplashCursor = ({
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-40 w-screen h-screen mix-blend-screen will-change-transform"
-      style={{ imageRendering: 'auto' }}
+      className="fixed inset-0 pointer-events-none z-40 w-screen h-screen mix-blend-screen will-change-transform [image-rendering:auto]"
     />
   );
 };

@@ -164,7 +164,7 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({
           >
             <h2
               className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4"
-              style={{ color: getCategoryColor(selectedCategory) }}
+              style={{ color: getCategoryColor(selectedCategory) } as React.CSSProperties}
             >
               {categoryData.label}
             </h2>

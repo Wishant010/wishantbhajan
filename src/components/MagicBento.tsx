@@ -315,7 +315,6 @@ const ParticleCard: React.FC<{
     <div
       ref={cardRef}
       className={`${className} relative overflow-hidden`}
-      style={{ ...style, position: 'relative', overflow: 'hidden' }}
     >
       {children}
     </div>
@@ -465,8 +464,7 @@ const BentoCardGrid: React.FC<{
   gridRef?: React.RefObject<HTMLDivElement>;
 }> = ({ children, gridRef }) => (
   <div
-    className="bento-section w-full"
-    style={{ fontSize: 'clamp(1rem, 0.9rem + 0.5vw, 1.5rem)' }}
+    className="bento-section w-full text-base md:text-lg"
     ref={gridRef}
   >
     {children}

@@ -174,10 +174,7 @@ const AboutSection: React.FC = () => {
               transition={{ duration: 0.5 }}
             >
               <h2
-                className="text-5xl lg:text-7xl font-bold mb-6 text-[#00B8D4]"
-                style={{
-                  textShadow: '0 0 25px rgba(0, 184, 212, 0.5), 0 0 8px rgba(0, 150, 168, 0.7)'
-                }}
+                className="text-5xl lg:text-7xl font-bold mb-6 text-[#00B8D4] [text-shadow:0_0_25px_rgba(0,184,212,0.5),0_0_8px_rgba(0,150,168,0.7)]"
               >
                 {t('aboutsection.title')}
               </h2>

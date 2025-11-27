@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 
 interface WireframeCubeProps {
@@ -12,18 +12,19 @@ const WireframeCube: React.FC<WireframeCubeProps> = ({
   color = '#00f3ff',
   speed = 20
 }) => {
+  const halfSize = size / 2;
+
+  const faceStyle = useMemo(() => ({
+    border: `1px solid ${color}`,
+  }), [color]);
+
   return (
     <div
-      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-      style={{
-        perspective: '1000px',
-        width: size,
-        height: size,
-      }}
+      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none [perspective:1000px]"
+      style={{ width: size, height: size }}
     >
       <motion.div
-        className="w-full h-full relative"
-        style={{ transformStyle: 'preserve-3d' }}
+        className="w-full h-full relative [transform-style:preserve-3d]"
         animate={{
           rotateX: [0, 360],
           rotateY: [0, 360],
@@ -37,55 +38,37 @@ const WireframeCube: React.FC<WireframeCubeProps> = ({
         {/* Front Face */}
         <div
           className="absolute w-full h-full opacity-30"
-          style={{
-            border: `1px solid ${color}`,
-            transform: `translateZ(${size / 2}px)`,
-          }}
+          style={{ ...faceStyle, transform: `translateZ(${halfSize}px)` }}
         />
 
         {/* Back Face */}
         <div
           className="absolute w-full h-full opacity-30"
-          style={{
-            border: `1px solid ${color}`,
-            transform: `translateZ(-${size / 2}px) rotateY(180deg)`,
-          }}
+          style={{ ...faceStyle, transform: `translateZ(-${halfSize}px) rotateY(180deg)` }}
         />
 
         {/* Right Face */}
         <div
           className="absolute w-full h-full opacity-30"
-          style={{
-            border: `1px solid ${color}`,
-            transform: `rotateY(90deg) translateZ(${size / 2}px)`,
-          }}
+          style={{ ...faceStyle, transform: `rotateY(90deg) translateZ(${halfSize}px)` }}
         />
 
         {/* Left Face */}
         <div
           className="absolute w-full h-full opacity-30"
-          style={{
-            border: `1px solid ${color}`,
-            transform: `rotateY(-90deg) translateZ(${size / 2}px)`,
-          }}
+          style={{ ...faceStyle, transform: `rotateY(-90deg) translateZ(${halfSize}px)` }}
         />
 
         {/* Top Face */}
         <div
           className="absolute w-full h-full opacity-30"
-          style={{
-            border: `1px solid ${color}`,
-            transform: `rotateX(90deg) translateZ(${size / 2}px)`,
-          }}
+          style={{ ...faceStyle, transform: `rotateX(90deg) translateZ(${halfSize}px)` }}
         />
 
         {/* Bottom Face */}
         <div
           className="absolute w-full h-full opacity-30"
-          style={{
-            border: `1px solid ${color}`,
-            transform: `rotateX(-90deg) translateZ(${size / 2}px)`,
-          }}
+          style={{ ...faceStyle, transform: `rotateX(-90deg) translateZ(${halfSize}px)` }}
         />
 
         {/* Diagonal lines for extra wireframe effect */}
