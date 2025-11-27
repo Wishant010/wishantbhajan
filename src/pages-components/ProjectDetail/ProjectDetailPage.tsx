@@ -101,6 +101,21 @@ const ProjectDetailPage: React.FC = () => {
 
   return (
     <div ref={containerRef} className="min-h-screen bg-slate-950 relative">
+      {/* Background Image from Project Thumbnail */}
+      {project.thumbnail && (
+        <div className="fixed inset-0 z-0">
+          <img
+            src={project.thumbnail}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+          {/* Dark overlay for readability */}
+          <div className="absolute inset-0 bg-slate-950/85 backdrop-blur-sm" />
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/50 via-slate-950/70 to-slate-950" />
+        </div>
+      )}
+
       {/* Navbar */}
       <motion.nav
         className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-lg border-b border-slate-800"
@@ -126,7 +141,7 @@ const ProjectDetailPage: React.FC = () => {
       </motion.nav>
 
       {/* Hero Section */}
-      <div className="pt-24 pb-16 px-6 relative">
+      <div className="pt-24 pb-16 px-6 relative z-10">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
