@@ -202,7 +202,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ isVisible = true }) => {
 
               {/* CTA Section */}
               <motion.div
-                className="space-y-4"
+                className="flex flex-wrap items-center gap-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{
                   opacity: isVisible ? 1 : 0,
@@ -214,7 +214,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ isVisible = true }) => {
                 <div className="inline-flex items-center gap-4 px-6 py-4 rounded-xl bg-slate-800/90 backdrop-blur-md border border-emerald-500/50 shadow-xl">
                   <span className="text-white text-base font-bold">{t('hero.follow')}</span>
                   <div className="h-6 w-px bg-emerald-500/50"></div>
-                  <div className="flex gap-4">
+                  <div className="flex gap-4 items-center">
                     <motion.div
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{
@@ -235,6 +235,24 @@ const HeroSection: React.FC<HeroSectionProps> = ({ isVisible = true }) => {
                     >
                       <GitHubTooltip />
                     </motion.div>
+                    {/* Divider */}
+                    <div className="h-6 w-px bg-emerald-500/50"></div>
+                    {/* CV Download Button */}
+                    <motion.a
+                      href="/Wishant%20Bhajan.pdf"
+                      download="Wishant_Bhajan_CV.pdf"
+                      className="inline-flex items-center justify-center w-[45px] h-[45px] rounded-md bg-slate-800/80 border border-white/30 text-emerald-500 font-bold text-sm cursor-pointer hover:border-emerald-500/50 hover:shadow-[0_0_10px_rgba(16,185,129,0.3)] hover:bg-emerald-500/10 transition-all duration-300"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{
+                        opacity: isVisible ? 1 : 0,
+                        scale: isVisible ? 1 : 0.8
+                      }}
+                      transition={{ delay: 1.7, duration: 0.4 }}
+                      whileTap={{ scale: 0.95 }}
+                      title="Download CV"
+                    >
+                      <span>CV</span>
+                    </motion.a>
                   </div>
                 </div>
               </motion.div>
