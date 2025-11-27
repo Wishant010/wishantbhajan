@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import FirstScreen from './Pages/LandinPage/FirstScreen';
+import FirstScreen from './pages-components/LandinPage/FirstScreen';
 import HomePage from './pages-components/Homescreenpage/index';
 import AboutPage from './pages-components/About/AboutPage';
 import PortfolioPage from './pages-components/Portfolio/NewPortfolioPage';
