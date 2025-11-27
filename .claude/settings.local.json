@@ -32,7 +32,8 @@
       "Bash(done)",
       "Bash(xargs:*)",
       "Bash(rmdir:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(npm run build:vite:*)"
     ],
     "deny": []
   }

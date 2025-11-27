@@ -58,8 +58,6 @@
     ]
   },
   "include": [
-    ".next/types/**/*.ts",
-    "app",
     "src",
     "dist/types/**/*.ts"
   ],

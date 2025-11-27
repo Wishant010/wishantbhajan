@@ -4,7 +4,6 @@ import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from '../../utils/routerCompat';
 import { Project } from '../../types/portfolio.types';
-import './ProjectCard.css';
 
 interface ProjectCardProps {
   project: Project;

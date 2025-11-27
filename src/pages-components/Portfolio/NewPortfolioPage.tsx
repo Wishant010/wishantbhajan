@@ -104,7 +104,7 @@ const NewPortfolioPage: React.FC = () => {
         {/* Logo Watermark in center - behind content */}
         <div className="absolute top-1/3 left-0 right-0 z-0 flex items-center justify-center pointer-events-none">
           <img
-            src="/logo.png"
+            src="/site-assets/logo.png"
             alt="WB Logo"
             className="w-[600px] h-auto opacity-[0.15] select-none"
           />
