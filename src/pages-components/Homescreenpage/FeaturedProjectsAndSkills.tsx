@@ -80,12 +80,12 @@ const FeaturedProjectsAndSkills: React.FC = () => {
 
   const skills: Skill[] = [
     { name: t('featured.skill.ai'), level: 85, category: t('featured.category.ai'), icon: <Brain />, color: 'from-purple-400 to-pink-500', note: t('featured.skill.ai.note') },
-    { name: t('featured.skill.react'), level: 95, category: t('featured.category.frontend'), icon: <Code />, color: 'from-cyan-400 to-blue-500' },
-    { name: t('featured.skill.typescript'), level: 90, category: t('featured.category.frontend'), icon: <Code />, color: 'from-blue-400 to-purple-500' },
-    { name: t('featured.skill.csharp'), level: 85, category: t('featured.category.backend'), icon: <Code />, color: 'from-purple-400 to-indigo-500' },
-    { name: t('featured.skill.nodejs'), level: 85, category: t('featured.category.backend'), icon: <Terminal />, color: 'from-green-400 to-emerald-500' },
-    { name: t('featured.skill.python'), level: 88, category: t('featured.category.backend'), icon: <Terminal />, color: 'from-yellow-400 to-orange-500' },
-    { name: t('featured.skill.cybersecurity'), level: 35, category: t('featured.category.security'), icon: <Shield />, color: 'from-red-400 to-pink-500' },
+    { name: t('featured.skill.react'), level: 80, category: t('featured.category.frontend'), icon: <Code />, color: 'from-cyan-400 to-blue-500' },
+    { name: t('featured.skill.typescript'), level: 80, category: t('featured.category.frontend'), icon: <Code />, color: 'from-blue-400 to-purple-500' },
+    { name: t('featured.skill.csharp'), level: 75, category: t('featured.category.backend'), icon: <Code />, color: 'from-purple-400 to-indigo-500' },
+    { name: t('featured.skill.nodejs'), level: 75, category: t('featured.category.backend'), icon: <Terminal />, color: 'from-green-400 to-emerald-500' },
+    { name: t('featured.skill.python'), level: 70, category: t('featured.category.backend'), icon: <Terminal />, color: 'from-yellow-400 to-orange-500' },
+    { name: t('featured.skill.cybersecurity'), level: 40, category: t('featured.category.security'), icon: <Shield />, color: 'from-red-400 to-pink-500', note: t('featured.skill.cybersecurity.note') },
     { name: t('featured.skill.databases'), level: 70, category: t('featured.category.database'), icon: <Database />, color: 'from-indigo-400 to-blue-500' },
     { name: t('featured.skill.docker'), level: 65, category: t('featured.category.devops'), icon: <Cloud />, color: 'from-purple-400 to-pink-500' },
     { name: t('featured.skill.ml'), level: 70, category: t('featured.category.ai'), icon: <Brain />, color: 'from-pink-400 to-rose-500' },
@@ -138,33 +138,28 @@ const FeaturedProjectsAndSkills: React.FC = () => {
           style={{ background: 'linear-gradient(270deg, rgba(0, 255, 185, 0.02) 0%, transparent 100%)' }}
         />
 
-        {/* Center Divider Line - Enhanced */}
+        {/* Center Divider Line - Static */}
         <div className="absolute left-1/2 top-[5%] bottom-[5%] w-px transform -translate-x-1/2 z-10 hidden lg:block">
-          {/* Main divider line - stronger */}
+          {/* Main divider line */}
           <div className="absolute inset-0 w-px bg-gradient-to-b from-transparent via-cyan-500/40 to-transparent" />
 
           {/* Secondary line for depth */}
           <div className="absolute inset-0 w-[2px] bg-gradient-to-b from-transparent via-cyan-400/25 to-transparent" />
 
-          {/* Glow effect - enhanced */}
+          {/* Glow effect */}
           <div className="absolute inset-0 w-[4px] bg-gradient-to-b from-transparent via-cyan-400/20 to-transparent blur-sm" />
 
           {/* Extra glow - wider */}
           <div className="absolute inset-0 w-[8px] bg-gradient-to-b from-transparent via-cyan-300/15 to-transparent blur-lg" />
 
-          {/* Animated pulse - stronger */}
-          <div className="absolute inset-0 w-[2px] bg-gradient-to-b from-transparent via-cyan-500/50 to-transparent animate-pulse-slow" />
-
-          {/* Top decorative orb */}
+          {/* Top decorative orb - static */}
           <div className="absolute top-0 left-1/2 transform -translate-x-1/2">
             <div className="w-3 h-3 bg-cyan-500/60 rounded-full blur-sm" />
-            <div className="absolute top-0 left-0 w-3 h-3 bg-cyan-400/40 rounded-full animate-ping" />
           </div>
 
-          {/* Bottom decorative orb */}
+          {/* Bottom decorative orb - static */}
           <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
             <div className="w-3 h-3 bg-cyan-500/60 rounded-full blur-sm" />
-            <div className="absolute bottom-0 left-0 w-3 h-3 bg-cyan-400/40 rounded-full animate-ping" />
           </div>
         </div>
       </div>
