@@ -33,48 +33,48 @@ const FeaturedProjectsAndSkills: React.FC = () => {
   const featuredProjects = [
     {
       color: '#0A0E27',
-      title: t('featured.project1.title'),
-      description: t('featured.project1.desc'),
-      label: t('featured.project1.label'),
+      title: 'WishShield',
+      description: t('featured.wishshield.desc'),
+      label: 'Cybersecurity',
       featured: true,
-      image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=400&fit=crop',
+      image: '/projects/security/futuristic_cybersecurity_shield_icon_with_hexagonal_shape.jpeg',
       span: { cols: 2, rows: 2 }
     },
     {
       color: '#0B1029',
-      title: t('featured.project2.title'),
-      description: t('featured.project2.desc'),
-      label: t('featured.project2.label'),
-      image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=300&fit=crop'
+      title: 'TableTech',
+      description: t('featured.tabletech.desc'),
+      label: 'Live',
+      image: '/projects/business/modern_restaurant_technology_visualization_with_prominent_tabletech.jpeg'
     },
     {
       color: '#0C132B',
-      title: t('featured.project3.title'),
-      description: t('featured.project3.desc'),
-      label: t('featured.project3.label'),
-      image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop'
+      title: 'Calendify',
+      description: t('featured.calendify.desc'),
+      label: 'Persoonlijk',
+      image: '/projects/business/professional_office_management_dashboard_clean_calendar_interface.jpeg'
     },
     {
       color: '#0D152E',
-      title: t('featured.project4.title'),
-      description: t('featured.project4.desc'),
-      label: t('featured.project4.label'),
+      title: 'WishGuard',
+      description: t('featured.wishguard.desc'),
+      label: 'Cybersecurity',
       span: { cols: 2, rows: 1 },
-      image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&h=300&fit=crop'
+      image: '/projects/security/fix_the_letter_b__so_that.png'
     },
     {
       color: '#0E1831',
-      title: t('featured.project5.title'),
-      description: t('featured.project5.desc'),
-      label: t('featured.project5.label'),
-      image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop'
+      title: 'Crypto Bot',
+      description: t('featured.cryptobot.desc'),
+      label: 'Coming Soon',
+      image: '/projects/business/futuristic_cryptocurrency_trading_bot_visualization_wb_logo.jpg'
     },
     {
       color: '#0A0E27',
-      title: t('featured.project6.title'),
-      description: t('featured.project6.desc'),
-      label: t('featured.project6.label'),
-      image: 'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=400&h=300&fit=crop'
+      title: 'Urban Mobility',
+      description: t('featured.urbanmobility.desc'),
+      label: 'Persoonlijk',
+      image: '/projects/utilities/professional_terminal_interface_with_urban_mobility_text_v2.png'
     }
   ];
 
