@@ -1,8 +1,7 @@
-/* Overlay - volledig scherm, zwarte achtergrond */
+/* Lightbox styles */
 .lightbox-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.95);
@@ -17,15 +16,10 @@
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-/* Content container - RELATIVE voor absolute children */
 .lightbox-content {
   position: relative;
   width: 100%;
@@ -35,9 +29,8 @@
   justify-content: center;
 }
 
-/* Image wrapper - RELATIVE voor nav buttons positioning */
 .lightbox-image-wrapper {
-  position: relative;  /* RELATIVE zodat nav buttons absoluut kunnen positioneren t.o.v. deze wrapper */
+  position: relative;
   max-width: 85vw;
   max-height: 85vh;
   display: flex;
@@ -46,7 +39,6 @@
   z-index: 10001;
 }
 
-/* De afbeelding - ALTIJD volledig zichtbaar */
 .lightbox-image {
   max-width: 100%;
   max-height: 85vh;
@@ -54,35 +46,19 @@
   height: auto;
   object-fit: contain;
   display: block;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   cursor: default;
-  animation: imageZoomIn 0.3s ease-out;
 }
 
-@keyframes imageZoomIn {
-  from {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* Close button - ALTIJD zichtbaar rechtsboven */
 .lightbox-close {
   position: fixed;
-  top: 24px;
-  right: 24px;
-  width: 56px;
-  height: 56px;
-
-  /* Glasmorfisme effect voor consistentie */
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 3.5rem;
+  height: 3.5rem;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-
   border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 50%;
   color: white;
@@ -91,20 +67,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
   padding: 0;
-
-  /* Diepte effect */
+  transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-
-  /* Altijd zichtbaar */
-  opacity: 1 !important;
-  visibility: visible !important;
 }
 
 .lightbox-close svg {
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
   stroke: white;
   stroke-width: 3;
 }
@@ -116,58 +86,34 @@
   transform: scale(1.1) rotate(90deg);
 }
 
-.lightbox-close:active {
-  transform: scale(0.95) rotate(90deg);
-}
-
-/* Focus state voor close button */
-.lightbox-close:focus {
-  outline: 3px solid rgba(255, 50, 50, 1);
-  outline-offset: 2px;
-}
-
-/* Navigatie knoppen - DIRECT NAAST AFBEELDING - ALTIJD ZICHTBAAR */
 .lightbox-nav {
-  position: absolute;  /* ABSOLUTE t.o.v. image-wrapper */
+  position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 64px;
-  height: 64px;
-
-  /* KRITIEK: Zichtbare achtergrond met glasmorfisme effect */
+  width: 4rem;
+  height: 4rem;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-
-  /* KRITIEK: Duidelijke witte border voor contrast */
   border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 50%;
-
-  /* KRITIEK: Witte iconen */
   color: white;
-
-  /* Diepte effect met schaduw */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-
   cursor: pointer;
   z-index: 10003;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
   padding: 0;
-
-  /* Zorg dat ze ALTIJD zichtbaar zijn */
-  opacity: 1 !important;
-  visibility: visible !important;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .lightbox-prev {
-  left: -80px;  /* LINKS VAN DE AFBEELDING */
+  left: -5rem;
 }
 
 .lightbox-next {
-  right: -80px;  /* RECHTS VAN DE AFBEELDING */
+  right: -5rem;
 }
 
 .lightbox-nav:hover {
@@ -177,54 +123,32 @@
   transform: translateY(-50%) scale(1.15);
 }
 
-.lightbox-nav:active {
-  transform: translateY(-50%) scale(1.05);
-}
-
-/* SVG iconen binnen navigatieknoppen - extra dik voor zichtbaarheid */
 .lightbox-nav svg {
-  width: 28px;
-  height: 28px;
+  width: 1.75rem;
+  height: 1.75rem;
   stroke: white;
   stroke-width: 3;
   fill: none;
 }
 
-/* Focus state voor keyboard navigatie */
-.lightbox-nav:focus {
-  outline: 3px solid rgba(0, 150, 255, 1);
-  outline-offset: 2px;
-}
-
-/* Counter onderaan */
 .lightbox-counter {
   position: fixed;
-  bottom: 24px;
+  bottom: 1.5rem;
   left: 50%;
   transform: translateX(-50%);
-
-  /* Glasmorfisme effect */
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-
   color: white;
-  padding: 12px 24px;
-  border-radius: 24px;
-  font-size: 14px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 1.5rem;
+  font-size: 0.875rem;
   font-weight: 600;
   z-index: 10003;
   border: 2px solid rgba(255, 255, 255, 0.5);
-
-  /* Diepte effect */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-
-  /* Altijd zichtbaar */
-  opacity: 1 !important;
-  visibility: visible !important;
 }
 
-/* Mobiel responsive */
 @media (max-width: 768px) {
   .lightbox-image-wrapper {
     max-width: 95vw;
@@ -233,76 +157,74 @@
 
   .lightbox-image {
     max-height: 80vh;
-    border-radius: 4px;
+    border-radius: 0.25rem;
   }
 
   .lightbox-close {
-    top: 16px;
-    right: 16px;
-    width: 48px;
-    height: 48px;
+    top: 1rem;
+    right: 1rem;
+    width: 3rem;
+    height: 3rem;
   }
 
   .lightbox-close svg {
-    width: 20px;
-    height: 20px;
+    width: 1.25rem;
+    height: 1.25rem;
   }
 
   .lightbox-nav {
-    width: 52px;
-    height: 52px;
+    width: 3.25rem;
+    height: 3.25rem;
   }
 
   .lightbox-prev {
-    left: -60px;  /* Dichter bij afbeelding op tablet */
+    left: -3.75rem;
   }
 
   .lightbox-next {
-    right: -60px;  /* Dichter bij afbeelding op tablet */
+    right: -3.75rem;
   }
 
   .lightbox-nav svg {
-    width: 24px;
-    height: 24px;
+    width: 1.5rem;
+    height: 1.5rem;
   }
 
   .lightbox-counter {
-    bottom: 16px;
-    font-size: 12px;
-    padding: 8px 16px;
+    bottom: 1rem;
+    font-size: 0.75rem;
+    padding: 0.5rem 1rem;
   }
 }
 
-/* Kleine mobiele schermen - knoppen BINNEN afbeelding */
 @media (max-width: 480px) {
   .lightbox-nav {
-    width: 40px;
-    height: 40px;
-    /* Donkerdere achtergrond voor overlay op afbeelding */
+    width: 2.5rem;
+    height: 2.5rem;
     background: rgba(0, 0, 0, 0.7);
     border: 2px solid rgba(255, 255, 255, 0.6);
   }
 
   .lightbox-prev {
-    left: 8px;  /* BINNEN de afbeelding */
+    left: 0.5rem;
   }
 
   .lightbox-next {
-    right: 8px;  /* BINNEN de afbeelding */
+    right: 0.5rem;
   }
 
   .lightbox-nav svg {
-    width: 20px;
-    height: 20px;
+    width: 1.25rem;
+    height: 1.25rem;
   }
 
   .lightbox-close {
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   .lightbox-close svg {
-    width: 20px;
-    height: 20px;
+    width: 1.25rem;
+    height: 1.25rem;
   }
 }

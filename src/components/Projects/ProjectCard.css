@@ -1,11 +1,11 @@
-/* Minimal styles to support GSAP selectors and hover shine */
+/* ProjectCard styles for GSAP */
 .project-card {
   transform-style: preserve-3d;
   will-change: transform;
 }
 
 .shine-effect {
-  background: radial-gradient(800px 400px at 50% -10%, rgba(255,255,255,0.10), rgba(255,255,255,0) 60%);
+  background: radial-gradient(800px 400px at 50% -10%, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0) 60%);
   mix-blend-mode: screen;
   pointer-events: none;
 }

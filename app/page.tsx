@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 
@@ -21,10 +21,11 @@ const LandingPage = dynamic(() => import('../src/pages-components/LandinPage/Fir
 
 export default function Home() {
   const router = useRouter();
+  const [shouldShowLanding, setShouldShowLanding] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    
+
     // Check if user has visited before in this session
     const hasVisited = sessionStorage.getItem('hasVisitedSite');
 
@@ -34,9 +35,20 @@ export default function Home() {
       return;
     }
 
-    // Mark as visited on mount
-    sessionStorage.setItem('hasVisitedSite', 'true');
+    // Show landing page for first-time visitors
+    setShouldShowLanding(true);
   }, [router]);
+
+  // Show loading while checking
+  if (shouldShowLanding === null) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <div className="relative">
+          <div className="w-16 h-16 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin" />
+        </div>
+      </div>
+    );
+  }
 
   return <LandingPage />;
 }

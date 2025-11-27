@@ -698,18 +698,6 @@ module.exports = {
         },
       });
 
-      // Add responsive base styles
-      addBase({
-        'html': {
-          fontSize: '16px',
-          '@screen lg': {
-            fontSize: '18px',
-          },
-          '@screen 2xl': {
-            fontSize: '20px',
-          },
-        },
-      });
     }
   ],
 };

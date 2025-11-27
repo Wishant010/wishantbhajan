@@ -1,9 +1,13 @@
 'use client';
 
+import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
-// Lazy load home page
-const HomePage = dynamic(() => import('../../src/pages-components/Homescreenpage/index'), {
+// Lazy load home page with better error handling
+const HomePage = dynamic(() => import('../../src/pages-components/Homescreenpage/index').catch(err => {
+  console.error('Failed to load HomePage:', err);
+  return { default: () => <div className="min-h-screen bg-slate-900 flex items-center justify-center text-white">Error loading page</div> };
+}), {
   ssr: false,
   loading: () => (
     <div className="min-h-screen bg-slate-900 flex items-center justify-center">
@@ -18,5 +22,13 @@ const HomePage = dynamic(() => import('../../src/pages-components/Homescreenpage
 });
 
 export default function Home() {
-  return <HomePage />;
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <div className="text-emerald-400">Loading...</div>
+      </div>
+    }>
+      <HomePage />
+    </Suspense>
+  );
 }

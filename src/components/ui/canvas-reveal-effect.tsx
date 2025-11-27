@@ -284,13 +284,9 @@ const ShaderMaterial = ({
   }, [size.width, size.height, source]);
 
   return (
-    // @ts-expect-error - react-three-fiber JSX types require intrinsic elements
     <mesh ref={ref as React.MutableRefObject<THREE.Mesh>}>
-      {/* @ts-expect-error - geometry intrinsic is provided by react-three-fiber */}
       <planeGeometry args={[2, 2]} />
-      {/* @ts-expect-error - primitive uses three.js material instance */}
       <primitive object={material} attach="material" />
-      {/* @ts-expect-error - mesh intrinsic typing handled by react-three-fiber */}
     </mesh>
   );
 };

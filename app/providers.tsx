@@ -1,9 +1,7 @@
 'use client';
 
-import { useEffect, ReactNode } from 'react';
+import { useEffect, ReactNode, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { useViewport } from '../src/utils/responsive';
-import { ResponsiveContainer } from '../src/components/ResponsiveLayout';
 
 // Enhanced responsive error fallback component
 function ResponsiveErrorFallback({
@@ -13,7 +11,20 @@ function ResponsiveErrorFallback({
   error: Error;
   resetErrorBoundary: () => void;
 }) {
-  const { isMobile, isTablet, breakpoint } = useViewport();
+  const [deviceInfo, setDeviceInfo] = useState({ isMobile: false, isTablet: false, breakpoint: 'lg' });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const width = window.innerWidth;
+      setDeviceInfo({
+        isMobile: width < 768,
+        isTablet: width >= 768 && width < 1024,
+        breakpoint: width < 640 ? 'xs' : width < 768 ? 'sm' : width < 1024 ? 'md' : 'lg'
+      });
+    }
+  }, []);
+
+  const { isMobile, isTablet, breakpoint } = deviceInfo;
 
   useEffect(() => {
     // Log error for monitoring
@@ -31,7 +42,7 @@ function ResponsiveErrorFallback({
 
   return (
     <div className="min-h-screen bg-slate-900 flex items-center justify-center px-4">
-      <ResponsiveContainer maxWidth={isMobile ? 'sm' : 'md'} className="text-center">
+      <div className={`text-center mx-auto ${isMobile ? 'max-w-sm' : 'max-w-md'}`}>
         <div className="mb-8">
           {/* Error icon with responsive sizing */}
           <div
@@ -138,14 +149,29 @@ function ResponsiveErrorFallback({
             </div>
           </details>
         )}
-      </ResponsiveContainer>
+      </div>
     </div>
   );
 }
 
 // Performance monitoring component
 function PerformanceMonitor({ children }: { children: ReactNode }) {
-  const { isMobile, isTablet, prefersReducedMotion } = useViewport();
+  const [deviceInfo, setDeviceInfo] = useState({ isMobile: false, isTablet: false, prefersReducedMotion: false });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const width = window.innerWidth;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      
+      setDeviceInfo({
+        isMobile: width < 768,
+        isTablet: width >= 768 && width < 1024,
+        prefersReducedMotion
+      });
+    }
+  }, []);
+
+  const { isMobile, isTablet, prefersReducedMotion } = deviceInfo;
 
   useEffect(() => {
     // Disable wallet extension injection conflicts
