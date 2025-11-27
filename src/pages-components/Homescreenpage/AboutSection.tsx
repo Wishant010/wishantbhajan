@@ -67,13 +67,13 @@ const Terminal: React.FC<{ startTyping: boolean; onTypingComplete?: () => void; 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3, duration: 0.5 }}
-      className="group relative bg-black rounded-xl overflow-hidden shadow-2xl border border-cyan-500/20 w-full max-w-2xl backdrop-blur-[10px] transition-all duration-300 before:content-[''] before:absolute before:inset-[-1px] before:bg-gradient-to-r before:from-[#00F5FF] before:to-[#00FFB9] before:opacity-10 before:rounded-lg before:-z-10 before:transition-opacity before:duration-300 hover:before:opacity-20"
+      className="group relative bg-black rounded-xl overflow-hidden shadow-2xl border border-cyan-500/20 w-full max-w-2xl transition-all duration-300 before:content-[''] before:absolute before:inset-[-1px] before:bg-gradient-to-r before:from-[#00F5FF] before:to-[#00FFB9] before:opacity-10 before:rounded-lg before:-z-10 before:transition-opacity before:duration-300 hover:before:opacity-20"
       style={{
         boxShadow: '0 0 60px rgba(0, 245, 255, 0.15)',
       }}
     >
       {/* Terminal Header */}
-      <div className="bg-black px-6 py-3 flex items-center gap-2 border-b border-[rgba(0,245,255,0.1)]">
+      <div className="bg-gray-800 px-6 py-3 flex items-center gap-2 border-b border-[rgba(0,245,255,0.1)]">
         <div className="flex gap-2">
           <span className="w-3 h-3 rounded-full bg-red-500"></span>
           <span className="w-3 h-3 rounded-full bg-yellow-500"></span>
