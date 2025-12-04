@@ -16,7 +16,7 @@ interface HeroSectionProps {
 const HeroSection: React.FC<HeroSectionProps> = ({ isVisible = true }) => {
   const { t } = useLanguage();
   return (
-    <div className="min-h-screen relative overflow-hidden page-content scroll-snap-section">
+    <div className="min-h-screen max-sm:min-h-fit relative overflow-hidden page-content scroll-snap-section">
       {/* Main Gradient Background - beautiful deep blue/purple theme */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950/80 to-purple-950/60"></div>
 
@@ -75,8 +75,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ isVisible = true }) => {
       />
 
       {/* Hero Section - Split Layout */}
-      <div className="relative min-h-screen flex items-center z-30">
-        <div className="max-w-7xl mx-auto px-6 pt-24 pb-32 w-full">
+      <div className="relative min-h-screen flex items-center z-30 max-sm:items-start">
+        <div className="max-w-7xl mx-auto px-6 pt-24 pb-32 w-full max-sm:pt-16 max-sm:pb-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
             {/* Left Content - Enlarged */}

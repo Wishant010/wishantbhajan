@@ -213,21 +213,26 @@ const GlobalNavbar = () => {
             height: isMenuOpen ? 'auto' : 0,
             opacity: isMenuOpen ? 1 : 0
           }}
-          transition={{ duration: 0.3 }}
+          transition={{
+            duration: 0.4,
+            ease: [0.23, 1, 0.32, 1],
+            opacity: { duration: 0.25 }
+          }}
           style={{ overflow: 'hidden' }}
         >
           <nav className="pt-4 pb-2">
             {navItems.map((item, index) => (
               <motion.div
                 key={item.path}
-                initial={{ x: -20, opacity: 0 }}
+                initial={false}
                 animate={{
-                  x: isMenuOpen ? 0 : -20,
+                  x: isMenuOpen ? 0 : -10,
                   opacity: isMenuOpen ? 1 : 0
                 }}
                 transition={{
-                  delay: index * 0.05,
-                  duration: 0.3
+                  delay: isMenuOpen ? index * 0.03 : 0,
+                  duration: 0.25,
+                  ease: [0.23, 1, 0.32, 1]
                 }}
               >
                 <Link
@@ -246,15 +251,16 @@ const GlobalNavbar = () => {
 
             {/* Mobile Language Toggle */}
             <motion.div
-              className="flex items-center justify-center gap-2 px-4 py-3 mb-2"
-              initial={{ x: -20, opacity: 0 }}
+              className="flex items-center justify-start gap-2 px-4 py-3 mb-2"
+              initial={false}
               animate={{
-                x: isMenuOpen ? 0 : -20,
+                x: isMenuOpen ? 0 : -10,
                 opacity: isMenuOpen ? 1 : 0
               }}
               transition={{
-                delay: navItems.length * 0.05,
-                duration: 0.3
+                delay: isMenuOpen ? navItems.length * 0.03 : 0,
+                duration: 0.25,
+                ease: [0.23, 1, 0.32, 1]
               }}
             >
               <button
