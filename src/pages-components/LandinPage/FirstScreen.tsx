@@ -55,7 +55,7 @@ const RESPONSIVE_CONFIG = {
   },
   textSizes: {
     title: {
-      xs: 'text-3xl', sm: 'text-4xl', md: 'text-5xl', lg: 'text-6xl',
+      xs: 'text-5xl', sm: 'text-4xl', md: 'text-5xl', lg: 'text-6xl',
       xl: 'text-7xl', '2xl': 'text-8xl', '3xl': 'text-9xl', '4xl': 'text-[8rem]'
     } as ResponsiveValue<string>,
     subtitle: {
@@ -63,7 +63,7 @@ const RESPONSIVE_CONFIG = {
       xl: 'text-2xl', '2xl': 'text-3xl', '3xl': 'text-4xl', '4xl': 'text-5xl'
     } as ResponsiveValue<string>,
     button: {
-      xs: 'text-sm', sm: 'text-base', md: 'text-lg', lg: 'text-xl',
+      xs: 'text-xl', sm: 'text-base', md: 'text-lg', lg: 'text-xl',
       xl: 'text-xl', '2xl': 'text-2xl', '3xl': 'text-3xl', '4xl': 'text-4xl'
     } as ResponsiveValue<string>
   },

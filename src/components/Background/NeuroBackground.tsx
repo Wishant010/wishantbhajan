@@ -1,5 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Renderer, Camera, Transform, Program, Mesh, Plane } from 'ogl';
+import { isMobileDevice, prefersReducedMotion } from '../../utils/performanceOptimization';
 
 interface NeuroBackgroundProps {
   hue?: number;
@@ -15,11 +16,14 @@ const NeuroBackground: React.FC<NeuroBackgroundProps> = ({
   className = '',
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | null>(null);
   const rendererRef = useRef<Renderer | null>(null);
   const sceneRef = useRef<Transform | null>(null);
   const meshRef = useRef<Mesh | null>(null);
   const cameraRef = useRef<Camera | null>(null);
+  const lastFrameTime = useRef<number>(0);
+  const [isVisible, setIsVisible] = useState(false);
   const pointerRef = useRef({
     x: 0,
     y: 0,
@@ -116,9 +120,32 @@ const NeuroBackground: React.FC<NeuroBackgroundProps> = ({
     }
   `;
 
+  // Lazy loading with IntersectionObserver
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    // Don't initialize if not visible or reduced motion preferred
+    if (!isVisible || prefersReducedMotion()) return undefined;
+
     const canvas = canvasRef.current;
     if (!canvas) return undefined;
+
+    const isMobile = isMobileDevice();
+    const targetFPS = isMobile ? 24 : 30;
+    const frameInterval = 1000 / targetFPS;
 
     // Initialize OGL
     try {
@@ -126,7 +153,7 @@ const NeuroBackground: React.FC<NeuroBackgroundProps> = ({
         canvas,
         width: canvas.clientWidth,
         height: canvas.clientHeight,
-        dpr: Math.min(window.devicePixelRatio, 2),
+        dpr: isMobile ? 1 : Math.min(window.devicePixelRatio, 1.5),
       });
 
       const camera = new Camera(renderer.gl);
@@ -195,16 +222,24 @@ const NeuroBackground: React.FC<NeuroBackgroundProps> = ({
         updateMousePosition(e.clientX, e.clientY);
       };
 
-      // Animation loop
-      const render = () => {
+      // Animation loop with FPS limiting
+      const render = (timestamp: number) => {
         if (!renderer || !scene || !camera || !mesh) return;
+
+        // Frame rate limiting
+        if (timestamp - lastFrameTime.current < frameInterval) {
+          animationRef.current = requestAnimationFrame(render);
+          return;
+        }
+        lastFrameTime.current = timestamp;
 
         const currentTime = performance.now();
         const pointer = pointerRef.current;
 
-        // Smooth pointer interpolation
-        pointer.x += (pointer.tX - pointer.x) * 0.2;
-        pointer.y += (pointer.tY - pointer.y) * 0.2;
+        // Smooth pointer interpolation (slower on mobile)
+        const interpolationSpeed = isMobile ? 0.1 : 0.2;
+        pointer.x += (pointer.tX - pointer.x) * interpolationSpeed;
+        pointer.y += (pointer.tY - pointer.y) * interpolationSpeed;
 
         // Update uniforms
         if (mesh.program && mesh.program.uniforms) {
@@ -229,13 +264,15 @@ const NeuroBackground: React.FC<NeuroBackgroundProps> = ({
 
       // Initial setup
       handleResize();
-      render();
+      animationRef.current = requestAnimationFrame(render);
 
-      // Add event listeners
-      window.addEventListener('resize', handleResize);
-      window.addEventListener('pointermove', handlePointerMove);
-      window.addEventListener('touchmove', handleTouchMove);
-      window.addEventListener('click', handleClick);
+      // Add event listeners with passive flag
+      window.addEventListener('resize', handleResize, { passive: true });
+      if (!isMobile) {
+        window.addEventListener('pointermove', handlePointerMove, { passive: true });
+      }
+      window.addEventListener('touchmove', handleTouchMove, { passive: true });
+      window.addEventListener('click', handleClick, { passive: true });
 
       // Cleanup
       return () => {
@@ -258,7 +295,7 @@ const NeuroBackground: React.FC<NeuroBackgroundProps> = ({
       return undefined;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hue, saturation, chroma]);
+  }, [hue, saturation, chroma, isVisible]);
 
   // Update uniforms when props change
   useEffect(() => {
@@ -276,12 +313,27 @@ const NeuroBackground: React.FC<NeuroBackgroundProps> = ({
     }
   }, [hue, saturation, chroma]);
 
+  // Static fallback for reduced motion
+  if (prefersReducedMotion()) {
+    return (
+      <div
+        ref={containerRef}
+        className={`absolute inset-0 w-full h-full pointer-events-none ${className}`}
+        style={{
+          background: `radial-gradient(ellipse at center, hsl(${hue}, ${saturation * 100}%, 15%) 0%, transparent 70%)`
+        }}
+      />
+    );
+  }
+
   return (
-    <canvas
-      ref={canvasRef}
-      className={`absolute inset-0 w-full h-full pointer-events-none ${className}`}
-    />
+    <div ref={containerRef} className="absolute inset-0 w-full h-full">
+      <canvas
+        ref={canvasRef}
+        className={`absolute inset-0 w-full h-full pointer-events-none will-change-transform ${className}`}
+      />
+    </div>
   );
 };
 
-export default NeuroBackground;
+export default React.memo(NeuroBackground);

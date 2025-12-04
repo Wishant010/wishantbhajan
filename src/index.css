@@ -60,6 +60,117 @@
   user-select: none;
 }
 
+/* ========================================
+   PERFORMANCE & GPU OPTIMIZATION
+   ======================================== */
+
+/* GPU-accelerated animations - only on transform/opacity */
+.gpu-accelerated,
+[class*="animate-"],
+.motion-safe,
+canvas {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Will-change hints for animated elements */
+.will-change-transform {
+  will-change: transform;
+}
+.will-change-opacity {
+  will-change: opacity;
+}
+.will-change-auto {
+  will-change: auto;
+}
+
+/* Contain for better painting performance */
+.contain-layout {
+  contain: layout;
+}
+.contain-paint {
+  contain: paint;
+}
+.contain-strict {
+  contain: strict;
+}
+
+/* ========================================
+   REDUCED MOTION SUPPORT
+   ======================================== */
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable parallax and floating effects */
+  .parallax,
+  .floating,
+  [class*="animate-"] {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  /* Static backgrounds instead of animated ones */
+  canvas {
+    opacity: 0.3 !important;
+  }
+}
+
+/* Motion-safe animations only run when user allows */
+@media (prefers-reduced-motion: no-preference) {
+  .motion-safe {
+    animation-play-state: running;
+  }
+}
+
+/* ========================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   ======================================== */
+
+@media (max-width: 768px) {
+  /* Reduce animation complexity on mobile */
+  [class*="animate-"] {
+    animation-duration: calc(var(--animation-duration) * 0.5) !important;
+  }
+
+  /* Disable heavy effects on mobile */
+  .desktop-only-animation {
+    animation: none !important;
+  }
+
+  /* Lower opacity for background effects */
+  canvas {
+    opacity: 0.4 !important;
+  }
+
+  /* Disable blur on mobile for performance */
+  .backdrop-blur-sm,
+  .backdrop-blur,
+  .backdrop-blur-md,
+  .backdrop-blur-lg {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* Low-end device detection (via reduced data) */
+@media (prefers-reduced-data: reduce) {
+  canvas,
+  video,
+  .heavy-animation {
+    display: none !important;
+  }
+}
+
 /* Cross-browser scrollbar styling */
 /* Firefox */
 @supports (scrollbar-color: red blue) {

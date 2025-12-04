@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { isMobileDevice, prefersReducedMotion } from '../utils/performanceOptimization';
 
 interface ColorRGB {
   r: number;
@@ -51,7 +52,7 @@ function pointerPrototype(): Pointer {
   };
 }
 
-export default function SplashCursor({
+function SplashCursor({
   SIM_RESOLUTION = 128,
   DYE_RESOLUTION = 1440,
   CAPTURE_RESOLUTION = 512,
@@ -68,25 +69,56 @@ export default function SplashCursor({
   TRANSPARENT = true
 }: SplashCursorProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Lazy loading with IntersectionObserver
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Don't render heavy WebGL on mobile or reduced motion
+  const isMobile = isMobileDevice();
+  const reducedMotion = prefersReducedMotion();
+
+  // Reduce quality on mobile
+  const actualSimRes = isMobile ? 64 : SIM_RESOLUTION;
+  const actualDyeRes = isMobile ? 512 : DYE_RESOLUTION;
+  const actualPressureIterations = isMobile ? 10 : PRESSURE_ITERATIONS;
+  const actualShading = isMobile ? false : SHADING;
 
   useEffect(() => {
+    // Don't run if not visible, mobile, or reduced motion
+    if (!isVisible || isMobile || reducedMotion) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const pointers: Pointer[] = [pointerPrototype()];
 
     const config = {
-      SIM_RESOLUTION: SIM_RESOLUTION!,
-      DYE_RESOLUTION: DYE_RESOLUTION!,
+      SIM_RESOLUTION: actualSimRes,
+      DYE_RESOLUTION: actualDyeRes,
       CAPTURE_RESOLUTION: CAPTURE_RESOLUTION!,
       DENSITY_DISSIPATION: DENSITY_DISSIPATION!,
       VELOCITY_DISSIPATION: VELOCITY_DISSIPATION!,
       PRESSURE: PRESSURE!,
-      PRESSURE_ITERATIONS: PRESSURE_ITERATIONS!,
+      PRESSURE_ITERATIONS: actualPressureIterations,
       CURL: CURL!,
       SPLAT_RADIUS: SPLAT_RADIUS!,
       SPLAT_FORCE: SPLAT_FORCE!,
-      SHADING,
+      SHADING: actualShading,
       COLOR_UPDATE_SPEED: COLOR_UPDATE_SPEED!,
       PAUSED: false,
       BACK_COLOR,
@@ -1492,25 +1524,35 @@ export default function SplashCursor({
       }
     });
   }, [
-    SIM_RESOLUTION,
-    DYE_RESOLUTION,
+    isVisible,
+    isMobile,
+    reducedMotion,
+    actualSimRes,
+    actualDyeRes,
     CAPTURE_RESOLUTION,
     DENSITY_DISSIPATION,
     VELOCITY_DISSIPATION,
     PRESSURE,
-    PRESSURE_ITERATIONS,
+    actualPressureIterations,
     CURL,
     SPLAT_RADIUS,
     SPLAT_FORCE,
-    SHADING,
+    actualShading,
     COLOR_UPDATE_SPEED,
     BACK_COLOR,
     TRANSPARENT,
   ]);
 
+  // Don't render anything on mobile or reduced motion (too heavy)
+  if (isMobile || reducedMotion) {
+    return null;
+  }
+
   return (
-    <div className="fixed top-0 left-0 z-50 pointer-events-none w-full h-full">
+    <div ref={containerRef} className="fixed top-0 left-0 z-50 pointer-events-none w-full h-full">
       <canvas ref={canvasRef} id="fluid" className="w-screen h-screen block"></canvas>
     </div>
   );
 }
+
+export default React.memo(SplashCursor);

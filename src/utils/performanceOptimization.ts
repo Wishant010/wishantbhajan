@@ -201,3 +201,77 @@ export class PerformanceTracker {
 }
 
 export const performanceTracker = new PerformanceTracker();
+
+/**
+ * Check if device is low-powered (for reducing animation complexity)
+ */
+export const isLowPowerDevice = (): boolean => {
+  if (typeof window === 'undefined') return false;
+
+  // Check for low memory (if available)
+  const nav = navigator as Navigator & { deviceMemory?: number };
+  if (nav.deviceMemory && nav.deviceMemory < 4) return true;
+
+  // Check for slow CPU (hardwareConcurrency)
+  if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) return true;
+
+  // Mobile devices are generally lower powered
+  return isMobileDevice();
+};
+
+/**
+ * Get optimal FPS target based on device capabilities
+ */
+export const getTargetFPS = (): number => {
+  if (prefersReducedMotion()) return 0;
+  if (isLowPowerDevice()) return 24;
+  if (isMobileDevice()) return 30;
+  return 60;
+};
+
+/**
+ * Create a frame limiter for animation loops
+ */
+export const createFrameLimiter = (targetFPS: number) => {
+  const frameInterval = 1000 / targetFPS;
+  let lastFrameTime = 0;
+
+  return (timestamp: number): boolean => {
+    if (timestamp - lastFrameTime < frameInterval) {
+      return false; // Skip frame
+    }
+    lastFrameTime = timestamp;
+    return true; // Render frame
+  };
+};
+
+/**
+ * Check if animations should be paused (tab not visible)
+ */
+export const shouldPauseAnimations = (): boolean => {
+  if (typeof document === 'undefined') return false;
+  return document.hidden;
+};
+
+/**
+ * Create visibility-aware animation controller
+ */
+export const createVisibilityController = (
+  onVisible: () => void,
+  onHidden: () => void
+): (() => void) => {
+  const handleVisibilityChange = () => {
+    if (document.hidden) {
+      onHidden();
+    } else {
+      onVisible();
+    }
+  };
+
+  document.addEventListener('visibilitychange', handleVisibilityChange);
+
+  // Return cleanup function
+  return () => {
+    document.removeEventListener('visibilitychange', handleVisibilityChange);
+  };
+};
