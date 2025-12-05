@@ -925,7 +925,7 @@ const ProjectDetailPage: React.FC = () => {
                     const proj = category.projects.find(p => p.id !== project.id && !p.comingSoon);
                     return proj;
                   })
-                  .filter(Boolean)
+                  .filter((p): p is NonNullable<typeof p> => p != null)
                   .map((otherProject) => (
                     <motion.div
                       key={otherProject.id}
