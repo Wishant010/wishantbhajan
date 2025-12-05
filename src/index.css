@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+/* Fonts loaded via preload in index.html for better performance */
+/* Using font-display: swap for faster initial render */
 
 @tailwind base;
 @tailwind components;
@@ -2714,4 +2715,219 @@ section {
   background-size: 50px 50px;
   animation: float-grid 20s linear infinite;
   opacity: 0.2;
+}
+
+/* ========================================
+   PERFORMANCE-OPTIMIZED CSS ANIMATIONS
+   These replace JavaScript animations for better performance
+   ======================================== */
+
+/* CSS-only fade in animation */
+@keyframes css-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* CSS-only slide up animation (GPU accelerated) */
+@keyframes css-slide-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* CSS-only slide in from left */
+@keyframes css-slide-left {
+  from {
+    opacity: 0;
+    transform: translate3d(-30px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* CSS-only slide in from right */
+@keyframes css-slide-right {
+  from {
+    opacity: 0;
+    transform: translate3d(30px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* CSS-only scale in */
+@keyframes css-scale-in {
+  from {
+    opacity: 0;
+    transform: scale3d(0.9, 0.9, 1);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+/* CSS Animation utility classes */
+.css-animate-fade-in {
+  animation: css-fade-in 0.5s ease-out forwards;
+}
+
+.css-animate-slide-up {
+  animation: css-slide-up 0.5s ease-out forwards;
+}
+
+.css-animate-slide-left {
+  animation: css-slide-left 0.5s ease-out forwards;
+}
+
+.css-animate-slide-right {
+  animation: css-slide-right 0.5s ease-out forwards;
+}
+
+.css-animate-scale-in {
+  animation: css-scale-in 0.4s ease-out forwards;
+}
+
+/* Staggered animation delays */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+.stagger-7 { animation-delay: 0.7s; }
+.stagger-8 { animation-delay: 0.8s; }
+
+/* CSS-only hover animations (better than JS whileHover) */
+.css-hover-scale {
+  transition: transform 0.2s ease-out;
+}
+
+.css-hover-scale:hover {
+  transform: scale(1.03);
+}
+
+.css-hover-lift {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.css-hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.css-hover-glow {
+  transition: box-shadow 0.3s ease-out;
+}
+
+.css-hover-glow:hover {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+}
+
+/* CSS-only tap/active state */
+.css-tap-scale:active {
+  transform: scale(0.97);
+  transition: transform 0.1s ease-out;
+}
+
+/* CSS-only skeleton loader - no JS needed */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Intersection Observer triggered animations */
+/* Elements start hidden, become visible when in viewport */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+  /* Faster animations on mobile */
+  .css-animate-fade-in,
+  .css-animate-slide-up,
+  .css-animate-slide-left,
+  .css-animate-slide-right,
+  .css-animate-scale-in {
+    animation-duration: 0.3s;
+  }
+
+  /* Disable expensive hover effects on mobile */
+  .css-hover-scale:hover,
+  .css-hover-lift:hover,
+  .css-hover-glow:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Simpler active states */
+  .css-tap-scale:active {
+    transform: scale(0.98);
+  }
+}
+
+/* High performance mode for low-end devices */
+@media (prefers-reduced-motion: reduce),
+       (max-width: 768px) and (pointer: coarse) {
+  .skeleton {
+    animation: none;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .animate-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Image lazy loading styles */
+.lazy-image {
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.lazy-image.loaded {
+  opacity: 1;
+}
+
+/* Native lazy loading support indicator */
+img[loading="lazy"] {
+  content-visibility: auto;
 }

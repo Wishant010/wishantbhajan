@@ -220,6 +220,126 @@ export const isLowPowerDevice = (): boolean => {
 };
 
 /**
+ * Cache for device capability results to avoid repeated checks
+ */
+const deviceCapabilityCache: {
+  isMobile?: boolean;
+  isLowPower?: boolean;
+  prefersReducedMotion?: boolean;
+  hasWebGL?: boolean;
+  pixelRatio?: number;
+} = {};
+
+/**
+ * Get cached device capabilities (computed once)
+ */
+export const getDeviceCapabilities = () => {
+  if (typeof window === 'undefined') {
+    return {
+      isMobile: false,
+      isLowPower: false,
+      prefersReducedMotion: false,
+      hasWebGL: true,
+      pixelRatio: 1,
+      shouldDisableHeavyAnimations: false,
+      shouldDisable3D: false,
+      maxParticles: 100,
+      targetFPS: 60
+    };
+  }
+
+  // Cache checks
+  if (deviceCapabilityCache.isMobile === undefined) {
+    deviceCapabilityCache.isMobile = isMobileDevice();
+  }
+  if (deviceCapabilityCache.isLowPower === undefined) {
+    deviceCapabilityCache.isLowPower = isLowPowerDevice();
+  }
+  if (deviceCapabilityCache.prefersReducedMotion === undefined) {
+    deviceCapabilityCache.prefersReducedMotion = prefersReducedMotion();
+  }
+  if (deviceCapabilityCache.hasWebGL === undefined) {
+    deviceCapabilityCache.hasWebGL = checkWebGLSupport();
+  }
+  if (deviceCapabilityCache.pixelRatio === undefined) {
+    deviceCapabilityCache.pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+  }
+
+  const isMobile = deviceCapabilityCache.isMobile;
+  const isLowPower = deviceCapabilityCache.isLowPower;
+  const reducedMotion = deviceCapabilityCache.prefersReducedMotion;
+  const hasWebGL = deviceCapabilityCache.hasWebGL;
+  const pixelRatio = deviceCapabilityCache.pixelRatio;
+
+  return {
+    isMobile,
+    isLowPower,
+    prefersReducedMotion: reducedMotion,
+    hasWebGL,
+    pixelRatio,
+    // Computed properties for easy conditionals
+    shouldDisableHeavyAnimations: reducedMotion || isLowPower,
+    shouldDisable3D: !hasWebGL || isLowPower || reducedMotion,
+    maxParticles: isLowPower ? 30 : isMobile ? 50 : 100,
+    targetFPS: reducedMotion ? 0 : isLowPower ? 24 : isMobile ? 30 : 60
+  };
+};
+
+/**
+ * Check for WebGL support
+ */
+export const checkWebGLSupport = (): boolean => {
+  if (typeof window === 'undefined') return false;
+
+  try {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    return !!gl;
+  } catch {
+    return false;
+  }
+};
+
+/**
+ * Listen for reduced motion preference changes
+ */
+export const onReducedMotionChange = (callback: (prefersReduced: boolean) => void): (() => void) => {
+  if (typeof window === 'undefined') return () => {};
+
+  const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const handler = (e: MediaQueryListEvent) => {
+    deviceCapabilityCache.prefersReducedMotion = e.matches;
+    callback(e.matches);
+  };
+
+  mediaQuery.addEventListener('change', handler);
+  return () => mediaQuery.removeEventListener('change', handler);
+};
+
+/**
+ * Intersection Observer factory with default options for lazy loading
+ */
+export const createLazyObserver = (
+  callback: (entry: IntersectionObserverEntry) => void,
+  options?: IntersectionObserverInit
+): IntersectionObserver => {
+  return new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          callback(entry);
+        }
+      });
+    },
+    {
+      rootMargin: '50px',
+      threshold: 0.1,
+      ...options
+    }
+  );
+};
+
+/**
  * Get optimal FPS target based on device capabilities
  */
 export const getTargetFPS = (): number => {
