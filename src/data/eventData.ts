@@ -13,129 +13,140 @@ export interface EventPost {
 
 export const eventPosts: EventPost[] = [
   {
-    id: "hackathon-2024",
-    title: "Dutch Blockchain Hackathon 2024",
-    date: "15-17 Maart 2024",
+    id: "mendix-ctf-2025",
+    title: "Mendix CTF 2025",
+    date: "2025",
+    location: "Nederland",
+    category: "Hackathon",
+    image: "/events/MendixCTF2025.webp",
+    description: "Capture The Flag competitie georganiseerd door Mendix. Een spannende cybersecurity challenge waar deelnemers hun hacking skills testen door puzzels en kwetsbaarheden op te lossen.",
+    highlights: [
+      "Cybersecurity challenges oplossen",
+      "Reverse engineering en cryptografie",
+      "Web application security testing",
+      "Competitief hacken met andere developers"
+    ],
+    tags: ["CTF", "Cybersecurity", "Hacking", "Mendix", "Competition"],
+    featured: true
+  },
+  {
+    id: "xebia-github-copilot-hackathon",
+    title: "Xebia GitHub Copilot Hackathon",
+    date: "2024",
+    location: "Nederland",
+    category: "Hackathon",
+    image: "/events/XebiaGithubCopilotHackathon.jpeg",
+    description: "Hackathon georganiseerd door Xebia met focus op het bouwen van innovatieve oplossingen met behulp van GitHub Copilot AI. Experimenteren met AI-assisted development.",
+    highlights: [
+      "AI-assisted coding met GitHub Copilot",
+      "Innovatieve projecten bouwen",
+      "Samenwerken met Xebia experts",
+      "Leren over AI in software development"
+    ],
+    tags: ["AI", "GitHub Copilot", "Hackathon", "Xebia", "Development"],
+    featured: true
+  },
+  {
+    id: "ai-fixathon-amsterdam",
+    title: "AI Fixathon Amsterdam",
+    date: "2024",
     location: "Amsterdam, Nederland",
     category: "Hackathon",
-    description: "Een intense 48-uur durende blockchain hackathon waar ik samen met mijn team een gedecentraliseerde supply chain oplossing ontwikkelde. We gebruikten Ethereum smart contracts en IPFS voor data opslag.",
+    image: "/events/AIFixathonAmsterdam.jpg",
+    description: "Een unieke hackathon gericht op het oplossen van maatschappelijke problemen met behulp van AI en machine learning technologieën.",
     highlights: [
-      "2e plaats behaald uit 50+ teams",
-      "Gebouwd met Solidity, React en Web3.js",
-      "Pitch presentatie voor industry experts",
-      "Netwerken met blockchain developers"
+      "AI oplossingen voor real-world problemen",
+      "Machine learning implementaties",
+      "Samenwerking met AI experts",
+      "Impact-driven development"
     ],
-    tags: ["Blockchain", "Web3", "Solidity", "React", "Hackathon"],
+    tags: ["AI", "Machine Learning", "Hackathon", "Amsterdam", "Innovation"],
     featured: true
   },
   {
-    id: "react-summit-2024",
-    title: "React Summit Amsterdam",
-    date: "2-3 Juni 2024",
-    location: "Amsterdam, Nederland",
-    category: "Conference",
-    description: "Deelgenomen aan één van Europa's grootste React conferences. Bijgewoond workshops over Server Components, nieuwe React hooks en performance optimalisatie technieken.",
-    highlights: [
-      "Workshops over React 19 features",
-      "Networking met 2000+ developers",
-      "Live coding sessions met React core team",
-      "Hands-on met Next.js 14"
-    ],
-    tags: ["React", "Next.js", "JavaScript", "Frontend", "Conference"],
-    featured: true
-  },
-  {
-    id: "ai-ml-workshop",
-    title: "AI & Machine Learning Workshop",
-    date: "10 September 2024",
-    location: "Utrecht, Nederland",
-    category: "Workshop",
-    description: "Intensieve workshop over het implementeren van machine learning modellen in webapplicaties. Geleerd over TensorFlow.js en het bouwen van real-time AI features.",
-    highlights: [
-      "Hands-on met TensorFlow.js",
-      "Building ML-powered web apps",
-      "Computer vision projects",
-      "NLP implementaties"
-    ],
-    tags: ["AI", "Machine Learning", "TensorFlow", "Python", "Workshop"]
-  },
-  {
-    id: "cybersec-conf-2023",
-    title: "CyberSec Netherlands 2023",
-    date: "5-6 December 2023",
-    location: "Rotterdam, Nederland",
-    category: "Conference",
-    description: "Bijgewoond aan nationale cybersecurity conference met focus op web application security, penetration testing en secure coding practices.",
-    highlights: [
-      "OWASP Top 10 deep dive",
-      "Live penetration testing demos",
-      "Security best practices voor React apps",
-      "Networking met security professionals"
-    ],
-    tags: ["Cybersecurity", "OWASP", "Penetration Testing", "Security", "Conference"],
-    featured: false
-  },
-  {
-    id: "devops-meetup",
-    title: "DevOps Amsterdam Meetup",
-    date: "20 Juli 2024",
-    location: "Amsterdam, Nederland",
-    category: "Meetup",
-    description: "Maandelijkse DevOps meetup met focus op CI/CD pipelines, containerization met Docker en Kubernetes orchestration.",
-    highlights: [
-      "Hands-on Docker & Kubernetes",
-      "CI/CD pipeline optimization",
-      "Infrastructure as Code",
-      "Cloud deployment strategies"
-    ],
-    tags: ["DevOps", "Docker", "Kubernetes", "CI/CD", "Meetup"]
-  },
-  {
-    id: "ux-design-sprint",
-    title: "UX Design Sprint Workshop",
-    date: "15 Mei 2024",
-    location: "Den Haag, Nederland",
-    category: "Workshop",
-    description: "Vijf-daagse Google Design Sprint workshop waar we een compleet product van idee tot prototype hebben gebouwd. Focus op user research, rapid prototyping en usability testing.",
-    highlights: [
-      "Complete Design Sprint process",
-      "User interviews & research",
-      "Rapid prototyping in Figma",
-      "Usability testing sessies"
-    ],
-    tags: ["UX Design", "Prototyping", "Figma", "User Research", "Workshop"],
-    featured: false
-  },
-  {
-    id: "web3-summit",
-    title: "Web3 Summit Europe",
-    date: "22-24 Augustus 2024",
-    location: "Berlin, Duitsland",
-    category: "Conference",
-    description: "Internationale conference over de toekomst van het gedecentraliseerde web. Sessies over DeFi, NFTs, DAOs en de nieuwste ontwikkelingen in de Web3 space.",
-    highlights: [
-      "Keynotes van Ethereum founders",
-      "DeFi protocol workshops",
-      "NFT marketplace development",
-      "DAO governance systemen"
-    ],
-    tags: ["Web3", "DeFi", "NFT", "Ethereum", "Conference"],
-    featured: true
-  },
-  {
-    id: "typescript-workshop",
-    title: "Advanced TypeScript Workshop",
-    date: "8 November 2024",
+    id: "apify-challenge",
+    title: "Apify Challenge",
+    date: "2024",
     location: "Online",
-    category: "Workshop",
-    description: "Diepgaande workshop over advanced TypeScript patterns, generics, type inference en het bouwen van type-safe applicaties.",
+    category: "Hackathon",
+    image: "/events/ApifyChallenge.jpeg",
+    description: "Web scraping en automatisering challenge georganiseerd door Apify. Bouwen van actors en crawlers om data van het web te verzamelen en te verwerken.",
     highlights: [
-      "Advanced type patterns",
-      "Generic constraints & inference",
-      "Type guards & assertions",
-      "Building type-safe APIs"
+      "Web scraping technieken leren",
+      "Apify platform beheersen",
+      "Data extraction & automation",
+      "Building scalable crawlers"
     ],
-    tags: ["TypeScript", "JavaScript", "Type Safety", "Workshop"]
+    tags: ["Web Scraping", "Automation", "Apify", "Data", "Challenge"],
+    featured: false
+  },
+  {
+    id: "build-weekend-young-creators",
+    title: "Build Weekend by Young Creators",
+    date: "2024",
+    location: "Nederland",
+    category: "Hackathon",
+    image: "/events/buildweekendbyyoungcreators.png",
+    description: "Een weekend lang bouwen en creëren met andere jonge developers en creators. Focus op het van idee naar werkend product brengen in korte tijd.",
+    highlights: [
+      "Van idee naar prototype in een weekend",
+      "Samenwerken met jonge creators",
+      "Pitchen voor jury",
+      "Netwerken met gelijkgestemden"
+    ],
+    tags: ["Startup", "Building", "Young Creators", "Hackathon", "Innovation"],
+    featured: false
+  },
+  {
+    id: "agency-at-night",
+    title: "Agency at Night",
+    date: "2024",
+    location: "Nederland",
+    category: "Meetup",
+    image: "/events/AgencyAtNight.png",
+    description: "Networking event voor developers en designers in de agency wereld. Een avond vol kennisdeling, inspiratie en het leggen van nieuwe connecties.",
+    highlights: [
+      "Netwerken met agency professionals",
+      "Kennisdeling over digitale projecten",
+      "Inspirerende talks",
+      "Nieuwe connecties leggen"
+    ],
+    tags: ["Networking", "Agency", "Meetup", "Design", "Development"],
+    featured: false
+  },
+  {
+    id: "citylab010-netwerkavond",
+    title: "Citylab010 Netwerkavond",
+    date: "2024",
+    location: "Rotterdam, Nederland",
+    category: "Meetup",
+    image: "/events/Citylab010Netwerkavond.jpg",
+    description: "Netwerkavond georganiseerd door Citylab010 in Rotterdam. Ontmoeten van innovators, ondernemers en tech professionals uit de regio.",
+    highlights: [
+      "Rotterdam tech community",
+      "Innovatie en ondernemerschap",
+      "Lokale startups ontmoeten",
+      "Citylab010 initiatieven"
+    ],
+    tags: ["Networking", "Rotterdam", "Innovation", "Citylab010", "Meetup"],
+    featured: false
+  },
+  {
+    id: "computational-science-nl",
+    title: "Computational Science NL",
+    date: "2024",
+    location: "Nederland",
+    category: "Conference",
+    image: "/events/ComputationalScienceNL.jpg",
+    description: "Conference over computational science en wetenschappelijk programmeren. Sessies over simulaties, data analysis en high-performance computing.",
+    highlights: [
+      "Wetenschappelijk programmeren",
+      "Data science toepassingen",
+      "High-performance computing",
+      "Academische netwerkmogelijkheden"
+    ],
+    tags: ["Computational Science", "Data Science", "HPC", "Research", "Conference"],
+    featured: false
   }
 ];
 
