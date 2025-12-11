@@ -52,6 +52,7 @@ const LaptopSlideshow: React.FC<{ screenshots: Screenshot[] }> = ({ screenshots 
           {/* Navigation Arrows */}
           <button
             onClick={goToPrevious}
+            aria-label="Previous image"
             className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-slate-900/80 hover:bg-slate-800 rounded-full flex items-center justify-center text-white transition-colors border border-cyan-500/30"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -60,6 +61,7 @@ const LaptopSlideshow: React.FC<{ screenshots: Screenshot[] }> = ({ screenshots 
           </button>
           <button
             onClick={goToNext}
+            aria-label="Next image"
             className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-slate-900/80 hover:bg-slate-800 rounded-full flex items-center justify-center text-white transition-colors border border-cyan-500/30"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,6 +82,7 @@ const LaptopSlideshow: React.FC<{ screenshots: Screenshot[] }> = ({ screenshots 
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
+            aria-label={`Go to image ${index + 1}`}
             className={`w-2 h-2 rounded-full transition-colors ${
               index === currentIndex ? 'bg-cyan-400' : 'bg-slate-600 hover:bg-slate-500'
             }`}

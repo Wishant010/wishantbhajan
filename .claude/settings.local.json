@@ -33,7 +33,19 @@
       "Bash(xargs:*)",
       "Bash(rmdir:*)",
       "Bash(npx tsc:*)",
-      "Bash(npm run build:vite:*)"
+      "Bash(npm run build:vite:*)",
+      "Bash(source:*)",
+      "Bash(nvm list)",
+      "Bash(curl:*)",
+      "Bash(bash)",
+      "Bash(export NVM_DIR=\"$HOME/.nvm\")",
+      "Bash([ -s \"$NVM_DIR/nvm.sh\" ])",
+      "Bash(. \"$NVM_DIR/nvm.sh\")",
+      "Bash(nvm install:*)",
+      "Bash(nvm use:*)",
+      "Bash(wc:*)",
+      "Bash(ffmpeg:*)",
+      "Bash(command -v:*)"
     ],
     "deny": []
   }

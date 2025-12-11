@@ -1,9 +1,137 @@
-/* Fonts loaded via preload in index.html for better performance */
+/* Fonts loaded via preconnect in layout.tsx for better performance */
 /* Using font-display: swap for faster initial render */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ========================================
+   REUSABLE COMPONENT PATTERNS
+   ======================================== */
+
+@layer components {
+  /* Navigation Link Pattern */
+  .nav-link {
+    @apply relative px-4 py-2 rounded-lg text-sm md:text-base;
+    @apply font-medium transition-all duration-300;
+    @apply flex items-center gap-2 group;
+    @apply text-emerald-100 hover:text-white hover:bg-emerald-500/20;
+  }
+  
+  .nav-link--active {
+    @apply text-slate-900 bg-gradient-to-r from-emerald-400 to-cyan-400;
+    @apply shadow-lg shadow-emerald-400/25;
+  }
+  
+  .nav-link:hover {
+    @apply scale-105;
+  }
+  
+  /* Button Patterns */
+  .btn {
+    @apply px-6 py-3 font-semibold rounded-lg shadow-lg;
+    @apply transition-all duration-300;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r from-emerald-500 to-cyan-500;
+    @apply text-white;
+    @apply hover:shadow-xl hover:scale-105;
+    @apply focus:ring-emerald-400;
+  }
+  
+  .btn-secondary {
+    @apply bg-slate-700 text-white;
+    @apply hover:bg-slate-600;
+    @apply focus:ring-slate-500;
+  }
+  
+  .btn-ghost {
+    @apply bg-transparent text-emerald-400;
+    @apply border border-emerald-400/50;
+    @apply hover:bg-emerald-400/10 hover:border-emerald-400;
+  }
+  
+  /* Card Pattern */
+  .card {
+    @apply bg-slate-800 rounded-xl p-6 shadow-lg;
+    @apply border border-emerald-500/20;
+    @apply transition-all duration-300;
+  }
+  
+  .card:hover {
+    @apply border-emerald-500/40 shadow-xl shadow-emerald-500/10;
+    @apply transform scale-[1.02];
+  }
+  
+  /* Gradient Text Pattern */
+  .gradient-text {
+    @apply bg-gradient-to-r from-emerald-400 via-cyan-400 to-teal-500;
+    @apply bg-clip-text text-transparent;
+  }
+  
+  .gradient-text-purple {
+    @apply bg-gradient-to-r from-purple-400 via-pink-400 to-red-400;
+    @apply bg-clip-text text-transparent;
+  }
+  
+  /* Container Patterns */
+  .container-full {
+    @apply w-full max-w-7xl mx-auto px-4 md:px-6;
+  }
+  
+  .container-narrow {
+    @apply w-full max-w-4xl mx-auto px-4 md:px-6;
+  }
+  
+  /* Section Pattern */
+  .section {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+  
+  .section-tight {
+    @apply py-8 md:py-12 lg:py-16;
+  }
+  
+  /* Input Pattern */
+  .input {
+    @apply w-full px-4 py-3 rounded-lg;
+    @apply bg-slate-800 border border-slate-700;
+    @apply text-white placeholder-slate-400;
+    @apply transition-all duration-300;
+    @apply focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20;
+  }
+  
+  /* Loading Spinner Pattern */
+  .spinner {
+    @apply w-16 h-16 border-4 border-emerald-500/20 border-t-emerald-500;
+    @apply rounded-full animate-spin;
+  }
+  
+  /* Backdrop Blur Pattern */
+  .glass {
+    @apply bg-slate-900/80 backdrop-blur-xl;
+    @apply border border-emerald-500/20;
+  }
+  
+  /* Hover Glow Effect */
+  .hover-glow {
+    @apply relative;
+  }
+  
+  .hover-glow::before {
+    @apply absolute inset-0 rounded-lg;
+    @apply bg-gradient-to-r from-emerald-400/0 via-cyan-400/20 to-emerald-400/0;
+    @apply opacity-0 blur-md transition-opacity duration-300;
+    @apply -z-10;
+    content: '';
+  }
+  
+  .hover-glow:hover::before {
+    @apply opacity-100;
+  }
+}
 
 /* ========================================
    RESPONSIVE CSS CUSTOM PROPERTIES
@@ -158,8 +286,8 @@ canvas {
   .backdrop-blur,
   .backdrop-blur-md,
   .backdrop-blur-lg {
-    backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
   }
 }
 
@@ -298,6 +426,26 @@ body {
   --scrollbar-color-1: #A855F7;
   --scrollbar-color-2: #60A5FA;
   --scrollbar-glow: rgba(168, 85, 247, 0.5);
+}
+
+/* Dark scrollbar for event detail overlay */
+.dark-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dark-scrollbar::-webkit-scrollbar-track {
+  background: #1e293b;
+  border-radius: 10px;
+}
+
+.dark-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #475569 0%, #334155 100%);
+  border-radius: 10px;
+  border: 2px solid #1e293b;
+}
+
+.dark-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #64748b 0%, #475569 100%);
 }
 
 /* Enable text selection for content areas */
