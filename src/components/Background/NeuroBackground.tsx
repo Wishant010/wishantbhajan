@@ -45,7 +45,8 @@ const NeuroBackground: React.FC<NeuroBackgroundProps> = ({
     }
   `;
 
-  const fragmentShader = `
+  // Simplified shader for mobile with fewer iterations
+  const getFragmentShader = (isMobile: boolean) => `
     precision mediump float;
 
     varying vec2 vUv;
@@ -66,7 +67,8 @@ const NeuroBackground: React.FC<NeuroBackgroundProps> = ({
         vec2 res = vec2(0.);
         float scale = 8.;
 
-        for (int j = 0; j < 15; j++) {
+        // Reduced iterations on mobile: 8 instead of 15
+        for (int j = 0; j < ${isMobile ? 8 : 15}; j++) {
             uv = rotate(uv, 1.);
             sine_acc = rotate(sine_acc, 1.);
             vec2 layer = uv * scale + float(j) + sine_acc - t;
@@ -144,7 +146,8 @@ const NeuroBackground: React.FC<NeuroBackgroundProps> = ({
     if (!canvas) return undefined;
 
     const isMobile = isMobileDevice();
-    const targetFPS = isMobile ? 24 : 30;
+    // Further reduced FPS on mobile: 20 FPS instead of 24
+    const targetFPS = isMobile ? 20 : 30;
     const frameInterval = 1000 / targetFPS;
 
     // Initialize OGL
@@ -166,7 +169,7 @@ const NeuroBackground: React.FC<NeuroBackgroundProps> = ({
 
       const program = new Program(renderer.gl, {
         vertex: vertexShader,
-        fragment: fragmentShader,
+        fragment: getFragmentShader(isMobile),
         uniforms: {
           u_time: { value: 0 },
           u_ratio: { value: window.innerWidth / window.innerHeight },
@@ -267,12 +270,13 @@ const NeuroBackground: React.FC<NeuroBackgroundProps> = ({
       animationRef.current = requestAnimationFrame(render);
 
       // Add event listeners with passive flag
+      // On mobile: only resize, no pointer/touch tracking for performance
       window.addEventListener('resize', handleResize, { passive: true });
       if (!isMobile) {
         window.addEventListener('pointermove', handlePointerMove, { passive: true });
+        window.addEventListener('click', handleClick, { passive: true });
       }
-      window.addEventListener('touchmove', handleTouchMove, { passive: true });
-      window.addEventListener('click', handleClick, { passive: true });
+      // Disable touchmove on mobile for better performance
 
       // Cleanup
       return () => {
@@ -281,9 +285,10 @@ const NeuroBackground: React.FC<NeuroBackgroundProps> = ({
         }
 
         window.removeEventListener('resize', handleResize);
-        window.removeEventListener('pointermove', handlePointerMove);
-        window.removeEventListener('touchmove', handleTouchMove);
-        window.removeEventListener('click', handleClick);
+        if (!isMobile) {
+          window.removeEventListener('pointermove', handlePointerMove);
+          window.removeEventListener('click', handleClick);
+        }
 
         rendererRef.current = null;
         sceneRef.current = null;

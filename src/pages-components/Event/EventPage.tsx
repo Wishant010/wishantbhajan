@@ -48,13 +48,22 @@ const EventPage: React.FC = () => {
 
   // Block body scroll when detail overlay or lightbox is open
   useEffect(() => {
+    const scrollY = window.scrollY;
+
     if (selectedEvent || lightboxMedia) {
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-open');
+      document.body.dataset.scrollY = String(scrollY);
     } else {
-      document.body.style.overflow = '';
+      document.body.classList.remove('modal-open');
+      const savedScrollY = document.body.dataset.scrollY;
+      if (savedScrollY) {
+        window.scrollTo(0, parseInt(savedScrollY));
+        delete document.body.dataset.scrollY;
+      }
     }
+
     return () => {
-      document.body.style.overflow = '';
+      document.body.classList.remove('modal-open');
     };
   }, [selectedEvent, lightboxMedia]);
 
@@ -130,14 +139,14 @@ const EventPage: React.FC = () => {
       title: "AI Fixathon Amsterdam",
       type: "hackathon",
       category: "ai",
-      date: "2024-12-13",
-      displayDate: "13-14 december 2024",
+      date: "2025-12-13",
+      displayDate: "13-14 december 2025",
       location: "Vandebron, Amsterdam",
       participants: "Max 40 deelnemers",
       description: "Een weekend lang doorhacken op AI-oplossingen die de wereld een stukje beter maken. Van gezondheidszorg tot klimaatactie – samen met het LUMC en andere partners bouwen we technologie met betekenis.",
       image: "/events/AIFixathonAmsterdam.jpg",
       isUpcoming: true,
-      myExperience: "Binnenkort, op 13 en 14 december 2024, ga ik een intens hackathon-weekend tegemoet bij Vandebron in Amsterdam. Met een compact team van maximaal drie personen tackle ik uitdagingen die er echt toe doen: de UN Sustainable Development Goals. Partners zoals het LUMC brengen concrete vraagstukken uit de praktijk mee. Dit wordt de perfecte mix van technische uitdaging en maatschappelijke relevantie.",
+      myExperience: "Binnenkort, op 13 en 14 december 2025, ga ik een intens hackathon-weekend tegemoet bij Vandebron in Amsterdam. Met een compact team van maximaal drie personen tackle ik uitdagingen die er echt toe doen: de UN Sustainable Development Goals. Partners zoals het LUMC brengen concrete vraagstukken uit de praktijk mee. Dit wordt de perfecte mix van technische uitdaging en maatschappelijke relevantie.",
       highlights: [
         "32 uur aaneengesloten hacken: van zaterdagochtend 10:00 tot zondagmiddag 18:00",
         "Vier SDG-tracks: Gezondheid & Welzijn, Duurzame Productie, Circulaire Economie en Klimaatactie",
@@ -383,7 +392,7 @@ const EventPage: React.FC = () => {
       participants: "TBD",
       description: "Speciale avond waarop 51 Rotterdamse agencies hun deuren openzetten. Inzichten opgedaan over marketing, design en digitale innovatie via presentaties en workshops.",
       image: "/events/AgencyAtNight.png",
-      imagePosition: "45%",
+      imagePosition: "20%",
       myExperience: "Met Hicham Tahiri en Damian Willemse bezochten we zes agencies en schoven aan bij allerlei workshops. Een avond boordevol inspiratie over marketing automation, AI-toepassingen, SEO-strategieën en creatieve challenges.",
       highlights: [
         "100procent | united playground: sessie over marketing automation en resultaatoptimalisatie",
@@ -704,12 +713,22 @@ const EventPage: React.FC = () => {
       <AnimatePresence>
         {selectedEvent && (
           <motion.div
-            className="fixed inset-0 z-[10000] bg-slate-950 overflow-y-auto dark-scrollbar"
+            className="fixed inset-0 z-[10000] bg-slate-950 overflow-y-auto overflow-x-hidden dark-scrollbar"
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              overflowY: 'auto',
+              overflowX: 'hidden',
+              WebkitOverflowScrolling: 'touch',
+            }}
             initial={{ opacity: 0, x: "100%" }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            onAnimationStart={() => {
+            onAnimationComplete={() => {
               // Scroll modal to top when opening
               const modal = document.querySelector('[data-event-modal]');
               if (modal) modal.scrollTop = 0;
@@ -742,7 +761,12 @@ const EventPage: React.FC = () => {
                     alt={selectedEvent.title}
                     loading="lazy"
                     decoding="async"
-                    className="absolute inset-0 w-full h-full object-cover object-center"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    style={{
+                      objectPosition: selectedEvent.imagePosition 
+                        ? `center ${selectedEvent.imagePosition}` 
+                        : 'center center'
+                    }}
                   />
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center">
@@ -1269,7 +1293,6 @@ const EventPage: React.FC = () => {
 
         return (
         <div
-          className="fixed inset-0 z-[99999] overflow-hidden"
           style={{
             position: 'fixed',
             top: 0,
@@ -1278,13 +1301,25 @@ const EventPage: React.FC = () => {
             bottom: 0,
             width: '100vw',
             height: '100vh',
+            zIndex: 99999,
+            overflow: 'hidden',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
           <AnimatePresence mode="wait">
             <motion.div
               key="lightbox-overlay"
-              className="absolute inset-0 w-full h-full bg-black/95 flex items-center justify-center"
               style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                width: '100vw',
+                height: '100vh',
+                backgroundColor: 'rgba(0, 0, 0, 0.95)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -1303,7 +1338,19 @@ const EventPage: React.FC = () => {
                   setLightboxMedia(null);
                 }}
                 aria-label="Sluiten (Escape)"
-                className="absolute top-4 right-4 md:top-6 md:right-6 z-20 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors backdrop-blur-sm"
+                style={{
+                  position: 'fixed',
+                  top: '16px',
+                  right: '16px',
+                  zIndex: 100000,
+                  padding: '12px',
+                  borderRadius: '9999px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  color: 'white',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+                className="hover:bg-white/20 transition-colors backdrop-blur-sm"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -1323,7 +1370,20 @@ const EventPage: React.FC = () => {
                       setLightboxMedia({ url: newMedia.url, index: newIndex, type: newMedia.type });
                     }}
                     aria-label="Vorige"
-                    className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors backdrop-blur-sm"
+                    style={{
+                      position: 'fixed',
+                      left: '16px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      zIndex: 100000,
+                      padding: '12px',
+                      borderRadius: '9999px',
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                      color: 'white',
+                      border: 'none',
+                      cursor: 'pointer',
+                    }}
+                    className="hover:bg-white/20 transition-colors backdrop-blur-sm"
                   >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -1340,7 +1400,20 @@ const EventPage: React.FC = () => {
                       setLightboxMedia({ url: newMedia.url, index: newIndex, type: newMedia.type });
                     }}
                     aria-label="Volgende"
-                    className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors backdrop-blur-sm"
+                    style={{
+                      position: 'fixed',
+                      right: '16px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      zIndex: 100000,
+                      padding: '12px',
+                      borderRadius: '9999px',
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                      color: 'white',
+                      border: 'none',
+                      cursor: 'pointer',
+                    }}
+                    className="hover:bg-white/20 transition-colors backdrop-blur-sm"
                   >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -1351,10 +1424,14 @@ const EventPage: React.FC = () => {
 
               {/* Centered Media Container */}
               <div
-                className="relative flex items-center justify-center p-4 md:p-8"
+                className="relative"
                 style={{
-                  maxWidth: '100%',
-                  maxHeight: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '100%',
+                  height: '100%',
+                  padding: '60px 16px',
                 }}
                 onClick={(e) => e.stopPropagation()}
               >
@@ -1365,11 +1442,12 @@ const EventPage: React.FC = () => {
                     alt={`${selectedEvent.title} foto ${lightboxMedia.index + 1}`}
                     className="rounded-lg shadow-2xl"
                     style={{
-                      maxWidth: 'min(90vw, 1200px)',
-                      maxHeight: '85vh',
+                      maxWidth: 'calc(100vw - 120px)',
+                      maxHeight: 'calc(100vh - 120px)',
                       width: 'auto',
                       height: 'auto',
                       objectFit: 'contain',
+                      display: 'block',
                     }}
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
@@ -1384,11 +1462,12 @@ const EventPage: React.FC = () => {
                       src={lightboxMedia.url}
                       className="rounded-lg shadow-2xl"
                       style={{
-                        maxWidth: 'min(90vw, 1200px)',
-                        maxHeight: '85vh',
+                        maxWidth: 'calc(100vw - 120px)',
+                        maxHeight: 'calc(100vh - 120px)',
                         width: 'auto',
                         height: 'auto',
                         objectFit: 'contain',
+                        display: 'block',
                       }}
                       controls={!isMutedVideo}
                       autoPlay
@@ -1405,7 +1484,25 @@ const EventPage: React.FC = () => {
               </div>
 
               {/* Media counter with type indicator */}
-              <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-white text-sm font-medium flex items-center gap-2">
+              <div
+                style={{
+                  position: 'fixed',
+                  bottom: '16px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  zIndex: 100000,
+                  padding: '8px 16px',
+                  borderRadius: '9999px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(8px)',
+                  color: 'white',
+                  fontSize: '14px',
+                  fontWeight: 500,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                }}
+              >
                 {currentMedia.type === 'video' && (
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z" />

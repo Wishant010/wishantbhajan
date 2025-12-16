@@ -1,6 +1,13 @@
 import { motion } from 'framer-motion';
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 
+// Check if device is mobile
+const isMobileDevice = () => {
+  if (typeof window === 'undefined') return false;
+  return window.innerWidth < 768 ||
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
+
 type BlurTextProps = {
   text?: string;
   delay?: number;
@@ -43,9 +50,15 @@ const BlurText: React.FC<BlurTextProps> = ({
   onAnimationComplete,
   stepDuration = 0.35
 }) => {
+  const [isMobile, setIsMobile] = useState(false);
   const elements = animateBy === 'words' ? text.split(' ') : text.split('');
   const [inView, setInView] = useState(false);
   const ref = useRef<HTMLParagraphElement>(null);
+
+  // Check for mobile on mount
+  useEffect(() => {
+    setIsMobile(isMobileDevice());
+  }, []);
 
   useEffect(() => {
     if (!ref.current) return;
@@ -85,6 +98,21 @@ const BlurText: React.FC<BlurTextProps> = ({
   const stepCount = toSnapshots.length + 1;
   const totalDuration = stepDuration * (stepCount - 1);
   const times = Array.from({ length: stepCount }, (_, i) => (stepCount === 1 ? 0 : i / (stepCount - 1)));
+
+  // On mobile, render static text without per-element animations for performance
+  if (isMobile) {
+    return (
+      <p ref={ref} className={`blur-text ${className}`}>
+        <motion.span
+          initial={{ opacity: 0 }}
+          animate={{ opacity: inView ? 1 : 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          {text}
+        </motion.span>
+      </p>
+    );
+  }
 
   return (
     <p ref={ref} className={`blur-text ${className} flex flex-wrap`}>

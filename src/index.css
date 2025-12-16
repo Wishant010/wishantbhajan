@@ -5,6 +5,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Modal scroll lock */
+body.modal-open {
+  overflow: hidden !important;
+  position: fixed !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+html:has(body.modal-open) {
+  overflow: hidden !important;
+}
+
 /* ========================================
    REUSABLE COMPONENT PATTERNS
    ======================================== */
