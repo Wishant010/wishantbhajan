@@ -32,7 +32,7 @@ export const eventPosts: EventPost[] = [
   {
     id: "xebia-github-copilot-hackathon",
     title: "Xebia GitHub Copilot Hackathon",
-    date: "2024",
+    date: "2025",
     location: "Nederland",
     category: "Hackathon",
     image: "/events/XebiaGithubCopilotHackathon.jpeg",
@@ -49,7 +49,7 @@ export const eventPosts: EventPost[] = [
   {
     id: "ai-fixathon-amsterdam",
     title: "AI Fixathon Amsterdam",
-    date: "2024",
+    date: "2025",
     location: "Amsterdam, Nederland",
     category: "Hackathon",
     image: "/events/AIFixathonAmsterdam.jpg",
@@ -66,7 +66,7 @@ export const eventPosts: EventPost[] = [
   {
     id: "apify-challenge",
     title: "Apify Challenge",
-    date: "2024",
+    date: "2025",
     location: "Online",
     category: "Hackathon",
     image: "/events/ApifyChallenge.jpeg",
@@ -83,7 +83,7 @@ export const eventPosts: EventPost[] = [
   {
     id: "build-weekend-young-creators",
     title: "Build Weekend by Young Creators",
-    date: "2024",
+    date: "2025",
     location: "Nederland",
     category: "Hackathon",
     image: "/events/buildweekendbyyoungcreators.png",
@@ -100,7 +100,7 @@ export const eventPosts: EventPost[] = [
   {
     id: "agency-at-night",
     title: "Agency at Night",
-    date: "2024",
+    date: "2025",
     location: "Nederland",
     category: "Meetup",
     image: "/events/AgencyAtNight.png",
@@ -117,7 +117,7 @@ export const eventPosts: EventPost[] = [
   {
     id: "citylab010-netwerkavond",
     title: "Citylab010 Netwerkavond",
-    date: "2024",
+    date: "2025",
     location: "Rotterdam, Nederland",
     category: "Meetup",
     image: "/events/Citylab010Netwerkavond.jpg",
@@ -134,7 +134,7 @@ export const eventPosts: EventPost[] = [
   {
     id: "computational-science-nl",
     title: "Computational Science NL",
-    date: "2024",
+    date: "2025",
     location: "Nederland",
     category: "Conference",
     image: "/events/ComputationalScienceNL.jpg",

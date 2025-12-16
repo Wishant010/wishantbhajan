@@ -1,6 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
 
+// Check if device is mobile
+const isMobileDevice = () => {
+  if (typeof window === 'undefined') return false;
+  return window.innerWidth < 768 ||
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
+
 interface LightPillarProps {
   topColor?: string;
   bottomColor?: string;
@@ -331,8 +338,19 @@ const LightPillar: React.FC<LightPillarProps> = ({
     webGLSupported
   ]);
 
-  if (!webGLSupported) {
-    return null;
+  // Don't render on mobile - too heavy for performance
+  if (!webGLSupported || isMobileDevice()) {
+    // Return a simple gradient fallback on mobile
+    return (
+      <div
+        className={`w-full h-full absolute top-0 left-0 ${className}`}
+        style={{
+          mixBlendMode,
+          background: `linear-gradient(180deg, ${topColor}20 0%, ${bottomColor}20 100%)`,
+          opacity: 0.5
+        }}
+      />
+    );
   }
 
   return (

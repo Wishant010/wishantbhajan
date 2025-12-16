@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { useLanguage } from "../../contexts/LanguageContext"
 import ScrambledText from "../../components/ScrambledText"
@@ -9,70 +9,99 @@ import LinkedInTooltip from "../../components/LinkedInTooltip"
 import GitHubTooltip from "../../components/GitHubTooltip"
 import Cubes from "../../components/Cubes"
 
+// Mobile detection hook
+const useMobileDetection = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 ||
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return isMobile;
+};
+
 interface HeroSectionProps {
   isVisible?: boolean
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({ isVisible = true }) => {
   const { t } = useLanguage();
+  const isMobile = useMobileDetection();
+
   return (
     <div className="min-h-screen max-sm:min-h-fit relative overflow-hidden page-content scroll-snap-section">
       {/* Main Gradient Background - beautiful deep blue/purple theme */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950/80 to-purple-950/60"></div>
 
-      {/* Multiple Animated Gradient Orbs for smooth transitions */}
-      <motion.div
-        className="orb orb-emerald absolute top-1/4 -left-20 w-96 h-96"
-        animate={isVisible ? {
-          x: [0, 100, 0],
-          y: [0, 50, 0],
-          scale: [1, 1.2, 1],
-        } : {}}
-        transition={{
-          duration: 20,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="orb orb-teal absolute top-1/2 right-1/4 w-[500px] h-[500px]"
-        animate={isVisible ? {
-          x: [0, -80, 0],
-          y: [0, -40, 0],
-          scale: [1, 1.3, 1],
-        } : {}}
-        transition={{
-          duration: 25,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="orb orb-purple absolute bottom-1/4 -right-20 w-96 h-96"
-        animate={isVisible ? {
-          x: [0, -50, 0],
-          y: [0, -30, 0],
-          scale: [1.1, 1.3, 1.1],
-        } : {}}
-        transition={{
-          duration: 30,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="orb orb-cyan absolute bottom-1/3 left-1/3 w-[400px] h-[400px]"
-        animate={isVisible ? {
-          x: [0, 60, 0],
-          y: [0, -60, 0],
-          scale: [1, 1.15, 1],
-        } : {}}
-        transition={{
-          duration: 22,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        }}
-      />
+      {/* Multiple Animated Gradient Orbs - disabled on mobile for performance */}
+      {!isMobile && (
+        <>
+          <motion.div
+            className="orb orb-emerald absolute top-1/4 -left-20 w-96 h-96"
+            animate={isVisible ? {
+              x: [0, 100, 0],
+              y: [0, 50, 0],
+              scale: [1, 1.2, 1],
+            } : {}}
+            transition={{
+              duration: 20,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="orb orb-teal absolute top-1/2 right-1/4 w-[500px] h-[500px]"
+            animate={isVisible ? {
+              x: [0, -80, 0],
+              y: [0, -40, 0],
+              scale: [1, 1.3, 1],
+            } : {}}
+            transition={{
+              duration: 25,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="orb orb-purple absolute bottom-1/4 -right-20 w-96 h-96"
+            animate={isVisible ? {
+              x: [0, -50, 0],
+              y: [0, -30, 0],
+              scale: [1.1, 1.3, 1.1],
+            } : {}}
+            transition={{
+              duration: 30,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="orb orb-cyan absolute bottom-1/3 left-1/3 w-[400px] h-[400px]"
+            animate={isVisible ? {
+              x: [0, 60, 0],
+              y: [0, -60, 0],
+              scale: [1, 1.15, 1],
+            } : {}}
+            transition={{
+              duration: 22,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+            }}
+          />
+        </>
+      )}
+
+      {/* Static gradient for mobile */}
+      {isMobile && (
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-transparent to-purple-900/20 pointer-events-none" />
+      )}
 
       {/* Hero Section - Split Layout */}
       <div className="relative min-h-screen flex items-center z-30 max-sm:items-start">
