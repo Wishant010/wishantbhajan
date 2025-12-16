@@ -104,6 +104,8 @@ const Lightbox: React.FC<LightboxProps> = ({
               controls
               autoPlay
               loop
+              preload="metadata"
+              playsInline
             />
           ) : (
             <img

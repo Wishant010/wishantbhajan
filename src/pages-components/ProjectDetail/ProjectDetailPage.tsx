@@ -190,6 +190,8 @@ const ProjectDetailPage: React.FC = () => {
           <img
             src={project.thumbnail}
             alt=""
+            loading="eager"
+            decoding="async"
             className="w-full h-full object-cover"
           />
           {/* Dark overlay for readability */}
@@ -240,6 +242,8 @@ const ProjectDetailPage: React.FC = () => {
                 <img
                   src={project.projectData?.screenshots?.[0]?.src || project.thumbnail}
                   alt={project.projectData?.screenshots?.[0]?.alt || project.title}
+                  loading="eager"
+                  decoding="async"
                   className="relative w-full h-auto rounded-2xl border border-cyan-500/20 shadow-2xl shadow-cyan-500/10"
                 />
               </div>
@@ -943,6 +947,8 @@ const ProjectDetailPage: React.FC = () => {
                             <img
                               src={otherProject.thumbnail}
                               alt={otherProject.title}
+                              loading="lazy"
+                              decoding="async"
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                               onError={(e) => {
                                 const target = e.target as HTMLImageElement;
