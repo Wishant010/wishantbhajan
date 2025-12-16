@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import './Lightbox.css';
 
 interface LightboxProps {
   images: string[];
@@ -71,23 +70,24 @@ const Lightbox: React.FC<LightboxProps> = ({
   // Stop propagation voor knoppen
   const handleButtonClick = (event: React.MouseEvent, action: () => void) => {
     event.stopPropagation();
+    event.preventDefault();
     action();
   };
 
+  // Set CSS custom property for dynamic color
+  const colorStyle = { '--lightbox-color': color } as React.CSSProperties;
+
   return (
-    <div className="lightbox-overlay" onClick={handleOverlayClick}>
+    <div className="lightbox-overlay" onClick={handleOverlayClick} style={colorStyle}>
       <div className="lightbox-content">
         {/* Afbeelding wrapper met navigatie knoppen BINNEN */}
         <div className="lightbox-image-wrapper">
           {/* Vorige knop - BINNEN image wrapper */}
           {images.length > 1 && (
             <button
-              className="lightbox-nav lightbox-prev"
+              className="lightbox-nav lightbox-prev lightbox-nav--themed"
               onClick={(e) => handleButtonClick(e, () => navigate(-1))}
               aria-label="Vorige afbeelding"
-              style={{
-                borderColor: `${color}60`,
-              }}
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <polyline points="15 18 9 12 15 6"></polyline>
@@ -99,38 +99,29 @@ const Lightbox: React.FC<LightboxProps> = ({
           {isVideo(images[currentIndex]) ? (
             <video
               src={images[currentIndex]}
-              className="lightbox-image"
+              className="lightbox-image lightbox-image--themed"
               onClick={(e) => e.stopPropagation()}
-              style={{
-                boxShadow: `0 0 50px ${color}80`,
-                border: `2px solid ${color}`,
-              }}
               controls
               autoPlay
               loop
+              preload="metadata"
+              playsInline
             />
           ) : (
             <img
               src={images[currentIndex]}
               alt={altTexts[currentIndex] || `Afbeelding ${currentIndex + 1}`}
-              className="lightbox-image"
+              className="lightbox-image lightbox-image--themed"
               onClick={(e) => e.stopPropagation()}
-              style={{
-                boxShadow: `0 0 50px ${color}80`,
-                border: `2px solid ${color}`,
-              }}
             />
           )}
 
           {/* Volgende knop - BINNEN image wrapper */}
           {images.length > 1 && (
             <button
-              className="lightbox-nav lightbox-next"
+              className="lightbox-nav lightbox-next lightbox-nav--themed"
               onClick={(e) => handleButtonClick(e, () => navigate(1))}
               aria-label="Volgende afbeelding"
-              style={{
-                borderColor: `${color}60`,
-              }}
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <polyline points="9 18 15 12 9 6"></polyline>
@@ -141,12 +132,9 @@ const Lightbox: React.FC<LightboxProps> = ({
 
         {/* Sluit knop */}
         <button
-          className="lightbox-close"
+          className="lightbox-close lightbox-close--themed"
           onClick={(e) => handleButtonClick(e, onClose)}
           aria-label="Sluit lightbox"
-          style={{
-            borderColor: `${color}60`,
-          }}
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -156,12 +144,7 @@ const Lightbox: React.FC<LightboxProps> = ({
 
         {/* Counter */}
         {images.length > 1 && (
-          <div
-            className="lightbox-counter"
-            style={{
-              borderColor: `${color}60`,
-            }}
-          >
+          <div className="lightbox-counter lightbox-counter--themed">
             {currentIndex + 1} / {images.length}
           </div>
         )}

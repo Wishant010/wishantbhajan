@@ -1,13 +1,17 @@
-import { useState, useEffect } from 'react';
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '../utils/routerCompat';
 import { useLanguage } from '../contexts/LanguageContext';
+import { prefersReducedMotion } from '../utils/performanceOptimization';
 
 const GlobalNavbar = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const shouldReduceMotion = prefersReducedMotion();
 
   // Track scroll position
   useEffect(() => {
@@ -37,7 +41,7 @@ const GlobalNavbar = () => {
     },
     {
       label: t('nav.events'),
-      path: '/event',
+      path: '/events',
       icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
     },
   ];
@@ -60,9 +64,9 @@ const GlobalNavbar = () => {
         opacity: 1
       }}
       transition={{
-        duration: 0.6,
+        duration: shouldReduceMotion ? 0 : 0.6,
         ease: [0.23, 1, 0.32, 1],
-        delay: 0.3
+        delay: shouldReduceMotion ? 0 : 0.3
       }}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-4">
@@ -211,21 +215,26 @@ const GlobalNavbar = () => {
             height: isMenuOpen ? 'auto' : 0,
             opacity: isMenuOpen ? 1 : 0
           }}
-          transition={{ duration: 0.3 }}
+          transition={{
+            duration: 0.4,
+            ease: [0.23, 1, 0.32, 1],
+            opacity: { duration: 0.25 }
+          }}
           style={{ overflow: 'hidden' }}
         >
           <nav className="pt-4 pb-2">
             {navItems.map((item, index) => (
               <motion.div
                 key={item.path}
-                initial={{ x: -20, opacity: 0 }}
+                initial={false}
                 animate={{
-                  x: isMenuOpen ? 0 : -20,
+                  x: isMenuOpen ? 0 : -10,
                   opacity: isMenuOpen ? 1 : 0
                 }}
                 transition={{
-                  delay: index * 0.05,
-                  duration: 0.3
+                  delay: isMenuOpen ? index * 0.03 : 0,
+                  duration: 0.25,
+                  ease: [0.23, 1, 0.32, 1]
                 }}
               >
                 <Link
@@ -244,15 +253,16 @@ const GlobalNavbar = () => {
 
             {/* Mobile Language Toggle */}
             <motion.div
-              className="flex items-center justify-center gap-2 px-4 py-3 mb-2"
-              initial={{ x: -20, opacity: 0 }}
+              className="flex items-center justify-start gap-2 px-4 py-3 mb-2"
+              initial={false}
               animate={{
-                x: isMenuOpen ? 0 : -20,
+                x: isMenuOpen ? 0 : -10,
                 opacity: isMenuOpen ? 1 : 0
               }}
               transition={{
-                delay: navItems.length * 0.05,
-                duration: 0.3
+                delay: isMenuOpen ? navItems.length * 0.03 : 0,
+                duration: 0.25,
+                ease: [0.23, 1, 0.32, 1]
               }}
             >
               <button

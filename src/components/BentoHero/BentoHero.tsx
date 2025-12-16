@@ -5,8 +5,10 @@ import PathCard from './PathCard';
 import TimelineView from '../PathSelector/TimelineView';
 import { pathsData } from '../../data/pathsData';
 import IconMapper from '../IconMapper';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const BentoHero: React.FC = () => {
+  const { t } = useLanguage();
   const [selectedPath, setSelectedPath] = useState<string | null>(null);
   const [isTimelineOpen, setIsTimelineOpen] = useState(false);
 
@@ -59,33 +61,33 @@ const BentoHero: React.FC = () => {
   const pathCards = [
     {
       id: 'student',
-      title: 'Student',
-      description: 'Mijn academische journey van MAVO tot HBO',
-      meta: '2017 - 2027',
+      title: t('bentohero.student.title'),
+      description: t('bentohero.student.description'),
+      meta: t('bentohero.student.meta'),
       accentColor: '#3B82F6',
       iconName: 'book',
     },
     {
       id: 'business',
-      title: 'Bedrijf',
-      description: 'Entrepreneurial ventures & startups',
-      meta: 'Startup Journey',
+      title: t('bentohero.business.title'),
+      description: t('bentohero.business.description'),
+      meta: t('bentohero.business.meta'),
       accentColor: '#8B5CF6',
       iconName: 'briefcase',
     },
     {
       id: 'work',
-      title: 'Werk',
-      description: 'Professional roles & achievements',
-      meta: '5+ Roles',
+      title: t('bentohero.work.title'),
+      description: t('bentohero.work.description'),
+      meta: t('bentohero.work.meta'),
       accentColor: '#10B981',
       iconName: 'code',
     },
     {
       id: 'life',
-      title: 'Persoonlijk',
-      description: 'Hobbies, passies & wie ik ben',
-      meta: 'Passies & More',
+      title: t('bentohero.life.title'),
+      description: t('bentohero.life.description'),
+      meta: t('bentohero.life.meta'),
       accentColor: '#F59E0B',
       iconName: 'heart',
     },
@@ -119,10 +121,10 @@ const BentoHero: React.FC = () => {
                 transition={{ duration: 0.6 }}
               >
                 <h1 className="text-4xl md:text-5xl font-bold text-white mb-3 tracking-tight">
-                  Over Mij
+                  {t('bentohero.title')}
                 </h1>
                 <p className="text-lg text-slate-400">
-                  Ontdek mijn verhaal, passies en expertise
+                  {t('bentohero.subtitle')}
                 </p>
               </motion.div>
 

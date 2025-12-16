@@ -1,11 +1,11 @@
 {
-  "name": "Wishant Bhajan",
-  "short_name": "Wishant",
-  "description": "wishant bhajan site.",
+  "name": "Wishant Bhajan - Full-Stack Developer Portfolio",
+  "short_name": "Wishant Bhajan",
+  "description": "Portfolio van Wishant Bhajan - Full-Stack Developer gespecialiseerd in React, Next.js, TypeScript, Three.js en Cybersecurity.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
   "background_color": "#0f172a",
   "theme_color": "#10b981",
   "lang": "nl",
@@ -18,19 +18,51 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["business", "productivity", "technology"],
+  "categories": ["business", "productivity", "technology", "developer-tools"],
   "shortcuts": [
     {
       "name": "Home",
       "short_name": "Home",
       "description": "Ga naar de homepage",
-      "url": "/",
+      "url": "/home",
       "icons": [
         {
           "src": "/favicon-96x96.png",
           "sizes": "96x96"
         }
       ]
+    },
+    {
+      "name": "Portfolio",
+      "short_name": "Portfolio",
+      "description": "Bekijk mijn projecten",
+      "url": "/portfolio",
+      "icons": [
+        {
+          "src": "/favicon-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Over Mij",
+      "short_name": "About",
+      "description": "Leer meer over mij",
+      "url": "/about",
+      "icons": [
+        {
+          "src": "/favicon-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Homepage van Wishant Bhajan Portfolio"
     }
   ]
 }

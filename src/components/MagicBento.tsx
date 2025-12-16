@@ -462,7 +462,7 @@ const GlobalSpotlight: React.FC<{
 
 const BentoCardGrid: React.FC<{
   children: React.ReactNode;
-  gridRef?: React.RefObject<HTMLDivElement | null>;
+  gridRef?: React.RefObject<HTMLDivElement>;
 }> = ({ children, gridRef }) => (
   <div
     className="bento-section w-full"
@@ -757,6 +757,8 @@ const MagicBento: React.FC<BentoProps> = ({
                     <img
                       src={card.image}
                       alt={card.title}
+                      loading="lazy"
+                      decoding="async"
                       className="card-image"
                     />
                   )}
@@ -897,6 +899,8 @@ const MagicBento: React.FC<BentoProps> = ({
                   <img
                     src={card.image}
                     alt={card.title}
+                    loading="lazy"
+                    decoding="async"
                     className="card-image"
                   />
                 )}

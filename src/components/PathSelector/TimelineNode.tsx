@@ -137,6 +137,8 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({ data, index, color }) => {
             <img
               src={currentImage}
               alt={data.title}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover"
             />
           </motion.div>
