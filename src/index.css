@@ -2170,6 +2170,24 @@ section {
   visibility: visible !important;
 }
 
+/* Themed lightbox variants using CSS custom property */
+.lightbox-image--themed {
+  box-shadow: 0 0 50px color-mix(in srgb, var(--lightbox-color, #0096FF) 50%, transparent);
+  border: 2px solid var(--lightbox-color, #0096FF);
+}
+
+.lightbox-nav--themed {
+  border-color: color-mix(in srgb, var(--lightbox-color, #0096FF) 38%, transparent);
+}
+
+.lightbox-close--themed {
+  border-color: color-mix(in srgb, var(--lightbox-color, #0096FF) 38%, transparent);
+}
+
+.lightbox-counter--themed {
+  border-color: color-mix(in srgb, var(--lightbox-color, #0096FF) 38%, transparent);
+}
+
 @media (max-width: 768px) {
   .lightbox-image-wrapper {
     max-width: 95vw;
@@ -2248,6 +2266,21 @@ section {
     width: 20px;
     height: 20px;
   }
+}
+
+/* Event page lightbox media styles */
+.lightbox-media {
+  max-width: calc(100vw - 120px);
+  max-height: calc(100vh - 120px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Touch scroll momentum for iOS */
+.touch-scroll-momentum {
+  -webkit-overflow-scrolling: touch;
 }
 
 /* ========================================

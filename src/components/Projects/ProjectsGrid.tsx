@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ProjectCard from './ProjectCard';
 import { Category, Project } from '../../types/portfolio.types';
 import { portfolioData } from '../../data/portfolioData';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -39,6 +40,7 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({
   selectedTier = 'all',
   selectedSubcategory = 'all'
 }) => {
+  const { t } = useLanguage();
   const headerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -149,7 +151,7 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span>←</span> Back to Categories
+            <span>←</span> {t('portfoliopage.backToCategories')}
           </motion.button>
         )}
 
@@ -166,10 +168,10 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({
               className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4"
               style={{ color: getCategoryColor(selectedCategory) }}
             >
-              {categoryData.label}
+              {t(`portfoliopage.category.${categoryData.id}`)}
             </h2>
             <p className="text-slate-300 text-sm sm:text-base">
-              {projects.length} project{projects.length !== 1 ? 's' : ''}
+              {projects.length} {projects.length !== 1 ? t('portfoliopage.projects') : t('portfoliopage.project')}
             </p>
           </motion.div>
         )}
@@ -201,7 +203,7 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({
             transition={{ delay: 0.5 }}
           >
             <p className="text-slate-400 text-lg">
-              No projects in this category yet.
+              {t('portfoliopage.noProjects')}
             </p>
           </motion.div>
         )}

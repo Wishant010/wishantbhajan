@@ -6,7 +6,7 @@ import Footer from "../../components/Footer";
 import BentoHero from "../../components/BentoHero/BentoHero";
 import NeuroBackground from "../../components/Background/NeuroBackground";
 
-// Error fallback component
+// Error fallback component - uses static text to avoid hook issues in error boundary
 function ErrorFallback({ error }: { error: Error }) {
   return (
     <div className="min-h-screen bg-slate-900 flex items-center justify-center px-4">

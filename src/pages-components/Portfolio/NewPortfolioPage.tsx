@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useLocation } from '../../utils/routerCompat';
+import { useLocation, useNavigate } from '../../utils/routerCompat';
 import GlobalNavbar from '../../components/GlobalNavbar';
 import MatrixRain from '../../components/Effects/MatrixRain';
 import ParticleField from '../../components/Effects/ParticleField';
@@ -14,13 +14,45 @@ import { useLanguage } from '../../contexts/LanguageContext';
 const NewPortfolioPage: React.FC = () => {
   const { t } = useLanguage();
   const location = useLocation();
+  const navigate = useNavigate();
   const pageRef = React.useRef<HTMLDivElement>(null);
   const [searchQuery, setSearchQuery] = React.useState('');
-  const [selectedCategory, setSelectedCategory] = React.useState<string>(
-    (location.state as { selectedCategory?: string })?.selectedCategory || 'cybersecurity'
-  );
+
+  // Get category from URL query parameter, then location state, then default to 'cybersecurity'
+  const getInitialCategory = () => {
+    const params = new URLSearchParams(location.search);
+    const urlCategory = params.get('category');
+    if (urlCategory && ['cybersecurity', 'bedrijven', 'persoonlijk'].includes(urlCategory)) {
+      return urlCategory;
+    }
+    const stateCategory = (location.state as { selectedCategory?: string })?.selectedCategory;
+    if (stateCategory) {
+      return stateCategory;
+    }
+    return 'cybersecurity';
+  };
+
+  const [selectedCategory, setSelectedCategory] = React.useState<string>(getInitialCategory());
   const [selectedTier, setSelectedTier] = React.useState<string>('I');
   const [selectedSubcategory, setSelectedSubcategory] = React.useState<string>('all');
+
+  // Update URL when category changes
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    // Update URL with new category (replace to avoid too many history entries)
+    navigate(`/portfolio?category=${category}`, { replace: true });
+  };
+
+  // Listen for browser back/forward and update category from URL
+  React.useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const urlCategory = params.get('category');
+    if (urlCategory && ['cybersecurity', 'bedrijven', 'persoonlijk'].includes(urlCategory)) {
+      if (urlCategory !== selectedCategory) {
+        setSelectedCategory(urlCategory);
+      }
+    }
+  }, [location.search]);
 
   const getCategoryIcon = (categoryId: string, isActive: boolean) => {
     const iconColor = isActive ? 'currentColor' : '#9ca3af';
@@ -152,7 +184,7 @@ const NewPortfolioPage: React.FC = () => {
                     return (
                       <button
                         key={category.id}
-                        onClick={() => setSelectedCategory(category.id)}
+                        onClick={() => handleCategoryChange(category.id)}
                         type="button"
                         className={`px-6 py-3 rounded-lg font-medium cursor-pointer flex items-center gap-2 transition-all duration-300 ${
                           isActive
@@ -166,7 +198,7 @@ const NewPortfolioPage: React.FC = () => {
                         } : {}}
                       >
                         {getCategoryIcon(category.id, isActive)}
-                        <span>{category.label}</span>
+                        <span>{t(`portfoliopage.category.${category.id}`)}</span>
                       </button>
                     );
                   })}

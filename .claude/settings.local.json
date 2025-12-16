@@ -45,7 +45,12 @@
       "Bash(nvm use:*)",
       "Bash(wc:*)",
       "Bash(ffmpeg:*)",
-      "Bash(command -v:*)"
+      "Bash(command -v:*)",
+      "Bash(pkill:*)",
+      "Bash(export NVM_DIR=$HOME/.nvm)",
+      "Bash([ -s $NVM_DIR/nvm.sh ])",
+      "Bash(. $NVM_DIR/nvm.sh)",
+      "Bash(/root/.nvm/versions/node/v22.21.1/bin/npx tsc --noEmit)"
     ],
     "deny": []
   }

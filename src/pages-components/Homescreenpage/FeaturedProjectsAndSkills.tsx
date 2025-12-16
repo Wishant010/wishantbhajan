@@ -35,7 +35,7 @@ const FeaturedProjectsAndSkills: React.FC = () => {
       color: '#0A0E27',
       title: 'WishShield',
       description: t('featured.wishshield.desc'),
-      label: 'Cybersecurity',
+      label: t('featured.label.cybersecurity'),
       featured: true,
       image: '/projects/security/futuristic_cybersecurity_shield_icon_with_hexagonal_shape.jpeg',
       span: { cols: 2, rows: 2 }
@@ -44,21 +44,21 @@ const FeaturedProjectsAndSkills: React.FC = () => {
       color: '#0B1029',
       title: 'TableTech',
       description: t('featured.tabletech.desc'),
-      label: 'Live',
+      label: t('featured.label.live'),
       image: '/projects/business/modern_restaurant_technology_visualization_with_prominent_tabletech.jpeg'
     },
     {
       color: '#0C132B',
       title: 'Calendify',
       description: t('featured.calendify.desc'),
-      label: 'Persoonlijk',
+      label: t('featured.label.personal'),
       image: '/projects/business/professional_office_management_dashboard_clean_calendar_interface.jpeg'
     },
     {
       color: '#0D152E',
       title: 'WishGuard',
       description: t('featured.wishguard.desc'),
-      label: 'Cybersecurity',
+      label: t('featured.label.cybersecurity'),
       span: { cols: 2, rows: 1 },
       image: '/projects/security/fix_the_letter_b__so_that.png'
     },
@@ -66,14 +66,14 @@ const FeaturedProjectsAndSkills: React.FC = () => {
       color: '#0E1831',
       title: 'Crypto Bot',
       description: t('featured.cryptobot.desc'),
-      label: 'Coming Soon',
+      label: t('featured.label.comingSoon'),
       image: '/projects/business/futuristic_cryptocurrency_trading_bot_visualization_wb_logo.jpg'
     },
     {
       color: '#0A0E27',
       title: 'Urban Mobility',
       description: t('featured.urbanmobility.desc'),
-      label: 'Persoonlijk',
+      label: t('featured.label.personal'),
       image: '/projects/utilities/professional_terminal_interface_with_urban_mobility_text_v2.png'
     }
   ];

@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useRef } from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from '../../utils/routerCompat';
 import { Project } from '../../types/portfolio.types';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface ProjectCardProps {
   project: Project;
@@ -11,13 +12,31 @@ interface ProjectCardProps {
   onClick?: () => void;
 }
 
+// Projects that show "coming soon info" modal instead of navigating
+const PENDING_INFO_PROJECTS = ['tabletech', 'urban-mobility', 'shipment-tracking', 'spirit-engineering'];
+
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) => {
+  const { t } = useLanguage();
   const cardRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const [showCybersecurityModal, setShowCybersecurityModal] = useState(false);
+  const [showPendingInfoModal, setShowPendingInfoModal] = useState(false);
 
   const handleClick = () => {
     // Don't navigate if the project is coming soon
     if (project.comingSoon) {
+      return;
+    }
+
+    // Show special modal for cybersecurity projects
+    if (project.category === 'cybersecurity') {
+      setShowCybersecurityModal(true);
+      return;
+    }
+
+    // Show special modal for projects with pending info
+    if (PENDING_INFO_PROJECTS.includes(project.id)) {
+      setShowPendingInfoModal(true);
       return;
     }
 
@@ -74,7 +93,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) =>
           {/* Icon for projects without image */}
           {!project.thumbnail && (
             <div className="w-full h-32 bg-gradient-to-br from-cyan-950/30 to-slate-900/30 rounded-lg mb-4 flex items-center justify-center border border-cyan-500/10 transition-all duration-200 group-hover/canvas-card:border-cyan-500/30">
-              <span className="text-5xl transition-all duration-200 group-hover/canvas-card:scale-110 group-hover/canvas-card:-translate-y-2">{getCategoryIcon(project.category)}</span>
+              <div className="transition-all duration-200 group-hover/canvas-card:scale-110 group-hover/canvas-card:-translate-y-2">{getCategoryIcon(project.category)}</div>
             </div>
           )}
 
@@ -112,7 +131,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) =>
                   disabled
                   className="w-full px-4 py-2 text-center font-bold text-slate-400 bg-slate-800/50 border border-slate-700 rounded-lg cursor-not-allowed"
                 >
-                  Coming Soon
+                  {t('project.comingSoon')}
                 </button>
               </div>
             ) : (
@@ -126,7 +145,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) =>
                       className="text-cyan-300 text-sm font-medium hover:text-cyan-200 transition-colors drop-shadow-md"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      GitHub →
+                      {t('project.github')} →
                     </a>
                   )}
                   {project.links.demo && (
@@ -137,7 +156,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) =>
                       className="text-emerald-300 text-sm font-medium hover:text-emerald-200 transition-colors drop-shadow-md"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      Live Demo →
+                      {t('project.liveDemo')} →
                     </a>
                   )}
                 </div>
@@ -146,17 +165,241 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) =>
           </div>
         </div>
       </div>
+
+      {/* Cybersecurity Coming Soon Modal */}
+      <AnimatePresence>
+        {showCybersecurityModal && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowCybersecurityModal(false)}
+          >
+            {/* Backdrop */}
+            <motion.div
+              className="absolute inset-0 bg-black/85"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+
+            {/* Modal Content */}
+            <motion.div
+              className="relative bg-slate-800/98 rounded-2xl p-8 max-w-md w-full border-2 border-cyan-500/30 text-center"
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              onClick={(e: React.MouseEvent) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <div
+                className="absolute top-3 right-3 z-50"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setShowCybersecurityModal(false);
+                }}
+              >
+                <button
+                  type="button"
+                  className="p-3 rounded-full text-cyan-400 bg-cyan-500/20 hover:bg-cyan-500/40 transition-colors duration-200 cursor-pointer"
+                  title={t('project.modal.close')}
+                  aria-label={t('project.modal.close')}
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Icon */}
+              <div className="mb-6 flex justify-center pt-4">
+                <svg className="w-16 h-16 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+
+              {/* Title */}
+              <h3 className="text-2xl font-bold text-cyan-400 mb-4">
+                {t('project.modal.cybersecurity.title')}
+              </h3>
+
+              {/* Message */}
+              <p className="text-slate-300 text-lg leading-relaxed mb-6">
+                {t('project.modal.cybersecurity.message')}
+              </p>
+
+              {/* Project Title */}
+              <div className="px-4 py-3 bg-cyan-500/10 border border-cyan-500/30 rounded-lg">
+                <p className="text-cyan-300 font-medium">{project.title}</p>
+              </div>
+
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={() => setShowCybersecurityModal(false)}
+                className="mt-6 px-6 py-3 bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 font-bold rounded-lg hover:bg-cyan-500/30 transition-all duration-200"
+              >
+                {t('project.modal.cybersecurity.understood')}
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Pending Info Modal */}
+      <AnimatePresence>
+        {showPendingInfoModal && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowPendingInfoModal(false)}
+          >
+            {/* Backdrop */}
+            <motion.div
+              className="absolute inset-0 bg-black/85"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+
+            {/* Modal Content */}
+            <motion.div
+              className="relative bg-slate-800/98 rounded-2xl p-8 max-w-md w-full border-2 text-center"
+              style={{
+                borderColor: project.category === 'bedrijven' ? 'rgba(245, 158, 11, 0.3)' : 'rgba(236, 72, 153, 0.3)'
+              }}
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              onClick={(e: React.MouseEvent) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <div
+                className="absolute top-3 right-3 z-50"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setShowPendingInfoModal(false);
+                }}
+              >
+                <button
+                  type="button"
+                  className="p-3 rounded-full transition-colors duration-200 cursor-pointer"
+                  style={{
+                    color: project.category === 'bedrijven' ? '#f59e0b' : '#ec4899',
+                    backgroundColor: project.category === 'bedrijven' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(236, 72, 153, 0.2)'
+                  }}
+                  title={t('project.modal.close')}
+                  aria-label={t('project.modal.close')}
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Icon */}
+              <div className="mb-6 flex justify-center pt-4">
+                {project.category === 'bedrijven' ? (
+                  <svg className="w-16 h-16 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                ) : (
+                  <svg className="w-16 h-16 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                  </svg>
+                )}
+              </div>
+
+              {/* Title */}
+              <h3
+                className="text-2xl font-bold mb-4"
+                style={{ color: project.category === 'bedrijven' ? '#f59e0b' : '#ec4899' }}
+              >
+                {project.title}
+              </h3>
+
+              {/* Message */}
+              <p className="text-slate-300 text-lg leading-relaxed mb-6">
+                {t('project.modal.pending.message')}
+              </p>
+
+              {/* Website Link - only for TableTech */}
+              {project.id === 'tabletech' && project.links.demo && (
+                <div
+                  className="px-4 py-3 rounded-lg mb-6"
+                  style={{
+                    backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                    borderWidth: 1,
+                    borderColor: 'rgba(245, 158, 11, 0.3)'
+                  }}
+                >
+                  <p className="text-slate-400 text-sm mb-2">{t('project.modal.pending.viewWebsite')}</p>
+                  <a
+                    href={project.links.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-lg hover:opacity-80 transition-opacity"
+                    style={{ color: '#fbbf24' }}
+                  >
+                    TableTech.nl →
+                  </a>
+                </div>
+              )}
+
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={() => setShowPendingInfoModal(false)}
+                className="px-6 py-3 font-bold rounded-lg transition-all duration-200"
+                style={{
+                  color: project.category === 'bedrijven' ? '#f59e0b' : '#ec4899',
+                  backgroundColor: project.category === 'bedrijven' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(236, 72, 153, 0.2)',
+                  borderWidth: 1,
+                  borderColor: project.category === 'bedrijven' ? 'rgba(245, 158, 11, 0.4)' : 'rgba(236, 72, 153, 0.4)'
+                }}
+              >
+                {t('project.modal.pending.understood')}
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
 
-function getCategoryIcon(category: string): string {
-  const icons: Record<string, string> = {
-    cybersecurity: '🔒',
-    bedrijven: '💼',
-    persoonlijk: '🎨'
-  };
-  return icons[category] || '📁';
+function getCategoryIcon(category: string): React.ReactNode {
+  switch (category) {
+    case 'cybersecurity':
+      return (
+        <svg className="w-12 h-12 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+      );
+    case 'bedrijven':
+      return (
+        <svg className="w-12 h-12 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      );
+    case 'persoonlijk':
+      return (
+        <svg className="w-12 h-12 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+        </svg>
+      );
+    default:
+      return (
+        <svg className="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+        </svg>
+      );
+  }
 }
 
 export default ProjectCard;
