@@ -89,6 +89,7 @@ export interface Project {
   };
   featured: boolean;
   details?: string;
+  date?: string;
   tier?: 'I' | 'II' | 'III';
   subcategory?: string;
   backgroundVideo?: string;

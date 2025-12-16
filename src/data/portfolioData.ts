@@ -139,128 +139,6 @@ export const portfolioData: CategoryConfig[] = [
     gradient: ["#f59e0b", "#ef4444"],
     projects: [
       {
-        id: "woningspotters",
-        title: "WoningSpotters",
-        description: "Woningscraping platform dat data verzamelt van Nederlandse woningwebsites voor koop- en huurwoningen",
-        category: "bedrijven",
-        thumbnail: "/projects/business/woningspotters.jpg",
-        technologies: ["React", "Python", "Apify", "Web Scraping", "TypeScript"],
-        links: {},
-        featured: true,
-        details: "Platform gebouwd tijdens de Apify $1M Challenge hackathon - 3e plaats behaald",
-        projectData: {
-          clientInfo: {
-            name: "WoningSpotters",
-            description: "WoningSpotters is een woningscraping platform dat binnen één dag is gebouwd tijdens de Apify $1M Challenge hackathon in Amsterdam. Het platform scrapet data van de meeste Nederlandse woningwebsites voor zowel koop- als huurwoningen.",
-            industry: "Real Estate & PropTech",
-            needs: [
-              "Centrale plek voor alle woningaanbiedingen in Nederland",
-              "Real-time data van meerdere woningwebsites",
-              "Gebruiksvriendelijke interface voor woningzoekers",
-              "Schaalbare web scraping infrastructuur"
-            ]
-          },
-          assignment: {
-            why: "De Nederlandse woningmarkt is versnipperd over tientallen websites. Woningzoekers moeten dagelijks meerdere sites checken om niets te missen. WoningSpotters lost dit op door alle data te centraliseren.",
-            wishes: [
-              "Data scrapen van alle grote Nederlandse woningwebsites",
-              "Zowel koop- als huurwoningen ondersteunen",
-              "Snelle en responsive frontend",
-              "Filters op prijs, locatie, oppervlakte etc.",
-              "Real-time updates van nieuwe woningen",
-              "Schaalbaar systeem dat meegroeit"
-            ],
-            problems: [
-              "Woningzoekers missen woningen door versnippering",
-              "Handmatig checken van meerdere websites is tijdrovend",
-              "Geen centrale vergelijkingsmogelijkheid",
-              "Nieuwe woningen zijn snel weg - snelheid is cruciaal"
-            ]
-          },
-          myRole: [
-            {
-              title: "Frontend Development",
-              description: "React frontend met TypeScript voor snelle en responsive gebruikerservaring",
-              icon: "code"
-            },
-            {
-              title: "Web Scraping Architecture",
-              description: "Python scrapers gecombineerd met Apify voor robuuste data-extractie",
-              icon: "server"
-            },
-            {
-              title: "Data Processing",
-              description: "Data normalisatie en transformatie van verschillende bronformaten",
-              icon: "database"
-            },
-            {
-              title: "Team Lead",
-              description: "Coördinatie van team van 4 personen tijdens de hackathon",
-              icon: "team"
-            }
-          ],
-          process: [
-            {
-              step: 1,
-              title: "Ideation & Planning",
-              description: "Brainstormen over het probleem en de beste aanpak bepalen"
-            },
-            {
-              step: 2,
-              title: "Scraper Development",
-              description: "Python scrapers bouwen voor verschillende woningwebsites"
-            },
-            {
-              step: 3,
-              title: "Apify Integration",
-              description: "Scrapers deployen op Apify voor schaalbare en betrouwbare data-extractie"
-            },
-            {
-              step: 4,
-              title: "Frontend Development",
-              description: "React frontend bouwen met zoek- en filterfunctionaliteit"
-            },
-            {
-              step: 5,
-              title: "Data Pipeline",
-              description: "Data normalisatie en integratie van alle bronnen"
-            },
-            {
-              step: 6,
-              title: "Pitch & Demo",
-              description: "Presentatie aan de jury - 3e plaats behaald!"
-            }
-          ],
-          technicalHighlights: [
-            {
-              title: "Multi-Source Scraping",
-              description: "Scrapers voor meerdere Nederlandse woningwebsites met verschillende HTML structuren",
-              icon: "scraping"
-            },
-            {
-              title: "Apify Actors",
-              description: "Schaalbare web scraping met Apify's cloud infrastructure en actor model",
-              icon: "cloud"
-            },
-            {
-              title: "React Frontend",
-              description: "Snelle en responsive UI gebouwd met React en TypeScript",
-              icon: "frontend"
-            },
-            {
-              title: "Data Normalization",
-              description: "Uniforme data-structuur ondanks verschillende bronformaten",
-              icon: "data"
-            },
-            {
-              title: "Real-time Updates",
-              description: "Automatische updates wanneer nieuwe woningen beschikbaar komen",
-              icon: "sync"
-            }
-          ]
-        }
-      },
-      {
         id: "tabletech",
         title: "TableTech",
         description: "Restaurant digitalization software with custom solutions for businesses",
@@ -283,6 +161,18 @@ export const portfolioData: CategoryConfig[] = [
         links: {},
         featured: true,
         details: "Complete management system for driving schools with scheduling and student tracking",
+        comingSoon: true
+      },
+      {
+        id: "woningspotters",
+        title: "WoningSpotters",
+        description: "Woningscraping platform dat data verzamelt van Nederlandse woningwebsites voor koop- en huurwoningen",
+        category: "bedrijven",
+        thumbnail: "/projects/business/woningspotters-hackathon.jpg",
+        technologies: ["Coming Soon December 2025"],
+        links: {},
+        featured: true,
+        details: "Platform gebouwd tijdens de Apify $1M Challenge hackathon - 3e plaats behaald",
         comingSoon: true
       },
       {
@@ -322,6 +212,18 @@ export const portfolioData: CategoryConfig[] = [
         comingSoon: true
       },
       {
+        id: "foodswipe",
+        title: "Foodswipe",
+        description: "Swipe-based food discovery app for restaurants and meals",
+        category: "bedrijven",
+        thumbnail: "/events/apify/foodswipe_black.png",
+        technologies: ["Coming Soon February 2027"],
+        links: {},
+        featured: true,
+        details: "Discover your next favorite meal with intuitive swipe-based recommendations",
+        comingSoon: true
+      },
+      {
         id: "sneak-up",
         title: "Sneak UP",
         description: "Multiplayer challenge game with friends",
@@ -352,6 +254,7 @@ export const portfolioData: CategoryConfig[] = [
         technologies: ["React", "TypeScript", "C#", ".NET", "SQL Server", "REST API"],
         links: {},
         featured: true,
+        date: "2025",
         details: "Full-stack webapplicatie ontworpen om medewerkers te helpen kantooraanwezigheid te coördineren, vergaderruimtes te boeken en deel te nemen aan bedrijfsevenementen",
         projectData: {
           problem: "In hybride werkomgevingen hebben teams moeite om te weten wie er op kantoor zal zijn, wat samenwerking en evenementenplanning moeilijk maakt. Bestaande oplossingen missen de eenvoud en sociale functies die nodig zijn om kantooraanwezigheid aan te moedigen.",

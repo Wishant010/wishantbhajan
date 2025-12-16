@@ -217,9 +217,6 @@ const NeuroBackground: React.FC<NeuroBackgroundProps> = ({
         updateMousePosition(e.clientX, e.clientY);
       };
 
-      const handleTouchMove = (e: TouchEvent) => {
-        updateMousePosition(e.touches[0].clientX, e.touches[0].clientY);
-      };
 
       const handleClick = (e: MouseEvent) => {
         updateMousePosition(e.clientX, e.clientY);

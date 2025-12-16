@@ -33,7 +33,6 @@ export interface BentoProps {
 }
 
 const DEFAULT_PARTICLE_COUNT = 12;
-const MOBILE_PARTICLE_COUNT = 4; // Reduced particles on mobile
 const DEFAULT_SPOTLIGHT_RADIUS = 300;
 const DEFAULT_GLOW_COLOR = '0, 245, 255'; // Cyan color to match your theme
 const MOBILE_BREAKPOINT = 768;

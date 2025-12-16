@@ -208,7 +208,7 @@ const ProjectDetailPage: React.FC = () => {
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <button
-            onClick={() => navigate('/portfolio', { state: { selectedCategory: project.category } })}
+            onClick={() => navigate(`/portfolio?category=${project.category}`)}
             className="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors font-medium"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -238,8 +238,8 @@ const ProjectDetailPage: React.FC = () => {
                 {/* Glow effect behind image */}
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/30 to-blue-500/30 rounded-2xl blur-3xl" />
                 <img
-                  src="/projects/spirit/272a485a-f703-4df8-b5c5-c45340c0b3a6.png"
-                  alt="Spirit Engineering Homepage"
+                  src={project.projectData?.screenshots?.[0]?.src || project.thumbnail}
+                  alt={project.projectData?.screenshots?.[0]?.alt || project.title}
                   className="relative w-full h-auto rounded-2xl border border-cyan-500/20 shadow-2xl shadow-cyan-500/10"
                 />
               </div>
@@ -971,7 +971,7 @@ const ProjectDetailPage: React.FC = () => {
 
               <div className="mt-8 text-center">
                 <button
-                  onClick={() => navigate('/portfolio')}
+                  onClick={() => navigate(`/portfolio?category=${project.category}`)}
                   className="px-8 py-3 bg-slate-800 text-cyan-400 rounded-lg font-medium hover:bg-slate-700 transition-all duration-200 border border-cyan-500/30 hover:border-cyan-500/50 inline-flex items-center gap-2"
                 >
                   {t('projectdetail.viewall')}
