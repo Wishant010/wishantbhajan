@@ -138,6 +138,8 @@ const NewPortfolioPage: React.FC = () => {
           <img
             src="/site-assets/logo.png"
             alt="WB Logo"
+            loading="lazy"
+            decoding="async"
             className="w-[600px] h-auto opacity-[0.15] select-none"
           />
         </div>

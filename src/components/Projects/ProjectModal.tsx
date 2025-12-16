@@ -86,6 +86,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
             <img
               src={project.thumbnail}
               alt={project.title}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover"
               onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                 (e.target as HTMLImageElement).style.display = 'none';

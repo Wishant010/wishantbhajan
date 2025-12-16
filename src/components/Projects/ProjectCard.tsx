@@ -75,6 +75,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) =>
             <img
               src={project.thumbnail}
               alt={project.title}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover transition-all duration-200 group-hover/canvas-card:scale-105"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
