@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 interface SmoothTextProps {
@@ -74,6 +74,7 @@ const SmoothText = ({
             duration: 1.8, 
             delay: delay + (index * 0.08),
             ease: [0.23, 1, 0.32, 1],
+            type: "tween", // Ensure tween to prevent negative blur values
           }}
           className={`${textSizeClass} bg-gradient-to-r from-teal-300 via-emerald-400 to-cyan-500 bg-clip-text text-transparent inline-block`}
           style={{ 

@@ -391,6 +391,7 @@ export function ResponsiveNav({
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="lg:hidden p-2 rounded-md text-gray-300 hover:text-emerald-400 transition-colors"
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             >
               <svg
                 className="w-6 h-6"

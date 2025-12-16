@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Project } from '../../types/portfolio.types';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface ProjectModalProps {
   project: Project;
@@ -9,6 +10,8 @@ interface ProjectModalProps {
 }
 
 const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryColor: _categoryColor }) => {
+  const { t } = useLanguage();
+
   useEffect(() => {
     // Prevent body scroll when modal is open
     document.body.style.overflow = 'hidden';
@@ -37,7 +40,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
     >
       {/* Backdrop */}
       <motion.div
-        className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/85"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -45,7 +48,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
 
       {/* Modal Content */}
       <motion.div
-        className="relative bg-slate-800/95 backdrop-blur-xl backdrop-saturate-[1.8] rounded-2xl p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto border-2"
+        className="relative bg-slate-800/98 rounded-2xl p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto border-2"
         style={{
           borderColor: `color-mix(in srgb, ${categoryColor} 30%, transparent)`
         }}
@@ -69,8 +72,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
           onMouseLeave={(e) => {
             e.currentTarget.style.backgroundColor = `color-mix(in srgb, ${categoryColor} 10%, transparent)`;
           }}
-          title="Close modal"
-          aria-label="Close modal"
+          title={t('project.modal.close')}
+          aria-label={t('project.modal.close')}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -83,13 +86,15 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
             <img
               src={project.thumbnail}
               alt={project.title}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover"
               onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                 (e.target as HTMLImageElement).style.display = 'none';
               }}
             />
           ) : (
-            <span className="text-8xl">{getCategoryIcon(project.category)}</span>
+            <div className="flex items-center justify-center">{getCategoryIcon(project.category)}</div>
           )}
         </div>
 
@@ -110,7 +115,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
               borderColor: `color-mix(in srgb, ${categoryColor} 40%, transparent)`
             }}
           >
-            Featured Project
+            {t('project.modal.featuredProject')}
           </span>
         )}
 
@@ -130,7 +135,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
             className="text-xl font-bold mb-3"
             style={{ color: categoryColor }}
           >
-            Technologies
+            {t('project.modal.technologies')}
           </h3>
           <div className="flex flex-wrap gap-2">
             {project.technologies.map((tech: string) => (
@@ -164,7 +169,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
                   borderColor: `color-mix(in srgb, ${categoryColor} 40%, transparent)`
                 }}
               >
-                View on GitHub →
+                {t('project.modal.viewOnGitHub')} →
               </a>
             )}
             {project.links.demo && (
@@ -178,7 +183,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
                   backgroundColor: categoryColor
                 }}
               >
-                Live Demo →
+                {t('project.modal.viewLiveDemo')} →
               </a>
             )}
             {project.links.case_study && (
@@ -193,7 +198,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, categoryC
                   borderColor: `color-mix(in srgb, ${categoryColor} 40%, transparent)`
                 }}
               >
-                Case Study →
+                {t('project.modal.caseStudy')} →
               </a>
             )}
           </div>
@@ -218,14 +223,41 @@ function getCategoryColor(category: string): string {
   }
 }
 
-function getCategoryIcon(category: string): string {
-  const icons: Record<string, string> = {
-    cybersecurity: '🔒',
-    school: '🎓',
-    bedrijf: '💼',
-    persoonlijk: '🎨'
-  };
-  return icons[category] || '📁';
+function getCategoryIcon(category: string): React.ReactNode {
+  switch (category) {
+    case 'cybersecurity':
+      return (
+        <svg className="w-16 h-16 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+      );
+    case 'school':
+      return (
+        <svg className="w-16 h-16 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+        </svg>
+      );
+    case 'bedrijf':
+    case 'bedrijven':
+      return (
+        <svg className="w-16 h-16 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      );
+    case 'persoonlijk':
+      return (
+        <svg className="w-16 h-16 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+        </svg>
+      );
+    default:
+      return (
+        <svg className="w-16 h-16 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+        </svg>
+      );
+  }
 }
 
 export default ProjectModal;

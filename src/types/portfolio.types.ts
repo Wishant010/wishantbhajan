@@ -6,6 +6,48 @@ export interface ProjectFeature {
   icon: string;
 }
 
+export interface ClientInfo {
+  name: string;
+  description: string;
+  industry: string;
+  needs: string[];
+}
+
+export interface ProjectRole {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+export interface DesignChoice {
+  title: string;
+  description: string;
+}
+
+export interface ProcessStep {
+  step: number;
+  title: string;
+  description: string;
+}
+
+export interface TechnicalHighlight {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+export interface ClientResult {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+export interface Screenshot {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
 export interface ProjectData {
   problem?: string;
   solution?: string;
@@ -18,6 +60,19 @@ export interface ProjectData {
   architecture?: string;
   challenges?: string[];
   learnings?: string[];
+  // New extended fields for detailed case studies
+  clientInfo?: ClientInfo;
+  assignment?: {
+    why: string;
+    wishes: string[];
+    problems: string[];
+  };
+  myRole?: ProjectRole[];
+  designChoices?: DesignChoice[];
+  screenshots?: Screenshot[];
+  process?: ProcessStep[];
+  technicalHighlights?: TechnicalHighlight[];
+  clientResults?: ClientResult[];
 }
 
 export interface Project {
@@ -34,6 +89,7 @@ export interface Project {
   };
   featured: boolean;
   details?: string;
+  date?: string;
   tier?: 'I' | 'II' | 'III';
   subcategory?: string;
   backgroundVideo?: string;

@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import './Cubes.css';
 
 interface Gap {
   row: number;
@@ -10,6 +9,25 @@ interface Duration {
   enter: number;
   leave: number;
 }
+
+// Mobile detection hook
+const useMobileDetection = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768 ||
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      setIsMobile(mobile);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return isMobile;
+};
 
 export interface CubesProps {
   gridSize?: number;
@@ -46,6 +64,7 @@ const Cubes: React.FC<CubesProps> = ({
   rippleSpeed = 2,
   visibleCells
 }) => {
+  const isMobile = useMobileDetection();
   const sceneRef = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef<number | null>(null);
   const idleTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -223,7 +242,8 @@ const Cubes: React.FC<CubesProps> = ({
   );
 
   useEffect(() => {
-    if (!autoAnimate || !sceneRef.current) return;
+    // Disable auto-animation on mobile for performance
+    if (!autoAnimate || !sceneRef.current || isMobile) return;
     simPosRef.current = {
       x: Math.random() * gridSize,
       y: Math.random() * gridSize
@@ -253,11 +273,15 @@ const Cubes: React.FC<CubesProps> = ({
     return () => {
       if (simRAFRef.current != null) cancelAnimationFrame(simRAFRef.current);
     };
-  }, [autoAnimate, gridSize, tiltAt]);
+  }, [autoAnimate, gridSize, tiltAt, isMobile]);
 
   useEffect(() => {
     const el = sceneRef.current;
     if (!el) return;
+
+    // Skip all event listeners on mobile for performance
+    if (isMobile) return;
+
     el.addEventListener('pointermove', onPointerMove);
     el.addEventListener('pointerleave', resetAll);
     el.addEventListener('click', onClick);
@@ -278,7 +302,7 @@ const Cubes: React.FC<CubesProps> = ({
       if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
       if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
     };
-  }, [onPointerMove, resetAll, onClick, onTouchMove, onTouchStart, onTouchEnd]);
+  }, [onPointerMove, resetAll, onClick, onTouchMove, onTouchStart, onTouchEnd, isMobile]);
 
   const cells = Array.from({ length: gridSize });
   const wrapperProps = {

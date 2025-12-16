@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { isMobileDevice, prefersReducedMotion } from '../../utils/performanceOptimization';
 
 interface Particle {
@@ -26,154 +26,159 @@ const ParticleField: React.FC<ParticleFieldProps> = ({
   mouseInteraction = true
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef<{ x: number; y: number; radius: number }>({ x: 0, y: 0, radius: 100 });
-  const animationRef = useRef<number | undefined>(undefined);
+  const animationRef = useRef<number | null>(null);
+  const lastFrameTime = useRef<number>(0);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Lazy loading with IntersectionObserver
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
+    // Don't run if not visible or reduced motion preferred
+    if (!isVisible || prefersReducedMotion()) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
-    // Set canvas size
+    const isMobile = isMobileDevice();
+    const targetFPS = isMobile ? 24 : 30;
+    const frameInterval = 1000 / targetFPS;
+
+    // Set canvas size with optimized resolution
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio, 1.5);
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      ctx.scale(dpr, dpr);
       initParticles();
     };
 
-    // Initialize particles
+    // Initialize particles with optimized count
     const initParticles = () => {
-      // Reduce particles on mobile devices or when reduced motion is preferred
-      const isMobile = isMobileDevice();
-      const reducedMotion = prefersReducedMotion();
-
       let adjustedDensity = density;
-      if (reducedMotion) {
-        adjustedDensity = density * 0.3; // 70% fewer particles
-      } else if (isMobile) {
-        adjustedDensity = density * 0.5; // 50% fewer particles on mobile
+      if (isMobile) {
+        adjustedDensity = density * 0.4; // 60% fewer particles on mobile
       }
 
-      const particleCount = Math.floor(canvas.width * canvas.height * adjustedDensity);
-      particlesRef.current = [];
+      // Cap maximum particles
+      const maxParticles = isMobile ? 50 : 100;
+      const particleCount = Math.min(
+        Math.floor(window.innerWidth * window.innerHeight * adjustedDensity),
+        maxParticles
+      );
 
-      for (let i = 0; i < particleCount; i++) {
-        particlesRef.current.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-          radius: Math.random() * 2 + 1,
-          alpha: Math.random() * 0.5 + 0.2
-        });
-      }
+      particlesRef.current = Array.from({ length: particleCount }, () => ({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        radius: Math.random() * 1.5 + 0.5,
+        alpha: Math.random() * 0.4 + 0.2
+      }));
     };
 
-    // Mouse move handler
+    // Throttled mouse handler
+    let lastMouseUpdate = 0;
     const handleMouseMove = (e: MouseEvent) => {
+      const now = Date.now();
+      if (now - lastMouseUpdate < 50) return; // Throttle to 20fps
+      lastMouseUpdate = now;
       mouseRef.current.x = e.clientX;
       mouseRef.current.y = e.clientY;
     };
 
-    // Draw particle
-    const drawParticle = (particle: Particle) => {
-      ctx.beginPath();
-      ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `${particleColor}${Math.floor(particle.alpha * 255).toString(16).padStart(2, '0')}`;
-      ctx.fill();
+    // Optimized animation loop
+    const animate = (timestamp: number) => {
+      // Frame rate limiting
+      if (timestamp - lastFrameTime.current < frameInterval) {
+        animationRef.current = requestAnimationFrame(animate);
+        return;
+      }
+      lastFrameTime.current = timestamp;
 
-      // Add glow effect
-      ctx.shadowBlur = 10;
-      ctx.shadowColor = particleColor;
-    };
-
-    // Draw line between particles
-    const drawLine = (p1: Particle, p2: Particle, distance: number) => {
-      const opacity = (1 - distance / maxDistance) * 0.3;
-      ctx.beginPath();
-      ctx.strokeStyle = `${lineColor}${Math.floor(opacity * 255).toString(16).padStart(2, '0')}`;
-      ctx.lineWidth = 0.5;
-      ctx.moveTo(p1.x, p1.y);
-      ctx.lineTo(p2.x, p2.y);
-      ctx.stroke();
-      ctx.shadowBlur = 0;
-    };
-
-    // Calculate distance between two points
-    const getDistance = (x1: number, y1: number, x2: number, y2: number) => {
-      return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-    };
-
-    // Update and draw particles
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
       const particles = particlesRef.current;
+      const adjustedMaxDistance = isMobile ? maxDistance * 0.7 : maxDistance;
 
-      // Update and draw particles
+      // Disable shadow for performance
+      ctx.shadowBlur = 0;
+
       particles.forEach((particle, i) => {
-        // Move particle
+        // Update position
         particle.x += particle.vx;
         particle.y += particle.vy;
 
         // Bounce off edges
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+        if (particle.x < 0 || particle.x > window.innerWidth) particle.vx *= -1;
+        if (particle.y < 0 || particle.y > window.innerHeight) particle.vy *= -1;
 
-        // Keep particles in bounds
-        particle.x = Math.max(0, Math.min(canvas.width, particle.x));
-        particle.y = Math.max(0, Math.min(canvas.height, particle.y));
+        particle.x = Math.max(0, Math.min(window.innerWidth, particle.x));
+        particle.y = Math.max(0, Math.min(window.innerHeight, particle.y));
 
-        // Mouse interaction - repel particles
-        if (mouseInteraction) {
+        // Mouse interaction (skip on mobile for performance)
+        if (mouseInteraction && !isMobile) {
           const dx = mouseRef.current.x - particle.x;
           const dy = mouseRef.current.y - particle.y;
-          const distanceToMouse = Math.sqrt(dx * dx + dy * dy);
+          const distSq = dx * dx + dy * dy;
+          const radiusSq = mouseRef.current.radius * mouseRef.current.radius;
 
-          if (distanceToMouse < mouseRef.current.radius) {
-            const force = (mouseRef.current.radius - distanceToMouse) / mouseRef.current.radius;
+          if (distSq < radiusSq) {
+            const dist = Math.sqrt(distSq);
+            const force = (mouseRef.current.radius - dist) / mouseRef.current.radius * 0.3;
             const angle = Math.atan2(dy, dx);
-            particle.vx -= Math.cos(angle) * force * 0.5;
-            particle.vy -= Math.sin(angle) * force * 0.5;
+            particle.vx -= Math.cos(angle) * force;
+            particle.vy -= Math.sin(angle) * force;
           }
         }
 
-        // Apply damping to velocity
+        // Damping
         particle.vx *= 0.99;
         particle.vy *= 0.99;
 
-        // Draw particle
-        drawParticle(particle);
+        // Draw particle (no shadow for performance)
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `${particleColor}${Math.floor(particle.alpha * 255).toString(16).padStart(2, '0')}`;
+        ctx.fill();
 
-        // Draw lines to nearby particles
-        for (let j = i + 1; j < particles.length; j++) {
+        // Draw lines to nearby particles (check fewer particles)
+        const checkLimit = isMobile ? Math.min(i + 10, particles.length) : particles.length;
+        for (let j = i + 1; j < checkLimit; j++) {
           const other = particles[j];
-          const distance = getDistance(particle.x, particle.y, other.x, other.y);
+          const dx = other.x - particle.x;
+          const dy = other.y - particle.y;
+          const distSq = dx * dx + dy * dy;
 
-          if (distance < maxDistance) {
-            drawLine(particle, other, distance);
-          }
-        }
-
-        // Draw line to mouse if close enough
-        if (mouseInteraction) {
-          const distanceToMouse = getDistance(
-            particle.x,
-            particle.y,
-            mouseRef.current.x,
-            mouseRef.current.y
-          );
-
-          if (distanceToMouse < mouseRef.current.radius) {
-            const opacity = (1 - distanceToMouse / mouseRef.current.radius) * 0.5;
+          if (distSq < adjustedMaxDistance * adjustedMaxDistance) {
+            const dist = Math.sqrt(distSq);
+            const opacity = (1 - dist / adjustedMaxDistance) * 0.2;
             ctx.beginPath();
             ctx.strokeStyle = `${lineColor}${Math.floor(opacity * 255).toString(16).padStart(2, '0')}`;
-            ctx.lineWidth = 1;
+            ctx.lineWidth = 0.5;
             ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(mouseRef.current.x, mouseRef.current.y);
+            ctx.lineTo(other.x, other.y);
             ctx.stroke();
           }
         }
@@ -184,31 +189,47 @@ const ParticleField: React.FC<ParticleFieldProps> = ({
 
     // Setup
     resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    if (mouseInteraction) {
-      window.addEventListener('mousemove', handleMouseMove);
+
+    // Debounced resize
+    let resizeTimeout: ReturnType<typeof setTimeout>;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(resizeCanvas, 200);
+    };
+
+    window.addEventListener('resize', handleResize, { passive: true });
+    if (mouseInteraction && !isMobile) {
+      window.addEventListener('mousemove', handleMouseMove, { passive: true });
     }
 
-    // Start animation
-    animate();
+    animationRef.current = requestAnimationFrame(animate);
 
-    // Cleanup
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
+      clearTimeout(resizeTimeout);
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [density, maxDistance, particleColor, lineColor, mouseInteraction]);
+  }, [density, maxDistance, particleColor, lineColor, mouseInteraction, isVisible]);
+
+  // Static fallback for reduced motion
+  if (prefersReducedMotion()) {
+    return (
+      <div ref={containerRef} className="absolute inset-0 pointer-events-none bg-gradient-to-br from-cyan-900/10 to-transparent" />
+    );
+  }
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 pointer-events-none"
-      style={{ opacity: 0.6 }}
-    />
+    <div ref={containerRef} className="absolute inset-0">
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 pointer-events-none will-change-transform"
+        style={{ opacity: 0.6 }}
+      />
+    </div>
   );
 };
 
-export default ParticleField;
+export default React.memo(ParticleField);

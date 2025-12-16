@@ -1,148 +1,126 @@
-/// <reference types="vitest" />
-
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { resolve } from 'path';
 
-export default defineConfig(({ mode }) => {
-  const isProduction = mode === 'production';
-  
-  // Voor custom domain (wishantbhajan.nl) gebruik altijd root base
-  const base = '/';
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    react()
+  ],
 
-  return {
-    base,
-    plugins: [
-      react({
-        babel: {
-          plugins: [
-            isProduction && 'babel-plugin-transform-remove-console'
-          ].filter(Boolean) as string[]
-        },
-        jsxRuntime: 'automatic'
-      })
-    ],
-    resolve: {
-      alias: {
-        '@': resolve(__dirname, 'src'),
-        '@/components': resolve(__dirname, 'src/components'),
-        '@/pages': resolve(__dirname, 'src/Pages'),
-        '@/utils': resolve(__dirname, 'src/utils'),
-        '@/assets': resolve(__dirname, 'src/assets')
-      }
-    },
-    server: {
-      port: 5173,
-      open: true,
-      cors: true,
-      hmr: {
-        overlay: true
-      },
-      headers: {
-        'Cross-Origin-Embedder-Policy': 'credentialless',
-        'Cross-Origin-Opener-Policy': 'same-origin'
-      }
-    },
-    build: {
-      sourcemap: !isProduction,
-      target: ['es2020', 'chrome80', 'firefox78', 'safari14'],
-      cssCodeSplit: true,
-      chunkSizeWarningLimit: 800,
-      minify: 'esbuild',
-      assetsDir: 'assets',
-      rollupOptions: {
-        output: {
-          // Gebruik cache-busting hashes
-          entryFileNames: 'assets/[name]-[hash].js',
-          chunkFileNames: 'assets/[name]-[hash].js',
-          assetFileNames: (assetInfo) => {
-            const info = assetInfo.name?.split('.') || [];
-            const ext = info[info.length - 1];
-            if (/\.(png|jpe?g|gif|svg|webp|avif)$/i.test(assetInfo.name || '')) {
-              return 'assets/images/[name]-[hash][extname]';
+  // Build optimizations
+  build: {
+    // Use esbuild for faster minification (default in Vite)
+    minify: 'esbuild',
+
+    // Code splitting configuration
+    rollupOptions: {
+      output: {
+        // Manual chunks for better caching
+        manualChunks: (id) => {
+          // Vendor chunks - separate heavy libraries
+          if (id.includes('node_modules')) {
+            if (id.includes('react-dom') || id.includes('/react/')) {
+              return 'vendor-react';
             }
-            if (/\.(woff2?|eot|ttf|otf)$/i.test(assetInfo.name || '')) {
-              return 'assets/fonts/[name]-[hash][extname]';
+            if (id.includes('react-router')) {
+              return 'vendor-router';
             }
-            return `assets/[name]-[hash].${ext}`;
-          },
-          manualChunks: {
-            'vendor-react': ['react', 'react-dom'],
-            'vendor-router': ['react-router-dom', 'react-error-boundary'],
-            'vendor-animation': ['framer-motion'],
-            'vendor-three': ['three', '@react-three/fiber', '@react-three/drei']
+            if (id.includes('framer-motion')) {
+              return 'vendor-framer';
+            }
+            if (id.includes('three') || id.includes('@react-three')) {
+              return 'vendor-three';
+            }
+            if (id.includes('gsap')) {
+              return 'vendor-gsap';
+            }
+            // Other smaller vendor libs
+            return 'vendor';
           }
         },
-        external: (id) => {
-          return id.includes('MetaMask') || 
-                 id.includes('phantom') || 
-                 id.includes('keplr') ||
-                 id.includes('wallet');
+        // Smaller chunk size for better caching
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js',
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name?.split('.') || [];
+          const ext = info[info.length - 1];
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico|webp|avif/i.test(ext)) {
+            return 'assets/images/[name]-[hash][extname]';
+          }
+          if (/woff2?|ttf|eot|otf/i.test(ext)) {
+            return 'assets/fonts/[name]-[hash][extname]';
+          }
+          return 'assets/[name]-[hash][extname]';
         }
       }
     },
-    css: {
-      devSourcemap: true
-    },
-    optimizeDeps: {
-      include: [
-        'react', 
-        'react-dom', 
-        'react-router-dom', 
-        'framer-motion',
-        'react-error-boundary'
-      ],
-      exclude: [
-        'web3',
-        'ethers',
-        '@solana/web3.js',
-        'metamask',
-        'phantom',
-        'keplr'
-      ],
-      force: true
-    },
-    preview: {
-      port: 4173,
-      open: true,
-      headers: {
-        'X-Content-Type-Options': 'nosniff',
-        'X-Frame-Options': 'DENY',
-        'X-XSS-Protection': '1; mode=block',
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0'
-      }
-    },
-    define: {
-      __DEV__: JSON.stringify(!isProduction),
-      __PROD__: JSON.stringify(isProduction),
-      'process.env.NODE_ENV': JSON.stringify(mode),
-      global: 'globalThis'
-    },
-    esbuild: {
-      drop: isProduction ? ['console', 'debugger'] : [],
-      legalComments: 'none',
-      treeShaking: true
-    },
-    ssr: {
-      noExternal: ['framer-motion']
-    },
-    worker: {
-      format: 'es'
-    },
-    test: {
-      environment: 'jsdom',
-      setupFiles: './vitest.setup.ts',
-      globals: true,
-      css: true,
-      pool: 'threads',
-      poolOptions: {
-        threads: {
-          maxThreads: 4,
-          minThreads: 1
-        }
-      }
+
+    // Target modern browsers for smaller bundle
+    target: 'es2020',
+
+    // Disable source maps for smaller builds in production
+    sourcemap: false,
+
+    // Report compressed size
+    reportCompressedSize: true,
+
+    // Chunk size warning limit
+    chunkSizeWarningLimit: 500,
+
+    // CSS code splitting
+    cssCodeSplit: true,
+
+    // Asset inlining threshold (4kb)
+    assetsInlineLimit: 4096
+  },
+
+  // Development optimizations
+  server: {
+    // Enable HMR
+    hmr: true,
+    // Pre-bundle dependencies
+    warmup: {
+      clientFiles: [
+        './src/main.tsx',
+        './src/routes.tsx',
+        './src/pages-components/Homescreenpage/index.tsx'
+      ]
     }
-  };
+  },
+
+  // Dependency optimization
+  optimizeDeps: {
+    include: [
+      'react',
+      'react-dom',
+      'react-router-dom',
+      'framer-motion',
+      'clsx',
+      'tailwind-merge'
+    ]
+  },
+
+  // CSS optimizations
+  css: {
+    devSourcemap: true,
+    modules: {
+      localsConvention: 'camelCase'
+    }
+  },
+
+  // Enable JSON tree-shaking
+  json: {
+    stringify: true
+  },
+
+  // Preview server (for testing production builds)
+  preview: {
+    port: 4173,
+    strictPort: true
+  },
+
+  // Esbuild options for dropping console in production
+  esbuild: {
+    drop: ['console', 'debugger']
+  }
 });

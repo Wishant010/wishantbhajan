@@ -29,46 +29,56 @@ const ScrambledText: React.FC<ScrambledTextProps> = ({
   useEffect(() => {
     if (!rootRef.current) return;
 
-    const split = SplitText.create(rootRef.current.querySelector('p'), {
-      type: 'chars',
-      charsClass: 'inline-block will-change-transform'
-    });
+    // Wait for fonts to load before splitting text
+    const initSplitText = async () => {
+      // Wait for fonts to be ready
+      if (document.fonts) {
+        await document.fonts.ready;
+      }
 
-    split.chars.forEach(el => {
-      const c = el as HTMLElement;
-      gsap.set(c, { attr: { 'data-content': c.innerHTML } });
-    });
+      const split = SplitText.create(rootRef.current!.querySelector('p'), {
+        type: 'chars',
+        charsClass: 'inline-block will-change-transform'
+      });
 
-    const handleMove = (e: PointerEvent) => {
       split.chars.forEach(el => {
         const c = el as HTMLElement;
-        const { left, top, width, height } = c.getBoundingClientRect();
-        const dx = e.clientX - (left + width / 2);
-        const dy = e.clientY - (top + height / 2);
-        const dist = Math.hypot(dx, dy);
-
-        if (dist < radius) {
-          gsap.to(c, {
-            overwrite: true,
-            duration: duration * (1 - dist / radius),
-            scrambleText: {
-              text: c.dataset.content || '',
-              chars: scrambleChars,
-              speed
-            },
-            ease: 'none'
-          });
-        }
+        gsap.set(c, { attr: { 'data-content': c.innerHTML } });
       });
+
+      const handleMove = (e: PointerEvent) => {
+        split.chars.forEach(el => {
+          const c = el as HTMLElement;
+          const { left, top, width, height } = c.getBoundingClientRect();
+          const dx = e.clientX - (left + width / 2);
+          const dy = e.clientY - (top + height / 2);
+          const dist = Math.hypot(dx, dy);
+
+          if (dist < radius) {
+            gsap.to(c, {
+              overwrite: true,
+              duration: duration * (1 - dist / radius),
+              scrambleText: {
+                text: c.dataset.content || '',
+                chars: scrambleChars,
+                speed
+              },
+              ease: 'none'
+            });
+          }
+        });
+      };
+
+      const el = rootRef.current!;
+      el.addEventListener('pointermove', handleMove);
+
+      return () => {
+        el.removeEventListener('pointermove', handleMove);
+        split.revert();
+      };
     };
 
-    const el = rootRef.current;
-    el.addEventListener('pointermove', handleMove);
-
-    return () => {
-      el.removeEventListener('pointermove', handleMove);
-      split.revert();
-    };
+    initSplitText();
   }, [radius, duration, speed, scrambleChars]);
 
   return (
