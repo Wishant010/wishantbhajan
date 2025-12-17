@@ -2,31 +2,52 @@
   publish = "dist"
   command = "npm run build"
 
+# Ignore the assets folder at root - use only dist/assets
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-# Force proper MIME types for JavaScript modules
+# Critical: Force proper MIME types for ALL JavaScript files
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/**/*.js"
+  [headers.values]
+    Content-Type = "application/javascript; charset=utf-8"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/**/*.mjs"
+  [headers.values]
+    Content-Type = "application/javascript; charset=utf-8"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/**/*.jsx"
+  [headers.values]
+    Content-Type = "application/javascript; charset=utf-8"
+    X-Content-Type-Options = "nosniff"
+
 [[headers]]
   for = "/assets/js/*.js"
   [headers.values]
     Content-Type = "application/javascript; charset=utf-8"
     Cache-Control = "public, max-age=31536000, immutable"
+    X-Content-Type-Options = "nosniff"
 
 [[headers]]
-  for = "/assets/*.js"
+  for = "/assets/**/*.js"
   [headers.values]
     Content-Type = "application/javascript; charset=utf-8"
     Cache-Control = "public, max-age=31536000, immutable"
+    X-Content-Type-Options = "nosniff"
 
 [[headers]]
-  for = "/*.js"
-  [headers.values]
-    Content-Type = "application/javascript; charset=utf-8"
-
-[[headers]]
-  for = "/assets/css/*.css"
+  for = "/**/*.css"
   [headers.values]
     Content-Type = "text/css; charset=utf-8"
     Cache-Control = "public, max-age=31536000, immutable"

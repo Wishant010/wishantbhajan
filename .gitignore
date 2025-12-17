@@ -49,6 +49,10 @@ next-env.d.ts
 *.sln
 *.sw?
 
+# Build outputs - Don't commit these!
+assets
+/assets
+
 # Testing
 coverage
 .nyc_output
