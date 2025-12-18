@@ -49,8 +49,8 @@ next-env.d.ts
 *.sln
 *.sw?
 
-# Build outputs - Don't commit these!
-assets
+# Build outputs - Don't commit these to main branch!
+# Note: dist/assets IS deployed to gh-pages via npm run deploy
 /assets
 
 # Testing

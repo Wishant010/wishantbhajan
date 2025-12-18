@@ -14,9 +14,9 @@
     "clean": "rm -rf dist node_modules/.vite",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "predeploy": "npm run build",
-    "deploy": "npm run build && node -e \"require('fs').writeFileSync('dist/.nojekyll','')\" && node -e \"require('fs').writeFileSync('dist/CNAME','wishantbhajan.nl')\" && gh-pages -d dist --dotfiles",
-    "deploy:ci": "npm run build && node -e \"require('fs').writeFileSync('dist/.nojekyll','')\" && node -e \"require('fs').writeFileSync('dist/CNAME','wishantbhajan.nl')\" && gh-pages -d dist --dotfiles"
+    "predeploy": "npm run build && node -e \"require('fs').writeFileSync('dist/.nojekyll','')\" && node -e \"require('fs').writeFileSync('dist/CNAME','wishantbhajan.nl')\"",
+    "deploy": "node deploy.cjs",
+    "deploy:ci": "node deploy.cjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.122.0",
