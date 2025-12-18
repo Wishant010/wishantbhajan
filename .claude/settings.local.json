@@ -50,7 +50,11 @@
       "Bash(export NVM_DIR=$HOME/.nvm)",
       "Bash([ -s $NVM_DIR/nvm.sh ])",
       "Bash(. $NVM_DIR/nvm.sh)",
-      "Bash(/root/.nvm/versions/node/v22.21.1/bin/npx tsc --noEmit)"
+      "Bash(/root/.nvm/versions/node/v22.21.1/bin/npx tsc --noEmit)",
+      "Bash(git fetch:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(git -C /mnt/c/Users/Wish/Downloads/github-repo/Personal/wishantbhajan remote:*)",
+      "Bash(git -C /mnt/c/Users/Wish/Downloads/github-repo/Personal/wishantbhajan branch:*)"
     ],
     "deny": []
   }
