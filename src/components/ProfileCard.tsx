@@ -215,6 +215,13 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
 
     if (!card || !wrap) return;
 
+    // Detect if device is mobile phone (not tablet)
+    const isMobilePhone = () => {
+      const width = window.innerWidth;
+      // Consider devices < 768px as mobile phones
+      return width < 768 || /iPhone|iPod|Android.*Mobile/i.test(navigator.userAgent);
+    };
+
     const pointerMoveHandler = handlePointerMove as EventListener;
     const pointerEnterHandler = handlePointerEnter as EventListener;
     const pointerLeaveHandler = handlePointerLeave as EventListener;
@@ -236,10 +243,13 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
       }
     };
 
-    card.addEventListener('pointerenter', pointerEnterHandler);
-    card.addEventListener('pointermove', pointerMoveHandler);
-    card.addEventListener('pointerleave', pointerLeaveHandler);
-    card.addEventListener('click', handleClick);
+    // Only add pointer/touch events on desktop and tablets, NOT on mobile phones
+    if (!isMobilePhone()) {
+      card.addEventListener('pointerenter', pointerEnterHandler);
+      card.addEventListener('pointermove', pointerMoveHandler);
+      card.addEventListener('pointerleave', pointerLeaveHandler);
+      card.addEventListener('click', handleClick);
+    }
 
     const initialX = wrap.clientWidth - ANIMATION_CONFIG.INITIAL_X_OFFSET;
     const initialY = ANIMATION_CONFIG.INITIAL_Y_OFFSET;
