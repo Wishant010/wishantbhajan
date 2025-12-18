@@ -1,0 +1,1 @@
+const e=()=>typeof window>"u"?!1:window.matchMedia("(prefers-reduced-motion: reduce)").matches,i=()=>typeof window>"u"?!1:/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)||window.innerWidth<768;export{i,e as p};
