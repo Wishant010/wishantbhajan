@@ -270,7 +270,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isVisible = true }) => {
             {filteredProjects.map((project, index) => (
               <motion.div
                 key={project.id}
-                className={`relative group ${
+                className={`relative group cursor-pointer ${
                   project.featured ? 'lg:col-span-2 lg:row-span-2' : ''
                 }`}
                 initial={{ opacity: 0, y: 30 }}
@@ -287,6 +287,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isVisible = true }) => {
                 layout
                 onMouseEnter={() => setHoveredProject(project.id)}
                 onMouseLeave={() => setHoveredProject(null)}
+                onClick={() => window.location.href = '/portfolio'}
               >
                 {/* Card with gradient border */}
                 <div className="relative h-full overflow-hidden rounded-2xl bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 group-hover:border-cyan-500/50 transition-all duration-500">
