@@ -295,9 +295,20 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     onContactClick?.();
   }, [onContactClick]);
 
+  // Detect mobile phone for touch-action CSS
+  const isMobilePhone = typeof window !== 'undefined' && (
+    window.innerWidth < 768 || /iPhone|iPod|Android.*Mobile/i.test(navigator.userAgent)
+  );
+
   return (
     <div ref={wrapRef} className={`pc-card-wrapper ${className}`.trim()}>
-      <section ref={cardRef} className="pc-card">
+      <section 
+        ref={cardRef} 
+        className="pc-card"
+        style={{
+          touchAction: isMobilePhone ? 'pan-y' : 'auto'
+        }}
+      >
         <div className="pc-inside">
           <div className="pc-shine" />
           <div className="pc-glare" />
