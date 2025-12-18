@@ -16,27 +16,12 @@ export default defineConfig({
     rollupOptions: {
       output: {
         // Manual chunks for better caching
-        manualChunks: (id) => {
-          // Vendor chunks - separate heavy libraries
-          if (id.includes('node_modules')) {
-            if (id.includes('react-dom') || id.includes('/react/')) {
-              return 'vendor-react';
-            }
-            if (id.includes('react-router')) {
-              return 'vendor-router';
-            }
-            if (id.includes('framer-motion')) {
-              return 'vendor-framer';
-            }
-            if (id.includes('three') || id.includes('@react-three')) {
-              return 'vendor-three';
-            }
-            if (id.includes('gsap')) {
-              return 'vendor-gsap';
-            }
-            // Other smaller vendor libs
-            return 'vendor';
-          }
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react/jsx-runtime'],
+          'vendor-router': ['react-router-dom'],
+          'vendor-framer': ['framer-motion'],
+          'vendor-three': ['three', '@react-three/fiber', '@react-three/drei'],
+          'vendor-gsap': ['gsap']
         },
         // Smaller chunk size for better caching
         chunkFileNames: 'assets/js/[name]-[hash].js',
