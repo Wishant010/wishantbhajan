@@ -50,8 +50,9 @@ next-env.d.ts
 *.sw?
 
 # Build outputs - Don't commit these to main branch!
-# Note: dist/assets IS deployed to gh-pages via npm run deploy
-/assets
+# dist/assets wordt WEL gedeployed via npm run deploy
+# Alleen /assets in de ROOT blokkeren, niet dist/assets
+.gitignore.deploy-backup
 
 # Testing
 coverage
