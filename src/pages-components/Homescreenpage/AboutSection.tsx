@@ -201,9 +201,9 @@ const AboutSection: React.FC = () => {
                 transition={{ duration: 0.5 }}
                 className="flex justify-start mt-8"
               >
-                <motion.a
-                  href="/about"
-                  className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-teal-500 text-white font-bold rounded-xl overflow-hidden before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:w-0 before:h-0 before:rounded-full before:bg-white/10 before:-translate-x-1/2 before:-translate-y-1/2 before:transition-all before:duration-[600ms] hover:before:w-[300px] hover:before:h-[300px]"
+                <motion.button
+                  onClick={() => window.location.href = '/about'}
+                  className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-teal-500 text-white font-bold rounded-xl overflow-hidden before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:w-0 before:h-0 before:rounded-full before:bg-white/10 before:-translate-x-1/2 before:-translate-y-1/2 before:transition-all before:duration-[600ms] hover:before:w-[300px] hover:before:h-[300px] cursor-pointer"
                   style={{
                     boxShadow: '0 0 30px rgba(0, 184, 212, 0.4)'
                   }}
@@ -233,7 +233,7 @@ const AboutSection: React.FC = () => {
                   <div
                     className="absolute inset-0 bg-gradient-to-r from-teal-600 to-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   />
-                </motion.a>
+                </motion.button>
               </motion.div>
             )}
           </motion.div>
