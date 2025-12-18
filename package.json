@@ -15,8 +15,8 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "predeploy": "npm run build",
-    "deploy": "npm run build && touch dist/.nojekyll && touch dist/CNAME && echo 'wishantbhajan.nl' > dist/CNAME && gh-pages -d dist --dotfiles",
-    "deploy:ci": "npm run build && touch dist/.nojekyll && touch dist/CNAME && echo 'wishantbhajan.nl' > dist/CNAME && gh-pages -d dist --dotfiles"
+    "deploy": "npm run build && node -e \"require('fs').writeFileSync('dist/.nojekyll','')\" && node -e \"require('fs').writeFileSync('dist/CNAME','wishantbhajan.nl')\" && gh-pages -d dist --dotfiles",
+    "deploy:ci": "npm run build && node -e \"require('fs').writeFileSync('dist/.nojekyll','')\" && node -e \"require('fs').writeFileSync('dist/CNAME','wishantbhajan.nl')\" && gh-pages -d dist --dotfiles"
   },
   "dependencies": {
     "@react-three/drei": "^9.122.0",
