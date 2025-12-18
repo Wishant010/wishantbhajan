@@ -250,16 +250,23 @@ const AboutSection: React.FC = () => {
               miniAvatarUrl="/site-assets/favicon.svg"
               name={t('aboutsection.profilecard.name')}
               title={t('aboutsection.profilecard.title')}
-              handle="wishant010"
+              handle="wishant"
               status={t('aboutsection.profilecard.status')}
               contactText={t('aboutsection.profilecard.contact')}
               showUserInfo={true}
               enableTilt={true}
               enableMobileTilt={false}
               onContactClick={() => {
-                const contactSection = document.querySelector('#contact');
-                if (contactSection) {
-                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                // Show phone number in alert or copy to clipboard
+                const phoneNumber = '+31 6 52438663';
+                if (navigator.clipboard) {
+                  navigator.clipboard.writeText(phoneNumber).then(() => {
+                    alert('📞 Telefoonnummer gekopieerd!\n' + phoneNumber);
+                  }).catch(() => {
+                    alert('📞 Telefoonnummer:\n' + phoneNumber);
+                  });
+                } else {
+                  alert('📞 Telefoonnummer:\n' + phoneNumber);
                 }
               }}
             />
