@@ -103,9 +103,9 @@ const AboutMe: React.FC<AboutMeProps> = ({ isVisible = true }) => {
           }}
           transition={{ duration: 0.8, delay: isVisible ? 1.8 : 0 }}
         >
-          <motion.a
-            href="/about"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-xl hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 shadow-lg"
+          <motion.button
+            onClick={() => window.location.href = '/about'}
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-xl hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 shadow-lg cursor-pointer"
             whileHover={{ scale: 1.05, y: -3 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -113,7 +113,7 @@ const AboutMe: React.FC<AboutMeProps> = ({ isVisible = true }) => {
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </motion.a>
+          </motion.button>
         </motion.div>
       </div>
 
