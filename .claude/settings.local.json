@@ -54,7 +54,8 @@
       "Bash(git fetch:*)",
       "Bash(git ls-tree:*)",
       "Bash(git -C /mnt/c/Users/Wish/Downloads/github-repo/Personal/wishantbhajan remote:*)",
-      "Bash(git -C /mnt/c/Users/Wish/Downloads/github-repo/Personal/wishantbhajan branch:*)"
+      "Bash(git -C /mnt/c/Users/Wish/Downloads/github-repo/Personal/wishantbhajan branch:*)",
+      "Bash(git subtree push:*)"
     ],
     "deny": []
   }
