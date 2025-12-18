@@ -1,0 +1,1 @@
+import{r as o,j as u}from"./vendor-react-An46niRM.js";import{u as i,b as c,c as m,L as f}from"./vendor-router-CZpTHvga.js";function $(){return c()}function j(){return i()}function k(){return m()}const L=o.forwardRef(({to:a,children:s,replace:r,onClick:t,...e},n)=>u.jsx(f,{to:a,replace:r,onClick:t,...e,ref:n,children:s}));L.displayName="Link";export{L,$ as a,k as b,j as u};
