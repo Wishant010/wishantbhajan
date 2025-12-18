@@ -257,17 +257,7 @@ const AboutSection: React.FC = () => {
               enableTilt={true}
               enableMobileTilt={false}
               onContactClick={() => {
-                // Show phone number in alert or copy to clipboard
-                const phoneNumber = '+31 6 52438663';
-                if (navigator.clipboard) {
-                  navigator.clipboard.writeText(phoneNumber).then(() => {
-                    alert('📞 Telefoonnummer gekopieerd!\n' + phoneNumber);
-                  }).catch(() => {
-                    alert('📞 Telefoonnummer:\n' + phoneNumber);
-                  });
-                } else {
-                  alert('📞 Telefoonnummer:\n' + phoneNumber);
-                }
+                window.location.href = 'tel:+31652438663';
               }}
             />
           </motion.div>
