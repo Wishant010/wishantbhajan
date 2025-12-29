@@ -14,7 +14,7 @@
     "clean": "rm -rf dist node_modules/.vite",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "predeploy": "npm run build && node -e \"require('fs').writeFileSync('dist/.nojekyll','')\" && node -e \"require('fs').writeFileSync('dist/CNAME','wishantbhajan.nl')\"",
+    "predeploy": "npm run build && node -e \"require('fs').writeFileSync('dist/.nojekyll','')\" && node -e \"require('fs').writeFileSync('dist/CNAME','wishantbhajan.nl')\" && node -e \"require('fs').copyFileSync('public/sitemap.xml','dist/sitemap.xml')\"",
     "deploy": "npm run predeploy && git add dist -f && git commit -m \"Build: update dist for deployment\" && git subtree push --prefix dist origin gh-pages && git reset HEAD~1",
     "deploy:ci": "npm run predeploy && git add dist -f && git commit -m \"Build: update dist for deployment\" && git subtree push --prefix dist origin gh-pages && git reset HEAD~1"
   },
