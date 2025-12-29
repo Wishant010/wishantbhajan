@@ -15,13 +15,38 @@ export default defineConfig({
     // Code splitting configuration
     rollupOptions: {
       output: {
-        // Manual chunks for better caching
-        manualChunks: {
-          'vendor-react': ['react', 'react-dom', 'react/jsx-runtime'],
-          'vendor-router': ['react-router-dom'],
-          'vendor-framer': ['framer-motion'],
-          'vendor-three': ['three', '@react-three/fiber', '@react-three/drei'],
-          'vendor-gsap': ['gsap']
+        // Manual chunks for better caching and lazy loading
+        manualChunks: (id) => {
+          // Core vendor chunks
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom')) {
+              return 'vendor-react';
+            }
+            if (id.includes('react-router-dom')) {
+              return 'vendor-router';
+            }
+            // Lazy load heavy libraries
+            if (id.includes('framer-motion')) {
+              return 'vendor-framer';
+            }
+            if (id.includes('three') || id.includes('@react-three')) {
+              return 'vendor-three';
+            }
+            if (id.includes('gsap')) {
+              return 'vendor-gsap';
+            }
+            // Other node_modules
+            return 'vendor-other';
+          }
+          
+          // Split pages into separate chunks for better code splitting
+          if (id.includes('/pages-components/')) {
+            if (id.includes('LandinPage')) return 'page-landing';
+            if (id.includes('About')) return 'page-about';
+            if (id.includes('Portfolio')) return 'page-portfolio';
+            if (id.includes('Event')) return 'page-event';
+            if (id.includes('ProjectDetail')) return 'page-project';
+          }
         },
         // Smaller chunk size for better caching
         chunkFileNames: 'assets/js/[name]-[hash].js',
@@ -50,13 +75,13 @@ export default defineConfig({
     reportCompressedSize: true,
 
     // Chunk size warning limit
-    chunkSizeWarningLimit: 500,
+    chunkSizeWarningLimit: 600,
 
-    // CSS code splitting
+    // CSS code splitting per page
     cssCodeSplit: true,
 
-    // Asset inlining threshold (4kb)
-    assetsInlineLimit: 4096
+    // Asset inlining threshold (2kb for more aggressive inlining)
+    assetsInlineLimit: 2048
   },
 
   // Development optimizations
