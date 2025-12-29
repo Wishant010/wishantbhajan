@@ -1,1 +1,0 @@
-import{j as o}from"./vendor-framer-CCwuacKK.js";import{u,r as i,c,d as m,L as f}from"./vendor-router-hSscntxs.js";function $(){return c()}function d(){return u()}function j(){return m()}const L=i.forwardRef(({to:a,children:s,replace:r,onClick:t,...e},n)=>o.jsx(f,{to:a,replace:r,onClick:t,...e,ref:n,children:s}));L.displayName="Link";export{L,$ as a,j as b,d as u};
