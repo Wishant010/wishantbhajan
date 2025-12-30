@@ -19,23 +19,23 @@ export default defineConfig({
         manualChunks: (id) => {
           // Core vendor chunks
           if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom')) {
+            // React core - keep together to avoid circular deps
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router') || id.includes('scheduler')) {
               return 'vendor-react';
             }
-            if (id.includes('react-router-dom')) {
-              return 'vendor-router';
-            }
-            // Lazy load heavy libraries
-            if (id.includes('framer-motion')) {
-              return 'vendor-framer';
-            }
-            if (id.includes('three') || id.includes('@react-three')) {
+            // 3D libraries together
+            if (id.includes('three') || id.includes('@react-three') || id.includes('ogl')) {
               return 'vendor-three';
             }
-            if (id.includes('gsap')) {
-              return 'vendor-gsap';
+            // Animation libraries together
+            if (id.includes('framer-motion') || id.includes('gsap') || id.includes('postprocessing')) {
+              return 'vendor-animation';
             }
-            // Other node_modules
+            // Smaller utility libraries together
+            if (id.includes('clsx') || id.includes('tailwind-merge') || id.includes('lucide-react')) {
+              return 'vendor-utils';
+            }
+            // Other node_modules in a single chunk to prevent circular deps
             return 'vendor-other';
           }
           
