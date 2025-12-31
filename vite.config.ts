@@ -35,8 +35,8 @@ export default defineConfig({
             if (id.includes('clsx') || id.includes('tailwind-merge') || id.includes('lucide-react')) {
               return 'vendor-utils';
             }
-            // Other node_modules in a single chunk to prevent circular deps
-            return 'vendor-other';
+            // Don't force other node_modules into a single chunk
+            // Let Vite handle the rest automatically to avoid circular deps
           }
           
           // Split pages into separate chunks for better code splitting
