@@ -38,6 +38,9 @@
   top: 0;
   width: 100%;
   height: 43%;
+}
+
+.sk-animate .sk-head {
   animation: sk-headJump 6s ease-in-out infinite;
 }
 
@@ -98,12 +101,17 @@
 .sk-eye-left,
 .sk-eye-shadow-left {
   left: 20%;
-  animation: sk-eyeLook 6s ease-in-out infinite;
 }
 
 .sk-eye-right,
 .sk-eye-shadow-right {
   right: 20%;
+}
+
+.sk-animate .sk-eye-left,
+.sk-animate .sk-eye-shadow-left,
+.sk-animate .sk-eye-right,
+.sk-animate .sk-eye-shadow-right {
   animation: sk-eyeLook 6s ease-in-out infinite;
 }
 
@@ -118,7 +126,6 @@
   background: var(--sk-tertiary);
   clip-path: polygon(50% 0, 100% 100%, 0 100%);
   z-index: 1;
-  animation: sk-eyeLook 6s ease-in-out infinite;
 }
 
 .sk-nose-shadow {
@@ -131,6 +138,10 @@
   height: 1.1rem;
   background: var(--sk-secondary);
   clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.sk-animate .sk-nose,
+.sk-animate .sk-nose-shadow {
   animation: sk-eyeLook 6s ease-in-out infinite;
 }
 
@@ -153,6 +164,9 @@
   height: 1rem;
   background: var(--sk-secondary);
   border-radius: 3rem 3rem 0 0;
+}
+
+.sk-animate .sk-teeth {
   animation: sk-eyeLook 6s ease-in-out infinite;
 }
 
@@ -177,6 +191,9 @@
   height: 45%;
   width: 1rem;
   background: var(--sk-secondary);
+}
+
+.sk-animate .sk-backbone {
   animation: sk-bodyJump 6s ease-in-out infinite;
 }
 
@@ -205,6 +222,9 @@
   top: 0;
   width: 100%;
   height: 62%;
+}
+
+.sk-animate .sk-body-inner {
   animation: sk-bodyJump 6s ease-in-out infinite;
 }
 
@@ -345,19 +365,19 @@
   transform-origin: top center;
 }
 
-.sk-hand-left .sk-arm {
+.sk-animate .sk-hand-left .sk-arm {
   animation: sk-leftArm 6s ease-in-out infinite;
 }
 
-.sk-hand-right .sk-arm {
+.sk-animate .sk-hand-right .sk-arm {
   animation: sk-rightArm 6s ease-in-out infinite;
 }
 
-.sk-hand-left .sk-arm-below-container {
+.sk-animate .sk-hand-left .sk-arm-below-container {
   animation: sk-leftForearm 6s ease-in-out infinite;
 }
 
-.sk-hand-right .sk-arm-below-container {
+.sk-animate .sk-hand-right .sk-arm-below-container {
   animation: sk-rightForearm 6s ease-in-out infinite;
 }
 
@@ -454,11 +474,17 @@
 
 .sk-foot-left {
   left: 30%;
-  animation: sk-footLeft 6s ease-out infinite;
 }
 
 .sk-foot-right {
   right: 30%;
+}
+
+.sk-animate .sk-foot-left {
+  animation: sk-footLeft 6s ease-out infinite;
+}
+
+.sk-animate .sk-foot-right {
   animation: sk-footRight 6s ease-out infinite;
 }
 
@@ -495,8 +521,11 @@
 
 .sk-leg-left::before {
   right: 0;
-  animation: sk-legTap 6s ease-in-out infinite;
   transform-origin: right center;
+}
+
+.sk-animate .sk-leg-left::before {
+  animation: sk-legTap 6s ease-in-out infinite;
 }
 
 /* Shadow */
@@ -523,12 +552,18 @@
 .sk-shadow::before {
   right: 50%;
   border-radius: 1rem 0 0 1rem;
-  animation: sk-shadowLeft 6s ease-in-out infinite;
 }
 
 .sk-shadow::after {
   left: 50%;
   border-radius: 0 1rem 1rem 0;
+}
+
+.sk-animate .sk-shadow::before {
+  animation: sk-shadowLeft 6s ease-in-out infinite;
+}
+
+.sk-animate .sk-shadow::after {
   animation: sk-shadowRight 6s ease-in-out infinite;
 }
 

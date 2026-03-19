@@ -1,9 +1,25 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Skeleton.css';
 
 const Skeleton: React.FC = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.3 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="sk-wrapper">
+    <div ref={ref} className={`sk-wrapper ${isVisible ? 'sk-animate' : ''}`}>
       <div className="sk-skeleton">
         <div className="sk-head">
           <div className="sk-head-hemispheres" />
