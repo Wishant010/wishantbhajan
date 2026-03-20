@@ -2291,7 +2291,7 @@ section {
   perspective: 500px;
   transform: translate3d(0, 0, 0.1px);
   position: relative;
-  touch-action: none;
+  touch-action: pan-y;
   --pointer-x: 50%;
   --pointer-y: 50%;
   --pointer-from-center: 0;
@@ -2562,6 +2562,7 @@ section {
   border-radius: 15px;
   padding: 12px 14px;
   pointer-events: auto;
+  mix-blend-mode: normal;
 }
 
 .pc-user-details {
