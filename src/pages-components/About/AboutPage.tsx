@@ -1,6 +1,5 @@
 import React from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import AboutNavbar from "../../components/AboutNavbar";
 import ContactBar from "../../components/ContactBar";
 import Footer from "../../components/Footer";
 import BentoHero from "../../components/BentoHero/BentoHero";
@@ -53,8 +52,6 @@ const AboutPage: React.FC = () => {
 
         {/* Content wrapper with relative positioning */}
         <div className="relative z-10">
-          <AboutNavbar />
-
           {/* Bento Hero Section */}
           <BentoHero />
 

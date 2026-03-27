@@ -50,7 +50,7 @@ const AboutNavbar = () => {
   }, [location]);
 
   return (
-    <motion.header
+    <header
       className="fixed top-0 left-0 right-0 z-[9999] backdrop-blur-xl border-b transition-all duration-300"
       style={{
         background: scrolled
@@ -61,17 +61,19 @@ const AboutNavbar = () => {
           ? '0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2)'
           : '0 10px 15px -3px rgba(0, 0, 0, 0.2)'
       }}
-      initial={{ y: -100, opacity: 0 }}
-      animate={{
-        y: 0,
-        opacity: 1
-      }}
-      transition={{
-        duration: 0.6,
-        ease: [0.23, 1, 0.32, 1],
-        delay: 0.3
-      }}
     >
+      <motion.div
+        initial={{ y: -20, opacity: 0 }}
+        animate={{
+          y: 0,
+          opacity: 1
+        }}
+        transition={{
+          duration: 0.6,
+          ease: [0.23, 1, 0.32, 1],
+          delay: 0.3
+        }}
+      >
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
@@ -295,7 +297,8 @@ const AboutNavbar = () => {
         transition={{ delay: 1, duration: 1.5 }}
         style={{ transformOrigin: 'center', width: '100%' }}
       />
-    </motion.header>
+      </motion.div>
+    </header>
   );
 };
 

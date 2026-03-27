@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "../../lib/utils";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import React, { useMemo, useRef } from "react";
+import React, { useMemo, useRef, useState, useEffect } from "react";
 import * as THREE from "three";
 
 export const CanvasRevealEffect = ({
@@ -23,9 +23,21 @@ export const CanvasRevealEffect = ({
   dotSize?: number;
   showGradient?: boolean;
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className={cn("h-full relative bg-white w-full", containerClassName)}>
-      <div className="h-full w-full">
+    <div ref={containerRef} className={cn("h-full relative bg-white w-full", containerClassName)}>
+      {isVisible && <div className="h-full w-full">
         <DotMatrix
           colors={colors ?? [[0, 255, 255]]}
           dotSize={dotSize ?? 3}
@@ -40,7 +52,7 @@ export const CanvasRevealEffect = ({
             `}
           center={["x", "y"]}
         />
-      </div>
+      </div>}
       {showGradient && (
         <div className="absolute inset-0 bg-gradient-to-t from-gray-950 to-[84%]" />
       )}
@@ -170,7 +182,7 @@ const DotMatrix: React.FC<DotMatrixProps> = ({
       fragColor.rgb *= fragColor.a;
         }`}
       uniforms={uniforms}
-      maxFps={60}
+      maxFps={30}
     />
   );
 };

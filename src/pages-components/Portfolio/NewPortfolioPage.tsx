@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { useLocation, useNavigate } from '../../utils/routerCompat';
-import GlobalNavbar from '../../components/GlobalNavbar';
 import MatrixRain from '../../components/Effects/MatrixRain';
 import ParticleField from '../../components/Effects/ParticleField';
 import ContactBar from '../../components/ContactBar';
@@ -128,15 +127,10 @@ const NewPortfolioPage: React.FC = () => {
           />
         </div>
 
-        {/* Navbar - Fixed on top */}
-        <div className="relative z-50">
-          <GlobalNavbar />
-        </div>
-
         {/* Logo Watermark in center - behind content */}
         <div className="absolute top-1/3 left-0 right-0 z-0 flex items-center justify-center pointer-events-none">
           <img
-            src="/site-assets/logo.png"
+            src="/site-assets/logo.webp"
             alt="WB Logo"
             loading="lazy"
             decoding="async"

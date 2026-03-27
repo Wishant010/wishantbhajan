@@ -37,7 +37,7 @@ const FeaturedProjectsAndSkills: React.FC = () => {
       description: t('featured.wishshield.desc'),
       label: t('featured.label.cybersecurity'),
       featured: true,
-      image: '/projects/security/futuristic_cybersecurity_shield_icon_with_hexagonal_shape.jpeg',
+      image: '/projects/security/futuristic_cybersecurity_shield_icon_with_hexagonal_shape.webp',
       span: { cols: 2, rows: 2 }
     },
     {
@@ -45,14 +45,14 @@ const FeaturedProjectsAndSkills: React.FC = () => {
       title: 'TableTech',
       description: t('featured.tabletech.desc'),
       label: t('featured.label.live'),
-      image: '/projects/business/modern_restaurant_technology_visualization_with_prominent_tabletech.jpeg'
+      image: '/projects/business/modern_restaurant_technology_visualization_with_prominent_tabletech.webp'
     },
     {
       color: '#0C132B',
       title: 'Calendify',
       description: t('featured.calendify.desc'),
       label: t('featured.label.personal'),
-      image: '/projects/business/professional_office_management_dashboard_clean_calendar_interface.jpeg'
+      image: '/projects/business/professional_office_management_dashboard_clean_calendar_interface.webp'
     },
     {
       color: '#0D152E',
@@ -60,21 +60,21 @@ const FeaturedProjectsAndSkills: React.FC = () => {
       description: t('featured.wishguard.desc'),
       label: t('featured.label.cybersecurity'),
       span: { cols: 2, rows: 1 },
-      image: '/projects/security/fix_the_letter_b__so_that.png'
+      image: '/projects/security/fix_the_letter_b__so_that.webp'
     },
     {
       color: '#0E1831',
       title: 'Crypto Bot',
       description: t('featured.cryptobot.desc'),
       label: t('featured.label.comingSoon'),
-      image: '/projects/business/futuristic_cryptocurrency_trading_bot_visualization_wb_logo.jpg'
+      image: '/projects/business/futuristic_cryptocurrency_trading_bot_visualization_wb_logo.webp'
     },
     {
       color: '#0A0E27',
       title: 'Urban Mobility',
       description: t('featured.urbanmobility.desc'),
       label: t('featured.label.personal'),
-      image: '/projects/utilities/professional_terminal_interface_with_urban_mobility_text_v2.png'
+      image: '/projects/utilities/professional_terminal_interface_with_urban_mobility_text_v2.webp'
     }
   ];
 

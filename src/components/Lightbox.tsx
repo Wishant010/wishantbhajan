@@ -102,10 +102,8 @@ const Lightbox: React.FC<LightboxProps> = ({
               className="lightbox-image lightbox-image--themed"
               onClick={(e) => e.stopPropagation()}
               controls
-              autoPlay
-              loop
-              preload="metadata"
               playsInline
+              preload="none"
             />
           ) : (
             <img

@@ -52,23 +52,25 @@ const GlobalNavbar = () => {
   }, [location]);
 
   return (
-    <motion.header
+    <header
       className={`fixed top-0 left-0 right-0 z-[9999] backdrop-blur-xl border-b transition-all duration-300 ${
         scrolled
           ? 'bg-slate-900/98 border-emerald-500/30 shadow-2xl'
           : 'bg-slate-900/95 border-emerald-500/20 shadow-lg'
       }`}
-      initial={{ y: -100, opacity: 0 }}
-      animate={{
-        y: 0,
-        opacity: 1
-      }}
-      transition={{
-        duration: shouldReduceMotion ? 0 : 0.6,
-        ease: [0.23, 1, 0.32, 1],
-        delay: shouldReduceMotion ? 0 : 0.3
-      }}
     >
+      <motion.div
+        initial={{ y: -20, opacity: 0 }}
+        animate={{
+          y: 0,
+          opacity: 1
+        }}
+        transition={{
+          duration: shouldReduceMotion ? 0 : 0.6,
+          ease: [0.23, 1, 0.32, 1],
+          delay: shouldReduceMotion ? 0 : 0.3
+        }}
+      >
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-4">
         <div className="flex justify-between items-center">
           {/* Logo with cyberpunk style */}
@@ -298,7 +300,8 @@ const GlobalNavbar = () => {
         transition={{ delay: 1, duration: 1.5 }}
         style={{ transformOrigin: 'center', width: '100%' }}
       />
-    </motion.header>
+      </motion.div>
+    </header>
   );
 };
 

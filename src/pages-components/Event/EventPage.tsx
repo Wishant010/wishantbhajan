@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import GlobalNavbar from "../../components/GlobalNavbar";
 import ContactBar from "../../components/ContactBar";
 import Footer from "../../components/Footer";
 import LightPillar from "../../components/Effects/LightPillar";
@@ -168,8 +167,8 @@ const EventPage: React.FC = () => {
       location: t('event.1.location'),
       participants: t('event.1.participants'),
       description: t('event.1.description'),
-      image: "/events/AiFixathon/AIFixathonAmsterdam1.jpeg",
-      thumbnail: "/events/AiFixathon/AIFixathonAmsterdam.jpg",
+      image: "/events/AiFixathon/AIFixathonAmsterdam1.webp",
+      thumbnail: "/events/AiFixathon/AIFixathonAmsterdam1.webp",
       myExperience: t('event.1.myExperience'),
       highlights: [
         t('event.1.highlight.1'),
@@ -194,11 +193,11 @@ const EventPage: React.FC = () => {
       ],
       conclusion: t('event.1.conclusion'),
       photos: [
-        "/events/AiFixathon/AIFixathonAmsterdam1.jpeg",
-        "/events/AiFixathon/AIFixathonAmsterdam3.jpeg",
-        "/events/AiFixathon/1765852707063.jpeg",
-        "/events/AiFixathon/1765852706303.jpeg",
-        "/events/AiFixathon/1765852706267.jpeg"
+        "/events/AiFixathon/AIFixathonAmsterdam1.webp",
+        "/events/AiFixathon/AIFixathonAmsterdam3.webp",
+        "/events/AiFixathon/1765852707063.webp",
+        "/events/AiFixathon/1765852706303.webp",
+        "/events/AiFixathon/1765852706267.webp"
       ]
     },
     {
@@ -211,7 +210,7 @@ const EventPage: React.FC = () => {
       location: t('event.2.location'),
       participants: t('event.2.participants'),
       description: t('event.2.description'),
-      image: "/events/apify/ApifyChallenge.jpeg",
+      image: "/events/apify/ApifyChallenge.webp",
       myExperience: t('event.2.myExperience'),
       highlights: [
         t('event.2.highlight.1'),
@@ -234,7 +233,7 @@ const EventPage: React.FC = () => {
       ],
       conclusion: t('event.2.conclusion'),
       photos: [
-        "/events/apify/ApifyChallenge1.JPG"
+        "/events/apify/ApifyChallenge1.webp"
       ],
       videos: [
         "/events/apify/Video van WhatsApp op 2025-12-10 om 19.34.07_095c0d8b.mp4",
@@ -252,7 +251,7 @@ const EventPage: React.FC = () => {
       location: t('event.3.location'),
       participants: t('event.3.participants'),
       description: t('event.3.description'),
-      image: "/events/buildweekend/buildweekendbyyoungcreators.png",
+      image: "/events/buildweekend/buildweekendbyyoungcreators.webp",
       myExperience: t('event.3.myExperience'),
       highlights: [
         t('event.3.highlight.1'),
@@ -272,9 +271,9 @@ const EventPage: React.FC = () => {
       ],
       conclusion: t('event.3.conclusion'),
       photos: [
-        "/events/buildweekend/Afbeelding van WhatsApp op 2025-12-01 om 02.52.44_8971d6c5.jpg",
-        "/events/buildweekend/Afbeelding van WhatsApp op 2025-12-01 om 04.02.24_2931ee3f.jpg",
-        "/events/buildweekend/buildweekendbyyoungcreators5.jpeg"
+        "/events/buildweekend/Afbeelding van WhatsApp op 2025-12-01 om 02.52.44_8971d6c5.webp",
+        "/events/buildweekend/Afbeelding van WhatsApp op 2025-12-01 om 04.02.24_2931ee3f.webp",
+        "/events/buildweekend/buildweekendbyyoungcreators5.webp"
       ],
       videos: [
         "/events/buildweekend/1201(6).mp4"
@@ -315,7 +314,7 @@ const EventPage: React.FC = () => {
       ],
       conclusion: t('event.4.conclusion'),
       photos: [
-        "/events/mendixCTF2025/MendixCTF20252.jpg"
+        "/events/mendixCTF2025/MendixCTF20252.webp"
       ],
       videos: [
         "/events/mendixCTF2025/Video van WhatsApp op 2025-12-10 om 19.55.35_1d0e9434.mp4",
@@ -335,7 +334,7 @@ const EventPage: React.FC = () => {
       location: t('event.5.location'),
       participants: t('event.5.participants'),
       description: t('event.5.description'),
-      image: "/events/CityLab010/Citylab010Netwerkavond.jpg",
+      image: "/events/CityLab010/Citylab010Netwerkavond.webp",
       myExperience: t('event.5.myExperience'),
       highlights: [
         t('event.5.highlight.1'),
@@ -355,8 +354,8 @@ const EventPage: React.FC = () => {
       ],
       conclusion: t('event.5.conclusion'),
       photos: [
-        "/events/CityLab010/Citylab010Netwerkavond2.jpg",
-        "/events/CityLab010/Citylab010Netwerkavond3.jpg"
+        "/events/CityLab010/Citylab010Netwerkavond2.webp",
+        "/events/CityLab010/Citylab010Netwerkavond3.webp"
       ]
     },
     {
@@ -369,7 +368,7 @@ const EventPage: React.FC = () => {
       location: t('event.6.location'),
       participants: t('event.6.participants'),
       description: t('event.6.description'),
-      image: "/events/Computer-Science/ComputationalScienceNL.jpg",
+      image: "/events/Computer-Science/ComputationalScienceNL.webp",
       myExperience: t('event.6.myExperience'),
       highlights: [
         t('event.6.highlight.1'),
@@ -387,8 +386,8 @@ const EventPage: React.FC = () => {
       ],
       conclusion: t('event.6.conclusion'),
       photos: [
-        "/events/Computer-Science/ComputationalScienceNL2.jpeg",
-        "/events/Computer-Science/ComputationalScienceNL3.jpeg"
+        "/events/Computer-Science/ComputationalScienceNL2.webp",
+        "/events/Computer-Science/ComputationalScienceNL3.webp"
       ],
       videos: [
         "/events/Computer-Science/IMG_4147.MP4"
@@ -404,7 +403,7 @@ const EventPage: React.FC = () => {
       location: t('event.7.location'),
       participants: t('event.7.participants'),
       description: t('event.7.description'),
-      image: "/events/xebiaHackathon/XebiaGithubCopilotHackathon.jpeg",
+      image: "/events/xebiaHackathon/XebiaGithubCopilotHackathon.webp",
       myExperience: t('event.7.myExperience'),
       highlights: [
         t('event.7.highlight.1'),
@@ -422,7 +421,7 @@ const EventPage: React.FC = () => {
       ],
       conclusion: t('event.7.conclusion'),
       photos: [
-        "/events/xebiaHackathon/XebiaGithubCopilotHackathon2.JPG"
+        "/events/xebiaHackathon/XebiaGithubCopilotHackathon2.webp"
       ]
     },
     {
@@ -435,7 +434,7 @@ const EventPage: React.FC = () => {
       location: t('event.8.location'),
       participants: t('event.8.participants'),
       description: t('event.8.description'),
-      image: "/events/agencyatNight/AgencyAtNight.png",
+      image: "/events/agencyatNight/AgencyAtNight.webp",
       imagePosition: "20%",
       myExperience: t('event.8.myExperience'),
       highlights: [
@@ -456,8 +455,8 @@ const EventPage: React.FC = () => {
       ],
       conclusion: t('event.8.conclusion'),
       photos: [
-        "/events/agencyatNight/Afbeelding van WhatsApp op 2025-12-10 om 18.35.47_1734985d.jpg",
-        "/events/agencyatNight/Afbeelding van WhatsApp op 2025-12-10 om 18.35.48_48507a43.jpg"
+        "/events/agencyatNight/Afbeelding van WhatsApp op 2025-12-10 om 18.35.47_1734985d.webp",
+        "/events/agencyatNight/Afbeelding van WhatsApp op 2025-12-10 om 18.35.48_48507a43.webp"
       ]
     },
   ], [t]);
@@ -536,8 +535,6 @@ const EventPage: React.FC = () => {
         />
         <div className="absolute inset-0 bg-slate-950/40" />
       </div>
-
-      <GlobalNavbar />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-8 overflow-hidden z-10">
@@ -935,13 +932,11 @@ const EventPage: React.FC = () => {
                                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                   />
                                 ) : (
-                                  <video
-                                    src={media.url}
-                                    className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-                                    muted
-                                    playsInline
-                                    preload="metadata"
-                                  />
+                                  <div className="absolute inset-0 w-full h-full bg-slate-900 flex items-center justify-center">
+                                    <svg className="w-16 h-16 text-white/40" fill="currentColor" viewBox="0 0 24 24">
+                                      <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                  </div>
                                 )}
                                 {/* Hover overlay */}
                                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
@@ -1410,11 +1405,10 @@ const EventPage: React.FC = () => {
                       key={lightboxMedia.url}
                       src={lightboxMedia.url}
                       className="rounded-lg shadow-2xl lightbox-media"
-                      controls={!isMutedVideo}
-                      autoPlay
-                      loop={isMutedVideo}
+                      controls
                       playsInline
                       muted={isMutedVideo}
+                      preload="none"
                       initial={{ scale: 0.9, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       exit={{ scale: 0.9, opacity: 0 }}

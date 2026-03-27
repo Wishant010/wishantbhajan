@@ -330,19 +330,18 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({ data, index, color }) => {
                   whileHover={{ scale: 1.02, boxShadow: `0 0 50px ${color}` }}
                 >
                   {isVideo(lightboxImages[slideshowIndex]) ? (
-                    <motion.video
+                    <motion.div
                       key={slideshowIndex}
-                      src={lightboxImages[slideshowIndex]}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full bg-slate-900 flex items-center justify-center"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.5 }}
-                      muted
-                      loop
-                      autoPlay
-                      playsInline
-                    />
+                    >
+                      <svg className="w-16 h-16 text-white/40" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </motion.div>
                   ) : (
                     <motion.img
                       key={slideshowIndex}
@@ -379,19 +378,18 @@ const TimelineNode: React.FC<TimelineNodeProps> = ({ data, index, color }) => {
                   whileHover={{ scale: 1.02, boxShadow: `0 0 50px ${color}` }}
                 >
                   {isVideo(lightboxImages[slideshowIndex]) ? (
-                    <motion.video
+                    <motion.div
                       key={slideshowIndex}
-                      src={lightboxImages[slideshowIndex]}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full bg-slate-900 flex items-center justify-center"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.5 }}
-                      muted
-                      loop
-                      autoPlay
-                      playsInline
-                    />
+                    >
+                      <svg className="w-16 h-16 text-white/40" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </motion.div>
                   ) : (
                     <motion.img
                       key={slideshowIndex}

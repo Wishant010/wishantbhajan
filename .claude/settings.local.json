@@ -55,7 +55,16 @@
       "Bash(git ls-tree:*)",
       "Bash(git -C /mnt/c/Users/Wish/Downloads/github-repo/Personal/wishantbhajan remote:*)",
       "Bash(git -C /mnt/c/Users/Wish/Downloads/github-repo/Personal/wishantbhajan branch:*)",
-      "Bash(git subtree push:*)"
+      "Bash(git subtree push:*)",
+      "Bash(dpkg -l)",
+      "Bash(sort -k5 -hr)",
+      "Bash(2)",
+      "Bash(bc)",
+      "Bash(du -sh public/*.webp)",
+      "Bash(grep -E \"\\\\.js$\")",
+      "Bash(file /mnt/c/Users/Wisha/Downloads/WEBSITE/wishantbhajan/dist/assets/js/*.js)",
+      "Bash(grep -r ^import.*from /mnt/c/Users/Wisha/Downloads/WEBSITE/wishantbhajan/src/pages-components/Homescreenpage/*.tsx)",
+      "Bash(grep:*)"
     ],
     "deny": []
   }

@@ -23,8 +23,8 @@ export const pathsData: PathData[] = [
         description:
           'Begonnen met mijn middelbare school op het Montfort College. MAVO diploma succesvol behaald en start gelegd voor verdere IT opleiding.',
         images: [
-          '/over-mij/studentenpad/Mavo-foto1.jpg',
-          '/over-mij/studentenpad/Mavo-foto2.jpg'
+          '/over-mij/studentenpad/Mavo-foto1.webp',
+          '/over-mij/studentenpad/Mavo-foto2.webp'
         ],
         imageStyle: 'icon',
         achievements: [
@@ -40,8 +40,8 @@ export const pathsData: PathData[] = [
         description:
           'Doorgestroomd naar HAVO op het Montfort College. Focus op exacte vakken en voorbereiding op HBO studie.',
         images: [
-          '/over-mij/studentenpad/Afbeelding van WhatsApp op 2025-10-31 om 23.26.28_d3c42979.jpg',
-          '/over-mij/studentenpad/Afbeelding van WhatsApp op 2025-10-31 om 23.26.28_e94d9d40.jpg'
+          '/over-mij/studentenpad/Afbeelding van WhatsApp op 2025-10-31 om 23.26.28_d3c42979.webp',
+          '/over-mij/studentenpad/Afbeelding van WhatsApp op 2025-10-31 om 23.26.28_e94d9d40.webp'
         ],
         imageStyle: 'icon',
         achievements: [
@@ -57,8 +57,8 @@ export const pathsData: PathData[] = [
         description:
           'Eerste jaar Informatica aan de Hogeschool. Kennismaking met professioneel programmeren: Python in het eerste semester, CSharp in het tweede semester.',
         images: [
-          '/over-mij/studentenpad/Afbeelding van WhatsApp op 2025-10-31 om 23.19.43_34a40d4e.jpg',
-          '/over-mij/studentenpad/Afbeelding van WhatsApp op 2025-10-31 om 23.24.44_e5054846.jpg'
+          '/over-mij/studentenpad/Afbeelding van WhatsApp op 2025-10-31 om 23.19.43_34a40d4e.webp',
+          '/over-mij/studentenpad/Afbeelding van WhatsApp op 2025-10-31 om 23.24.44_e5054846.webp'
         ],
         imageStyle: 'icon',
         achievements: [
@@ -129,10 +129,10 @@ export const pathsData: PathData[] = [
         title: 'Vendingmachine Business',
         description:
           'In 2020 begon ik mijn vendingmachine business. Eerste stappen in ondernemerschap door het plaatsen en beheren van snackautomaten op strategische locaties.',
-        image: '/over-mij/bedrijven-pad/vooraad-vending.jpg',
+        image: '/over-mij/bedrijven-pad/vooraad-vending.webp',
         images: [
-          '/over-mij/bedrijven-pad/vooraad-vending.jpg',
-          '/over-mij/bedrijven-pad/vooraad-op-fiets.jpg',
+          '/over-mij/bedrijven-pad/vooraad-vending.webp',
+          '/over-mij/bedrijven-pad/vooraad-op-fiets.webp',
           '/over-mij/bedrijven-pad/veidning-video.mp4'
         ],
         imageStyle: 'icon',
@@ -162,11 +162,11 @@ export const pathsData: PathData[] = [
         title: 'TableTech',
         description:
           'TableTech opgericht - een bedrijf waarbij we voor restaurants software hebben gemaakt dat hun restaurant digitaliseert. Ook maken we op maat software voor bedrijven.',
-        image: '/over-mij/bedrijven-pad/tableTech.png',
+        image: '/over-mij/bedrijven-pad/tableTech.webp',
         images: [
-          '/over-mij/bedrijven-pad/foto-samen.jpeg',
-          '/over-mij/bedrijven-pad/foto1.png',
-          '/over-mij/bedrijven-pad/foto2.png'
+          '/over-mij/bedrijven-pad/foto-samen.webp',
+          '/over-mij/bedrijven-pad/foto1.webp',
+          '/over-mij/bedrijven-pad/foto2.webp'
         ],
         imageStyle: 'icon',
         achievements: [

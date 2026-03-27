@@ -4,7 +4,6 @@ import React from "react"
 import HeroSection from "./herosection"
 import AboutSection from "./AboutSection"
 import FeaturedProjectsAndSkills from "./FeaturedProjectsAndSkills"
-import GlobalNavbar from "../../components/GlobalNavbar"
 import ContactBar from "../../components/ContactBar"
 import Footer from "../../components/Footer"
 
@@ -23,9 +22,6 @@ const Homescreen: React.FC<HomescreenProps> = ({ isVisible = true }) => {
 
   return (
     <div className="relative" data-page="home">
-      {/* Fixed Navbar */}
-      <GlobalNavbar />
-      
       {/* Navigation will be part of hero section */}
       <section id="home">
         <HeroSection isVisible={isVisible} />
